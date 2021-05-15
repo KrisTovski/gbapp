@@ -1,13 +1,14 @@
-package com.kristovski.gbapp.security.user;
+package com.kristovski.gbapp.user;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -25,6 +26,7 @@ public class User {
     private String firstName;
     private String lastName;
     @NotEmpty
+    @Email
     private String email;
     @NotEmpty
     private String password;
@@ -32,5 +34,7 @@ public class User {
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
     private boolean locked = false;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<UserRole> roles = new HashSet<>();
 
 }

@@ -1,4 +1,4 @@
-package com.kristovski.gbapp.security.user;
+package com.kristovski.gbapp.user;
 
 import lombok.*;
 
