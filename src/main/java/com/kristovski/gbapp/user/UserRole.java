@@ -2,10 +2,8 @@ package com.kristovski.gbapp.user;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,4 +18,6 @@ public class UserRole {
     private Long id;
     private String role;
     private String description;
+    @ManyToMany(mappedBy = "roles")
+    Set<User> users;
 }
