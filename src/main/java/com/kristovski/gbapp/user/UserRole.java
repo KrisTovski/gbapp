@@ -11,6 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 @Entity
+@Table(name = "role")
 public class UserRole {
 
     @Id

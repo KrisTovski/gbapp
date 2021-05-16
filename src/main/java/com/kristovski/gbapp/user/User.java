@@ -30,10 +30,11 @@ public class User {
     @NotEmpty
     private String password;
     private boolean enable = false;
+    @Column(name = "create_time")
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
     private boolean locked = false;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))

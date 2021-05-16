@@ -32,8 +32,8 @@ public class UserController {
         if (bindResult.hasErrors())
             return "registerForm";
         else {
-            userService.addWithDefaultRole(user);
-            return "regitserSuccess";
+            userService.addUserWithDefaultRole(user);
+            return "registerSuccess";
         }
     }
 }
