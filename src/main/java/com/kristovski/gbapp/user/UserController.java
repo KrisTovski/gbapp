@@ -16,6 +16,15 @@ public class UserController {
 
     private UserServiceImpl userService;
 
+    @GetMapping("/login")
+    public String loginForm() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//            return "loginForm";
+//        }
+        return "loginSuccess";
+    }
+
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("user", new User());
@@ -32,4 +41,5 @@ public class UserController {
             return "registerSuccess";
         }
     }
+
 }

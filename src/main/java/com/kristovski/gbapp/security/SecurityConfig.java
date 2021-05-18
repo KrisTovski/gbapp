@@ -20,13 +20,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                .authorizeRequests().antMatchers("/").permitAll()
-                .and()
-                .authorizeRequests().antMatchers("/register").permitAll()
-                .and()
-                .authorizeRequests().antMatchers("/h2-console/**").permitAll()
+                .authorizeRequests().antMatchers("/", "/register", "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin();
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/loginSuccess")
+                .permitAll()
+                .usernameParameter("user")
+                .passwordParameter("pass")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .permitAll();
         http.csrf().disable();
         http.headers().frameOptions().disable();
     }

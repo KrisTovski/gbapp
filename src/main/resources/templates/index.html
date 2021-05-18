@@ -5,8 +5,12 @@
     <title>Homepage</title>
 </head>
 <body>
-<h1>Welcome in Spring security with user database</h1>
-<a href="#" th:href="@{/register}">Register</a>
-<a href="#" th:href="@{/gym}">Gym</a>
+<h1>Home Page</h1>
+<a href="#" th:href="@{/register}">Register</a></br>
+<a href="#" th:href="@{/gym}">Gym</a></br>
+<a href="#" th:href="@{/loginform}">Login</a></br>
+<form action="logout" th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout">
+</form>
 </body>
 </html>

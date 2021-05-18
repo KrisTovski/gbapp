@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HomeController {
 
     @RequestMapping("/")
-    public String home(){
+    public String home() {
         return "index";
     }
 
     @RequestMapping("/gym")
     @ResponseBody
-    public String gym(){
+    public String gym() {
         return "gym";
     }
 }
