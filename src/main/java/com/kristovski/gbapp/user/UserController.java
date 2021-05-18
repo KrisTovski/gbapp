@@ -1,6 +1,6 @@
 package com.kristovski.gbapp.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,14 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 @Controller
+@AllArgsConstructor
 public class UserController {
 
     private UserServiceImpl userService;
-
-    @Autowired
-    public void setUserService(UserServiceImpl userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/register")
     public String register(Model model) {

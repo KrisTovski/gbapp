@@ -1,7 +1,6 @@
 package com.kristovski.gbapp.user;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,21 +14,6 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private UserRoleRepository userRoleRepository;
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public UserServiceImpl(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    @Autowired
-    public void setUserRoleRepository(UserRoleRepository roleRepository) {
-        this.userRoleRepository = roleRepository;
-    }
 
     @Override
     public void addUserWithDefaultRole(User user) {
