@@ -6,11 +6,12 @@
 </head>
 <body>
 <h1>Please Login</h1>
-<form action="login" th:action="@{/login}" method="post">
+<form action="processlogin" th:action="@{/processlogin}" method="post">
     <input name="user" placeholder="Email"/></br>
     <input name="pass" placeholder="Password"/><br/>
     <input type="submit" value="Login"/>
 </form>
+<p>Not regitered yet?</p> <a href="#" th:href="@{/register}">Register</a></br>
 
 </body>
 </html>
