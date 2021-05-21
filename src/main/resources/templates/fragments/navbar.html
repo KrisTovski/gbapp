@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Navbar</title>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+<body>
+<header th:fragment="navbar">
+
+    <a href="#" th:href="@{/}" class="logo" alt="logo">
+        <i class="fas fa-dumbbell"></i>
+        Siłownia Club ZW
+    </a>
+    <nav class="nav_links">
+        <ul>
+            <li><a hrefclass="register-button" href="#" th:href="@{/register}">Register</a></br></li>
+            <div sec:authorize="!isAuthenticated()">
+                <li><a class="login-button" href="#" th:href="@{/loginform}">
+                    <button id="loginBtn">Login</button>
+                </a></br></li>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <form action="logout" th:action="@{/logout}" method="post">
+                    <input type="submit" value="Logout">
+                </form>
+            </div>
+        </ul>
+    </nav>
+</header>
+
+</body>
+</html>

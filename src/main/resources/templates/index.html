@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8"></meta>
     <title>Homepage</title>
-    <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
-<div th:insert="fragments/header :: header"></div>
+<div th:insert="/fragments/navbar :: navbar"></div>
 <br>
 <a href="#" th:href="@{/register}">Register</a></br>
 <a href="#" th:href="@{/gym}">Gym</a></br>
