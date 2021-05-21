@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests().antMatchers("/").permitAll()
                 .and().authorizeRequests().antMatchers("/register").permitAll()
+                .and().authorizeRequests().antMatchers("/css/**").permitAll()
                 .and().authorizeRequests().antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -38,7 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .permitAll();
-        http.requestCache().disable();
         http.csrf().disable();
         http.headers().frameOptions().disable();
     }
