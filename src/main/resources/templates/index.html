@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8"></meta>
     <title>Homepage</title>
-    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <div th:replace="/fragments/navbar :: navbar-css"/>
 </head>
 <body>
+<div class="container">
 <div th:insert="/fragments/navbar :: navbar"></div>
-<br>
+
+
 <a href="#" th:href="@{/register}">Register</a></br>
 <a href="#" th:href="@{/gym}">Gym</a></br>
 <a href="#" th:href="@{/loginform}">Login</a></br>
 <form action="logout" th:action="@{/logout}" method="post">
     <input type="submit" value="Logout">
 </form>
+</div>
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

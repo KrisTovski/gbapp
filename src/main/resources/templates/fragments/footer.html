@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+</head>
+<body>
+<div th:fragment="footer">
+
+  <div class="container">
+
+    <footer>
+
+      &copy; 2021 Kristovski
+      <span sec:authorize="isAuthenticated()">
+                | Logged user: <span sec:authentication="name">name@email.com</span> |
+                Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span> |
+                <a th:href="@{/logout}">Sign Out</a>
+            </span>
+
+    </footer>
+  </div>
+
+</div>
+</body>
+</html>
