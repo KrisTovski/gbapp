@@ -10,7 +10,7 @@ li, a, button {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
     font-size: 16px;
-    color: #edf0f1;
+    color: #F3EFF5;
     text-decoration: none;
 }
 
@@ -23,7 +23,7 @@ header {
 }
 
 .logo {
-    color: #ffffff;
+    color: #72B01D;
     font-size: 2em;
     font-weight: 400;
     cursor: pointer;
@@ -41,20 +41,22 @@ header {
 
 .nav_links li a {
     transition: all 0.3s ease 0s;
+    color: #72B01D;
 }
 
 .nav_links li a:hover {
-    color: #0088a9
+    color: #3F7D20
 }
 
 button {
     padding: 9px 25px;
-    background-color: rgba(0, 136, 169, 1);
+    background-color: rgba(114, 176, 29, 1);
     border: none;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease 0s;
 }
-button:hover{
-    background-color: rgba(0, 136, 169, 0.8);
+
+button:hover {
+    background-color: rgba(63, 125, 32, 1);
 }

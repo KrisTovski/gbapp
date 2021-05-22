@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Login form</title>
+    <meta charset="UTF-8"></meta>
+    <title>Login Form</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <div th:replace="/fragments/navbar :: navbar-css"/>
 </head>
 <body>
+<div class="container">
+    <div th:insert="/fragments/navbar :: navbar"></div>
 <h1>Please Login</h1>
 <form action="processlogin" th:action="@{/processlogin}" method="post">
     <input name="user" placeholder="Email"/></br>
@@ -12,6 +17,7 @@
     <input type="submit" value="Login"/>
 </form>
 <p>Not regitered yet?</p> <a href="#" th:href="@{/register}">Register</a></br>
-
+</div>
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Gym</title>
+    <title>Gym</title>
+    <meta charset="UTF-8"></meta>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <div th:replace="/fragments/navbar :: navbar-css"/>
 </head>
 <body>
-<h1>Gym</h1>
-<h2>If you see this page, it means that you are authenticated</h2>
+<div class="container">
+    <div th:insert="/fragments/navbar :: navbar"></div>
+    <h1>Gym</h1>
+    <h2>If you see this page, it means that you are authenticated</h2>
+</div>
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

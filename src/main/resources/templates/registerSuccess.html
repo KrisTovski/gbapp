@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"></meta>
     <title>Registration Success</title>
+    <meta charset="UTF-8"></meta>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <div th:replace="/fragments/navbar :: navbar-css"/>
 </head>
 <body>
-<h1>Thanks for registration!</h1>
-<a href="#" th:href="@{/}">Go to homepage</a>
+<div class="container">
+    <div th:insert="/fragments/navbar :: navbar"></div>
+    <h1>Thanks for registration!</h1>
+    <a href="#" th:href="@{/}">Go to homepage</a>
+</div>
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

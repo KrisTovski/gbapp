@@ -2,10 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"></meta>
-    <title>Login Success</title>
+    <title>Login Succes</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <div th:replace="/fragments/navbar :: navbar-css"/>
 </head>
 <body>
+<div class="container">
+    <div th:insert="/fragments/navbar :: navbar"></div>
 <h1>You logged in</h1>
 <a href="#" th:href="@{/}">Go to homepage</a>
+</div>
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

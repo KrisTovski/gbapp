@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Registration form</title>
+    <meta charset="UTF-8"></meta>
+    <title>Register Form</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <div th:replace="/fragments/navbar :: navbar-css"/>
 </head>
 <body>
+<div class="container">
+    <div th:insert="/fragments/navbar :: navbar"></div>
 <h1>Registration form</h1>
 <form action="#" method="post" th:action="@{/register}" th:object="${user}">
   <input th:field="*{login}" placeholder="Login"/></br>
@@ -16,6 +21,7 @@
   <p th:errors="*{password}">Password errors</p>
   <input type="submit" value="Register" />
 </form>
-
+</div>
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
