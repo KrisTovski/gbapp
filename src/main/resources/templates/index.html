@@ -11,13 +11,8 @@
 <div class="container">
 <div th:insert="/fragments/navbar :: navbar"></div>
 
+    <h1>Main Content</h1>
 
-<a href="#" th:href="@{/register}">Register</a></br>
-<a href="#" th:href="@{/gym}">Gym</a></br>
-<a href="#" th:href="@{/loginform}">Login</a></br>
-<form action="logout" th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout">
-</form>
 </div>
 <div th:replace="fragments/footer :: footer"/>
 </body>
