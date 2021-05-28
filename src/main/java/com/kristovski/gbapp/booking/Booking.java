@@ -18,21 +18,11 @@ public class Booking {
     private Long id;
     @OneToOne
     private BookingAvailability bookingAvailability;
-    @OneToOne
-    private TimeSlot timeSlot;
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     private LocalTime startTime;
     @ManyToOne(fetch = FetchType.LAZY)
     private Room room;
 
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", bookingAvailability=" + bookingAvailability +
-                ", timeSlot=" + timeSlot +
-                ", startTime=" + startTime +
-                '}';
-    }
+
 }
