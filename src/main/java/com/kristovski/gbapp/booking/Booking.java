@@ -1,22 +1,38 @@
 package com.kristovski.gbapp.booking;
 
+import com.kristovski.gbapp.room.Room;
 import com.kristovski.gbapp.user.User;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalTime;
 
+@Getter
+@Setter
 @Entity
 public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @OneToOne
     private BookingAvailability bookingAvailability;
+    @OneToOne
     private TimeSlot timeSlot;
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     private LocalTime startTime;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Room room;
 
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", bookingAvailability=" + bookingAvailability +
+                ", timeSlot=" + timeSlot +
+                ", startTime=" + startTime +
+                '}';
+    }
 }
