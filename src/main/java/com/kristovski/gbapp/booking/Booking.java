@@ -24,5 +24,11 @@ public class Booking {
     @ManyToOne(fetch = FetchType.LAZY)
     private Room room;
 
-
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", startTime=" + startTime +
+                '}';
+    }
 }

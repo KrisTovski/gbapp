@@ -18,4 +18,12 @@ public class BookingAvailability {
     private LocalDate bookingDate;
     @OneToMany
     private Set<TimeSlot> timeSlots;
+
+    @Override
+    public String toString() {
+        return "BookingAvailability{" +
+                "Id=" + Id +
+                ", bookingDate=" + bookingDate +
+                '}';
+    }
 }
