@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS BOOKING (
                                        booking_availability_id BIGINT NOT NULL,
                                        booking_timeslot_id BIGINT NOT NULL,
                                        user_id BIGINT NOT NULL,
-                                       startTime DATETIME NOT NULL,
+                                       start_time DATETIME NOT NULL,
                                        room_id BIGINT NOT NULL,
                                        CONSTRAINT fk_booking_availability_id FOREIGN KEY (booking_availability_id) REFERENCES booking_availability (id),
                                        CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES user (id),

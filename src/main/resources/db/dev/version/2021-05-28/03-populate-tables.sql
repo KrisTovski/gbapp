@@ -12,12 +12,12 @@ INSERT INTO booking_availability(id, booking_date, timeslot_id) VALUES (4, '2021
 
 --liquibase formatted sql
 --changeset kris:3
-INSERT INTO booking (id, booking_availability_id, booking_timeslot_id, user_id, startTime, room_id) VALUES
+INSERT INTO booking (id, booking_availability_id, booking_timeslot_id, user_id, start_time, room_id) VALUES
 (1, 1, 8, 1, PARSEDATETIME('04:00', 'HH:mm'), 1);
-INSERT INTO booking (id, booking_availability_id, booking_timeslot_id, user_id, startTime, room_id) VALUES
+INSERT INTO booking (id, booking_availability_id, booking_timeslot_id, user_id, start_time, room_id) VALUES
 (2, 2, 9, 1, PARSEDATETIME('04:30', 'HH:mm'), 1);
-INSERT INTO booking (id, booking_availability_id, booking_timeslot_id, user_id, startTime, room_id) VALUES
+INSERT INTO booking (id, booking_availability_id, booking_timeslot_id, user_id, start_time, room_id) VALUES
 (3, 3, 25, 2, PARSEDATETIME('12:00', 'HH:mm'), 2);
-INSERT INTO booking (id, booking_availability_id, booking_timeslot_id, user_id, startTime, room_id) VALUES
+INSERT INTO booking (id, booking_availability_id, booking_timeslot_id, user_id, start_time, room_id) VALUES
 (4, 4, 26, 2, PARSEDATETIME('12:30', 'HH:mm'), 2);
 

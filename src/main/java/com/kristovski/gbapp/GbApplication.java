@@ -14,6 +14,7 @@ public class GbApplication {
         SpringApplication.run(GbApplication.class, args);
 
         logger.info("Hello!");
+
     }
 
 }
