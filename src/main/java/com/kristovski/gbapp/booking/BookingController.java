@@ -2,7 +2,6 @@ package com.kristovski.gbapp.booking;
 
 import com.kristovski.gbapp.room.RoomService;
 import com.kristovski.gbapp.user.UserServiceImpl;
-import liquibase.pro.packaged.A;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

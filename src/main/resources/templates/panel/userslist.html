@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+
+<div align="center">
+    <h1>Users List</h1>
+    <table>
+        <thead>
+        <tr>
+            <th> User Id</th>
+            <th> User Login</th>
+            <th> User First Name</th>
+            <th> User Last Name</th>
+            <th> User Email</th>
+            <th> User Password</th>
+            <th> User isEnable</th>
+            <th> User Create Date</th>
+            <th> User Update Date</th>
+            <th> User isLocked</th>
+            <th> User Role</th>
+            <th> User Bookings</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${listUsers}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.login}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.password}"></td>
+            <td th:text="${user.enable}"></td>
+            <td th:text="${user.createTime}"></td>
+            <td th:text="${user.updateTime}"></td>
+            <td th:text="${user.locked}"></td>
+            <td>roles</td>
+            <td>bookings</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

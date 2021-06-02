@@ -44,6 +44,11 @@ public class UserController {
             return "registerSuccess";
         }
     }
+    @GetMapping("/panel/users")
+    public String getAll(Model model){
+        model.addAttribute("listUsers", userService.findAll());
+        return "panel/userslist";
+    }
 
 
 }
