@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -48,6 +49,14 @@ public class UserController {
     public String getAll(Model model){
         model.addAttribute("listUsers", userService.findAll());
         return "panel/userslist";
+    }
+
+    @GetMapping("/panel/updateUser/{id}")
+    public String updateUser(@PathVariable (value = "id") long id, Model model){
+        User user = userService.getUserById(id);
+        // pre-populate the form
+        model.addAttribute("user", user);
+        return "panel/updateUserForm";
     }
 
 
