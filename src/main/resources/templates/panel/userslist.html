@@ -21,13 +21,13 @@
             <th> User First Name</th>
             <th> User Last Name</th>
             <th> User Email</th>
-            <th> User Password</th>
             <th> User isEnable</th>
             <th> User Create Date</th>
             <th> User Update Date</th>
             <th> User isLocked</th>
             <th> User Role</th>
             <th> User Bookings</th>
+            <th> Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -37,13 +37,13 @@
             <td th:text="${user.firstName}"></td>
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.email}"></td>
-            <td th:text="${user.password}"></td>
             <td th:text="${user.enable}"></td>
             <td th:text="${user.createTime}"></td>
             <td th:text="${user.updateTime}"></td>
             <td th:text="${user.locked}"></td>
             <td>roles</td>
             <td>bookings</td>
+            <td><a th:href="@{/updateUser/{id}(id=${user.id})}" class="btn btn-primary">Update</a></td>
         </tr>
         </tbody>
     </table>

@@ -4,8 +4,9 @@ import java.util.List;
 
 public interface UserService {
 
-   public void addUserWithDefaultRole(User user);
+    void addUserWithDefaultRole(User user);
 
-    public List<User> findAll();
+    List<User> findAll();
 
+    User getUserById(long id);
 }

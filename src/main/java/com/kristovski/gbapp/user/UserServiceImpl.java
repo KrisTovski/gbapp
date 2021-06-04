@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -33,4 +34,18 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+    @Override
+    public User getUserById(long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        User user = null;
+        if (userOptional.isPresent()) {
+            user = userOptional.get();
+        } else {
+            throw new RuntimeException("User not found for id :: " + id);
+        }
+        return user;
+    }
+
+
 }
