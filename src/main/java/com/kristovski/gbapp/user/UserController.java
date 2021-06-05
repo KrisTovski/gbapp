@@ -45,18 +45,25 @@ public class UserController {
             return "registerSuccess";
         }
     }
+
     @GetMapping("/panel/users")
-    public String getAll(Model model){
+    public String getAll(Model model) {
         model.addAttribute("listUsers", userService.findAll());
-        return "panel/userslist";
+        return "panel/usersList";
     }
 
     @GetMapping("/panel/updateUser/{id}")
-    public String updateUser(@PathVariable (value = "id") long id, Model model){
+    public String updateUser(@PathVariable(value = "id") long id, Model model) {
         User user = userService.getUserById(id);
         // pre-populate the form
         model.addAttribute("user", user);
         return "panel/updateUserForm";
+    }
+
+    @PostMapping("/panel/updateUser")
+    public String updateUser(@ModelAttribute("user") User user) {
+        userService.update(user);
+        return "panel/usersList";
     }
 
 

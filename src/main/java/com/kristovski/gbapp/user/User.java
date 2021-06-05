@@ -15,6 +15,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Entity
 public class User {
 
@@ -42,6 +43,8 @@ public class User {
     private Set<UserRole> roles = new HashSet<>();
     @OneToMany(mappedBy = "user")
     private List<Booking> bookings;
+
+
 
     @Override
     public String toString() {
