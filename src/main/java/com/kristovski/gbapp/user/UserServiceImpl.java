@@ -1,21 +1,30 @@
 package com.kristovski.gbapp.user;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private static final String DEFAULT_ROLE = "ROLE_USER";
     private UserRepository userRepository;
     private UserRoleRepository userRoleRepository;
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository,
+                           UserRoleRepository userRoleRepository,
+                           PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public void addUserWithDefaultRole(User user) {
@@ -36,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(long id) {
+    public User getUserById(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
         User user = null;
         if (userOptional.isPresent()) {
@@ -48,8 +57,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user) {
-        return userRepository.save(user);
+    public void updateUser(UserUpdateDto userUpdateDto) {
+        User user = UserMapper.INSTANCE.dtoToUser(userUpdateDto);
+        userRepository.save(user);
+    }
+    @Transactional
+    @Override
+    public void mergeWithExistingAndUpdate(User user) {
+        User existingUser = getUserById(user.getId());
+        existingUser.setLogin(user.getLogin());
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setEnable(user.isEnable());
+        existingUser.setUpdateTime(LocalDateTime.now());
+        existingUser.setLocked(user.isLocked());
+
     }
 
 

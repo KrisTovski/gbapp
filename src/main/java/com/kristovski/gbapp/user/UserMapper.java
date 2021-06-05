@@ -1,11 +1,13 @@
 package com.kristovski.gbapp.user;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    UserUpdateDto userUpdateDto(User user);
+    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    User user(UserUpdateDto userUpdateDto);
+    User dtoToUser(UserUpdateDto userUpdateDto);
+
 }

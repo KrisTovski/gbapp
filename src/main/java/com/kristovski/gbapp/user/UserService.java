@@ -8,7 +8,9 @@ public interface UserService {
 
     List<User> findAll();
 
-    User getUserById(long id);
+    User getUserById(Long id);
 
-    User update(User user);
+    void updateUser(UserUpdateDto userUpdateDto);
+
+    void mergeWithExistingAndUpdate(User user);
 }
