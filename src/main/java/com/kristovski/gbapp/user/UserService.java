@@ -10,7 +10,5 @@ public interface UserService {
 
     User getUserById(Long id);
 
-    void updateUser(UserUpdateDto userUpdateDto);
-
     void mergeWithExistingAndUpdate(User user);
 }

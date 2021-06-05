@@ -56,11 +56,6 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    @Override
-    public void updateUser(UserUpdateDto userUpdateDto) {
-        User user = UserMapper.INSTANCE.dtoToUser(userUpdateDto);
-        userRepository.save(user);
-    }
     @Transactional
     @Override
     public void mergeWithExistingAndUpdate(User user) {
