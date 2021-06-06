@@ -70,5 +70,11 @@ public class UserController {
         return "panel/updateSuccess";
     }
 
+    @GetMapping("/panel/deleteUser/{id}")
+    public String deleteUser(@PathVariable(value = "id") Long id) {
+        userService.deleteUserById(id);
+        return "redirect:/panel/users";
+    }
+
 
 }

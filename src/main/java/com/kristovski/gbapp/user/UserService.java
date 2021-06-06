@@ -11,4 +11,6 @@ public interface UserService {
     User getUserById(Long id);
 
     void mergeWithExistingAndUpdate(User user);
+
+    void deleteUserById(Long id);
 }

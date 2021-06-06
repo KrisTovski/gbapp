@@ -44,7 +44,9 @@
             <td th:text="${user.locked}"></td>
             <td>roles</td>
             <td>bookings</td>
-            <td><a th:href="@{/panel/updateUser/{id}(id=${user.id})}" class="btn btn-primary">Update</a></td>
+            <td><a th:href="@{/panel/updateUser/{id}(id=${user.id})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/panel/deleteUser/{id}(id=${user.id})}" class="btn btn-danger">Delete</a>
+            </td>
         </tr>
         </tbody>
     </table>
