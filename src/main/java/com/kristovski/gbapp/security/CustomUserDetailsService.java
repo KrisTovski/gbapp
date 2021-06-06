@@ -3,7 +3,6 @@ package com.kristovski.gbapp.security;
 import com.kristovski.gbapp.user.User;
 import com.kristovski.gbapp.user.UserRepository;
 import com.kristovski.gbapp.user.UserRole;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,11 +15,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
-@AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
 
     private UserRepository userRepository;
+
+    @Autowired
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
