@@ -8,10 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -54,7 +51,7 @@ public class UserController {
 
     @GetMapping("/panel/users")
     public String getAll(Model model) {
-        return getPaginated(1, model);
+        return getPaginated(1, "id", "asc", model);
     }
 
     @GetMapping("/panel/updateUser/{id}")
@@ -78,13 +75,21 @@ public class UserController {
     }
 
     @GetMapping("/panel/page/{pageNo}")
-    public String getPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+    public String getPaginated(@PathVariable(value = "pageNo") int pageNo,
+                               @RequestParam("sortField") String sortField,
+                               @RequestParam("sortDir") String sortDir,
+                               Model model) {
         int pageSize = 5;
-        Page<User> page = userService.findPaginated(pageNo, pageSize);
+        Page<User> page = userService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<User> listUsers = page.getContent();
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         model.addAttribute("listUsers", listUsers);
         return "panel/usersList";
 

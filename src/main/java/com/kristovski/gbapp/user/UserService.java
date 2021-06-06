@@ -16,5 +16,5 @@ public interface UserService {
 
     void deleteUserById(Long id);
 
-    Page<User> findPaginated(int pageNo, int pageSize);
+    Page<User> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 }
