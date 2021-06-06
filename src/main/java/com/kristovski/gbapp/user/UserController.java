@@ -1,6 +1,7 @@
 package com.kristovski.gbapp.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -52,8 +54,7 @@ public class UserController {
 
     @GetMapping("/panel/users")
     public String getAll(Model model) {
-        model.addAttribute("listUsers", userService.findAll());
-        return "panel/usersList";
+        return getPaginated(1, model);
     }
 
     @GetMapping("/panel/updateUser/{id}")
@@ -74,6 +75,19 @@ public class UserController {
     public String deleteUser(@PathVariable(value = "id") Long id) {
         userService.deleteUserById(id);
         return "redirect:/panel/users";
+    }
+
+    @GetMapping("/panel/page/{pageNo}")
+    public String getPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+        int pageSize = 5;
+        Page<User> page = userService.findPaginated(pageNo, pageSize);
+        List<User> listUsers = page.getContent();
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("listUsers", listUsers);
+        return "panel/usersList";
+
     }
 
 
