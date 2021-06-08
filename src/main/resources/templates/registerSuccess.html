@@ -11,7 +11,8 @@
 <div class="container">
     <div th:insert="/fragments/navbar :: navbar"></div>
     <h1>Thanks for registration!</h1>
-    <a href="#" th:href="@{/}">Go to homepage</a>
+    <a href="#" th:href="@{/}">Go to homepage</a> or
+    <a href="#" th:href="@{/loginform}">Login</a>
 </div>
 <div th:replace="fragments/footer :: footer"/>
 </body>

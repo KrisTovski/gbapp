@@ -5,3 +5,12 @@
     margin: 0 auto;
     background-color: #F3EFF5;
 }
+
+.sorticon{
+    color: #72B01D;
+    font-size: 1em;
+    font-weight: 400;
+    cursor: pointer;
+    margin-right: auto;
+
+}
