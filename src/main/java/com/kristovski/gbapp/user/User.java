@@ -1,7 +1,6 @@
 package com.kristovski.gbapp.user;
 
 import com.kristovski.gbapp.booking.Booking;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
