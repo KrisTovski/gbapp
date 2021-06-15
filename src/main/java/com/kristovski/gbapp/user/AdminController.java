@@ -1,5 +1,6 @@
 package com.kristovski.gbapp.user;
 
+import com.kristovski.gbapp.booking.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -13,11 +14,14 @@ import java.util.List;
 public class AdminController {
 
     private UserServiceImpl userService;
+    private BookingService bookingService;
 
     @Autowired
-    public AdminController(UserServiceImpl userService) {
+    public AdminController(UserServiceImpl userService, BookingService bookingService) {
         this.userService = userService;
+        this.bookingService = bookingService;
     }
+
 
     @GetMapping("/users")
     public String getAll(Model model) {
@@ -61,7 +65,14 @@ public class AdminController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("listUsers", listUsers);
+
         return "panel/usersList";
 
+    }
+
+    @GetMapping("/user/{id}/bookings")
+    public String getBookingsByUserId(Model model, @PathVariable Long id) {
+        model.addAttribute("bookings", bookingService.findAllByUserId(id));
+        return "panel/bookingList";
     }
 }

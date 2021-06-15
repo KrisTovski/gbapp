@@ -14,6 +14,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     public List<Booking> findBetween(@Param("from") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
                                      @Param("to") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME) LocalDateTime end);
 
+    List<Booking> findAllByUserId(Long id);
+
 
 //    @Query("select distinct b from Booking b inner join fetch b.user")
 //    public List<Booking> findAllWithDetails();

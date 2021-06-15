@@ -15,4 +15,5 @@ public class BookingController {
         this.bookingService = bookingService;
         this.userService = userService;
     }
+
 }

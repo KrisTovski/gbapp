@@ -68,8 +68,14 @@
             <td th:text="${user.createTime}"></td>
             <td th:text="${user.updateTime}"></td>
             <td th:text="${user.locked}"></td>
-            <td>roles</td>
-            <td>bookings</td>
+            <td th:each="role: ${user.roles}">
+                <p th:text="${role.role}"></p>
+            <td>
+            <td>
+            <a th:href="@{'/panel/user/' + ${user.id} + '/bookings'}">View bookings</a>
+        </td>
+
+
             <td><a th:href="@{/panel/updateUser/{id}(id=${user.id})}" class="btn btn-primary">Update</a>
                 <a th:href="@{/panel/deleteUser/{id}(id=${user.id})}" class="btn btn-danger">Delete</a>
             </td>
