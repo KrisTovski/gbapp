@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
+<!--<table border="1">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <td>Time Slots</td>-->
+<!--        <td>Monday</td>-->
+<!--        <td>Tuesday</td>-->
+<!--        <td>Wednesday</td>-->
+<!--        <td>Thursday</td>-->
+<!--        <td>Friday</td>-->
+<!--        <td>Saturday</td>-->
+<!--        <td>Sunday</td>-->
+<!--    </tr>-->
+<!--    <tr th:each="timeslot : ${listTimeSlots}">-->
+<!--        <td th:text="${#temporals.format(timeslot.startTime, 'HH:mm')}"></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--</table>-->
+
+<table border="1">
+    <thead>
+    <tr>
+        <td>Time Slot</td>
+        <td>Booking id</td>
+
+    </tr>
+    <tr th:each="booking : ${listBooking}">
+        <td th:text="${#temporals.format(booking.startTime, 'HH:mm')}"></td>
+        <td th:text="${#dates.format(booking.bookingDate,  'dd-MM-yyyy HH:mm')}"></td>
+
+
+    </tr>
+    </thead>
+</table>
 
 </body>
 </html>
