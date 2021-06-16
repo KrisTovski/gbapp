@@ -1,5 +1,6 @@
 package com.kristovski.gbapp.user;
 
+import com.kristovski.gbapp.booking.Booking;
 import com.kristovski.gbapp.booking.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -70,9 +71,37 @@ public class AdminController {
 
     }
 
-    @GetMapping("/user/{id}/bookings")
-    public String getBookingsByUserId(Model model, @PathVariable Long id) {
-        model.addAttribute("bookings", bookingService.findAllByUserId(id));
+//    @GetMapping("/user/{id}/bookings")
+//    public String getBookingsByUserId(Model model, @PathVariable Long id) {
+//        model.addAttribute("bookings", bookingService.findAllByUserId(id));
+//        return "panel/bookingList";
+//    }
+
+    @GetMapping("/user/{userId}/bookings")
+    public String getAllBookings(@PathVariable(value = "userId") Long id, Model model) {
+        return getPaginatedBookings(id ,1, "id", "asc", model);
+    }
+
+    @GetMapping("user/{id}/bookings/page/{pageNo}")
+    public String getPaginatedBookings(@PathVariable(value = "id") Long id,
+                                       @PathVariable(value = "pageNo") int pageNo,
+                                       @RequestParam("sortField") String sortField,
+                                       @RequestParam("sortDir") String sortDir,
+                                       Model model) {
+        int pageSize = 10;
+        Page<Booking> page = bookingService.findPaginated(id, pageNo, pageSize, sortField, sortDir);
+
+        List<Booking> listBookings = page.getContent();
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("listBookings", listBookings);
         return "panel/bookingList";
+
     }
 }
