@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.Set;
 
 
-
 @Entity
 @Table(name = "role")
 public class UserRole {
@@ -58,6 +57,5 @@ public class UserRole {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
-
 
 }

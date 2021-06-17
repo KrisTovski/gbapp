@@ -104,7 +104,7 @@ public class AdminController {
         addPaginationAttributes(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements());
 
         model.addAttribute("listBookings", listBookings);
-        return "userBookingList";
+        return "panel/userBookingList";
 
     }
 

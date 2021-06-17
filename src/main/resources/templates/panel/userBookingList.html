@@ -14,8 +14,9 @@
 
 <div class="container-xl">
     <div th:insert="/fragments/navbar :: navbar"></div>
-    <!--    <form action="#" method="post" th:action="@{/panel/bookingList}" th:object="${user}">-->
-    <h1>Booking List</h1>
+    <span th:each="booking : ${listBookings}">
+    <h1 th:text="${booking.user.getLogin()}"></h1>
+    </span>
     <table class="table table-striped table-responsove-sm">
         <thead>
         <tr>
@@ -32,7 +33,7 @@
                 </a>
             </th>
             <th>End
-                <a th:href="@{'/panel/user/'+ ${UserId} +'/bookings/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}"
+                <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}"
                    class="sorticon">
                     <i class="fas fa-sort"></i>
                 </a>
@@ -41,6 +42,10 @@
 
         </thead>
         <tbody>
+        <tr th:if="${listBookings.empty}">
+            <td colspan="4"> No Bookings Available</td>
+        </tr>
+
         <tr th:each="booking : ${listBookings}">
             <td th:text="${booking.id}"></td>
             <td th:text="${booking.start}"></td>

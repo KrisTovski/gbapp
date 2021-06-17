@@ -44,6 +44,9 @@
 
         </thead>
         <tbody>
+        <tr th:if="${listBookings.empty}">
+            <td colspan="6"> No Bookings Available</td>
+        </tr>
         <tr th:each="booking : ${listBookings}">
             <td th:text="${booking.id}"></td>
             <td th:text="${booking.start}"></td>
