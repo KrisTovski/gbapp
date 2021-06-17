@@ -40,4 +40,7 @@ public class BookingService {
         return bookingRepository.findAllByUserId(id, pageable);
     }
 
+    public void deleteBookingById(Long id) {
+        bookingRepository.deleteById(id);
+    }
 }

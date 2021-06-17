@@ -52,7 +52,7 @@
             <td th:text="${#temporals.format(booking.end, 'dd-MM-yyyy HH:mm:ss')}"></td>
 
             <td><a th:href="@{/panel/user/{id}(id=${userId})/updateBooking}" class="btn btn-primary">Update</a>
-                <a th:href="@{/panel/user/{id}(id=${userId})/deleteBooking}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/panel/deleteBooking/{id}(id=${booking.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>
