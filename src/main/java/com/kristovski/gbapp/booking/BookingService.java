@@ -24,7 +24,15 @@ public class BookingService {
     }
 
 
-    public Page<Booking> findPaginated(Long id, int pageNo, int pageSize, String sortField, String sortDirection) {
+    public Page<Booking> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+                Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return bookingRepository.findAll(pageable);
+    }
+
+    public Page<Booking> findPaginatedByUser(Long id, int pageNo, int pageSize, String sortField, String sortDirection) {
 
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();

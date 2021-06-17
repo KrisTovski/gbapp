@@ -25,8 +25,8 @@ public class AdminController {
 
 
     @GetMapping("/users")
-    public String getAll(Model model) {
-        return getPaginated(1, "id", "asc", model);
+    public String getAllUsers(Model model) {
+        return getPaginatedUsers(1, "id", "asc", model);
     }
 
     @GetMapping("/updateUser/{id}")
@@ -49,21 +49,41 @@ public class AdminController {
         return "redirect:/panel/users";
     }
 
+    @GetMapping("/bookings")
+    public String getAllBookings(Model model) {
+        return getPaginatedBookings(1, "id", "asc", model);
+    }
+
+    @GetMapping("/user/{userId}/bookings")
+    public String getAllBookingsByUser(@PathVariable(value = "userId") Long id, Model model) {
+        return getPaginatedBookingsByUser(id, 1, "id", "asc", model);
+    }
+
+    @GetMapping("/bookings/page/{pageNo}")
+    private String getPaginatedBookings(@PathVariable(value = "pageNo") int pageNo,
+                                        @RequestParam("sortField") String sortField,
+                                        @RequestParam("sortDir") String sortDir,
+                                        Model model) {
+        int pageSize = 5;
+        Page<Booking> page = bookingService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Booking> listBookings = page.getContent();
+        addPaginationAttributes(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements());
+
+        model.addAttribute("listBookings", listBookings);
+
+        return "panel/bookingList";
+
+    }
+
     @GetMapping("/page/{pageNo}")
-    public String getPaginated(@PathVariable(value = "pageNo") int pageNo,
-                               @RequestParam("sortField") String sortField,
-                               @RequestParam("sortDir") String sortDir,
-                               Model model) {
+    public String getPaginatedUsers(@PathVariable(value = "pageNo") int pageNo,
+                                    @RequestParam("sortField") String sortField,
+                                    @RequestParam("sortDir") String sortDir,
+                                    Model model) {
         int pageSize = 5;
         Page<User> page = userService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<User> listUsers = page.getContent();
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        addPaginationAttributes(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements());
 
         model.addAttribute("listUsers", listUsers);
 
@@ -71,37 +91,33 @@ public class AdminController {
 
     }
 
-//    @GetMapping("/user/{id}/bookings")
-//    public String getBookingsByUserId(Model model, @PathVariable Long id) {
-//        model.addAttribute("bookings", bookingService.findAllByUserId(id));
-//        return "panel/bookingList";
-//    }
-
-    @GetMapping("/user/{userId}/bookings")
-    public String getAllBookings(@PathVariable(value = "userId") Long id, Model model) {
-        return getPaginatedBookings(id ,1, "id", "asc", model);
-    }
-
     @GetMapping("user/{id}/bookings/page/{pageNo}")
-    public String getPaginatedBookings(@PathVariable(value = "id") Long id,
-                                       @PathVariable(value = "pageNo") int pageNo,
-                                       @RequestParam("sortField") String sortField,
-                                       @RequestParam("sortDir") String sortDir,
-                                       Model model) {
+    public String getPaginatedBookingsByUser(@PathVariable(value = "id") Long id,
+                                             @PathVariable(value = "pageNo") int pageNo,
+                                             @RequestParam("sortField") String sortField,
+                                             @RequestParam("sortDir") String sortDir,
+                                             Model model) {
         int pageSize = 10;
-        Page<Booking> page = bookingService.findPaginated(id, pageNo, pageSize, sortField, sortDir);
+        Page<Booking> page = bookingService.findPaginatedByUser(id, pageNo, pageSize, sortField, sortDir);
 
         List<Booking> listBookings = page.getContent();
+        addPaginationAttributes(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements());
+
+        model.addAttribute("listBookings", listBookings);
+        return "userBookingList";
+
+    }
+
+    private void addPaginationAttributes(@PathVariable("pageNo") int pageNo,
+                                         @RequestParam("sortField") String sortField,
+                                         @RequestParam("sortDir") String sortDir,
+                                         Model model, int totalPages, long totalElements) {
         model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalElements);
 
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
-        model.addAttribute("listBookings", listBookings);
-        return "panel/bookingList";
-
     }
 }

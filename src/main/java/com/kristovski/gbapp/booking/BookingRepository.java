@@ -22,7 +22,4 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     Page<Booking> findAllByUserId(Long id, Pageable pageable);
 
-
-//    @Query("select distinct b from Booking b inner join fetch b.user")
-//    public List<Booking> findAllWithDetails();
 }

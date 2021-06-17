@@ -14,31 +14,28 @@
 
 <div class="container-xl">
     <div th:insert="/fragments/navbar :: navbar"></div>
+    <!--    <form action="#" method="post" th:action="@{/panel/bookingList}" th:object="${user}">-->
     <h1>Booking List</h1>
     <table class="table table-striped table-responsove-sm">
         <thead>
         <tr>
             <th>Id
-                <a th:href="@{'/panel/bookings/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}"
+                <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}"
                    class="sorticon">
                     <i class="fas fa-sort"></i>
                 </a>
             </th>
             <th>Start
-                <a th:href="@{'/panel/bookings/page/' + ${currentPage} + '?sortField=start&sortDir=' + ${reverseSortDir}}"
+                <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage} + '?sortField=login&sortDir=' + ${reverseSortDir}}"
                    class="sorticon">
                     <i class="fas fa-sort"></i>
                 </a>
             </th>
             <th>End
-                <a th:href="@{'/panel/bookings/page/' + ${currentPage} + '?sortField=end&sortDir=' + ${reverseSortDir}}"
+                <a th:href="@{'/panel/user/'+ ${UserId} +'/bookings/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}"
                    class="sorticon">
                     <i class="fas fa-sort"></i>
                 </a>
-            </th>
-            <th>User Id
-            </th>
-            <th>User Login
             </th>
             <th>Actions</th>
 
@@ -48,12 +45,9 @@
             <td th:text="${booking.id}"></td>
             <td th:text="${booking.start}"></td>
             <td th:text="${booking.end}"></td>
-            <td th:text="${booking.user.getId()}">
-            <td th:text="${booking.user.getLogin()}">
-            </td>
 
-            <td><a href="#" class="btn btn-primary">Update</a>
-                <a href="#" class="btn btn-danger">Delete</a>
+            <td><a th:href="@{/panel/user/{id}(id=${userId})/updateBooking}" class="btn btn-primary">Update</a>
+                <a th:href="@{/panel/user/{id}(id=${userId})/deleteBooking}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>
@@ -65,13 +59,13 @@
             </div>
             <div class="col-sm-auto">
                 <a th:if="${currentPage > 1}"
-                   th:href="@{'/panel/user/bookings/page/' + 1 + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
+                   th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + 1 + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
                    class="link-primary">First</a>
                 <span th:unless="${currentPage > 1}">First</span>
             </div>
             <div class="col-sm-auto">
                 <a th:if="${currentPage > 1}"
-                   th:href="@{'/panel/user/bookings/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
+                   th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
                    class="link-primary">Previous</a>
                 <span th:unless="${currentPage > 1}">Previous</span>
             </div>
@@ -80,7 +74,7 @@
                 <span th:if="${totalPages <=10}">
                     <span th:each="i: ${#numbers.sequence(1, totalPages)}">
                     <a th:if="${currentPage != i}"
-                       th:href="@{'/panel/user/bookings/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
+                       th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
                        class="link-primary">[[${i}]]</a>
                     <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
                 </span>
@@ -90,17 +84,17 @@
                     <span th:if="${currentPage <=5 || currentPage >= totalPages - 4}">
                         <span th:each="i: ${#numbers.sequence(1, 5)}">
                             <a th:if="${currentPage != i}"
-                               th:href="@{'/panel/user/bookings/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
+                               th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
                                class="link-primary">[[${i}]]</a>
                             <span th:unless="${currentPage != i}">[[${i}]]</span>
                         </span>
 
-                            <a th:href="@{'/panel/user/bookings/page/' + 6 + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
+                            <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + 6 + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
                                class="link-primary">...</a>
                            <span>
                            <span th:each="i: ${#numbers.sequence(totalPages - 4, totalPages)}">
                             <a th:if="${currentPage != i}"
-                               th:href="@{'/panel/user/bookings/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
+                               th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
                                class="link-primary">[[${i}]]</a>
                             <span th:unless="${currentPage != i}">[[${i}]]</span>
                             </span>
@@ -109,16 +103,16 @@
 
                     <span th:if="${currentPage > 5 && currentPage < totalPages - 4}">
 
-                            <a th:href="@{'/panel/user/bookings/page/' + ${currentPage - 5} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
+                            <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage - 5} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
                                class="link-primary">...</a>
                             <span th:each="i: ${#numbers.sequence(currentPage - 4, currentPage + 4)}">
                                 <a th:if="${currentPage != i}"
-                                   th:href="@{'/panel/user/bookings/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
+                                   th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
                                    class="link-primary">[[${i}]]</a>
                                 <span th:unless="${currentPage != i}">[[${i}]]</span>
                             </span>
 
-                             <a th:href="@{'/panel/user/bookings/page/' + ${currentPage + 5} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
+                             <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage + 5} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
                                 class="link-primary">...</a>
 
                     </span>
@@ -127,13 +121,13 @@
             </div>
             <div class="col-sm-auto">
                 <a th:if="${currentPage < totalPages}"
-                   th:href="@{'/panel/user/bookings/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
+                   th:href="@{'/panel/user/'+ ${user.id} +'/bookings/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
                    class="link-primary">Next</a>
                 <span th:unless="${currentPage < totalPages}">Next</span>
             </div>
             <div class="col-sm-auto">
                 <a th:if="${currentPage < totalPages}"
-                   th:href="@{'/panel/user/bookings/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
+                   th:href="@{'/panel/user/'+ ${user.id} +'/bookings/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} "
                    class="link-primary">Last</a>
                 <span th:unless="${currentPage < totalPages}">Last</span>
             </div>
