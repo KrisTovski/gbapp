@@ -6,11 +6,24 @@
     background-color: #F3EFF5;
 }
 
-.sorticon{
+.sorticon {
     color: #72B01D;
     font-size: 1em;
     font-weight: 400;
     cursor: pointer;
     margin-right: auto;
-
 }
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 310px;
+}
+
+table td {
+    /*border: solid 1px #fab;*/
+    width: 100px;
+    word-wrap: break-word;
+}
+
+
