@@ -48,8 +48,8 @@
 
         <tr th:each="booking : ${listBookings}">
             <td th:text="${booking.id}"></td>
-            <td th:text="${#temporals.format(booking.start, 'dd-MM-yyyy HH:mm:ss')}"></td>
-            <td th:text="${#temporals.format(booking.end, 'dd-MM-yyyy HH:mm:ss')}"></td>
+            <td th:text="${#temporals.format(booking.start, 'dd-MM-yyyy HH:mm')}"></td>
+            <td th:text="${#temporals.format(booking.end, 'dd-MM-yyyy HH:mm')}"></td>
 
             <td><a th:href="@{/panel/user/{id}(id=${userId})/updateBooking}" class="btn btn-primary">Update</a>
                 <a th:href="@{/panel/deleteBooking/{id}(id=${booking.id})}" class="btn btn-danger">Delete</a>
