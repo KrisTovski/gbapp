@@ -2,13 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"></meta>
-    <title>Homepage</title>
+
+    <title>Home | Gym App</title>
+    <!-- Links -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/main.css}" />
+
     <div th:replace="/fragments/navbar :: navbar-css"/>
+
 </head>
 <body>
 <div class="container">
+
 <div th:insert="/fragments/navbar :: navbar"></div>
 
     <h1>Main Content</h1>
