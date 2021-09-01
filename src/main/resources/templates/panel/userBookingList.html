@@ -26,14 +26,20 @@
                     <i class="fas fa-sort"></i>
                 </a>
             </th>
+            <th>Date
+                <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage} + '?sortField=date&sortDir=' + ${reverseSortDir}}"
+                   class="sorticon">
+                    <i class="fas fa-sort"></i>
+                </a>
+            </th>
             <th>Start
-                <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage} + '?sortField=login&sortDir=' + ${reverseSortDir}}"
+                <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage} + '?sortField=start&sortDir=' + ${reverseSortDir}}"
                    class="sorticon">
                     <i class="fas fa-sort"></i>
                 </a>
             </th>
             <th>End
-                <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}"
+                <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage} + '?sortField=end&sortDir=' + ${reverseSortDir}}"
                    class="sorticon">
                     <i class="fas fa-sort"></i>
                 </a>
@@ -48,8 +54,9 @@
 
         <tr th:each="booking : ${listBookings}">
             <td th:text="${booking.id}"></td>
-            <td th:text="${#temporals.format(booking.start, 'dd-MM-yyyy HH:mm')}"></td>
-            <td th:text="${#temporals.format(booking.end, 'dd-MM-yyyy HH:mm')}"></td>
+            <td th:text="${#temporals.format(booking.date, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#temporals.format(booking.start, 'HH:mm')}"></td>
+            <td th:text="${#temporals.format(booking.end, 'HH:mm')}"></td>
 
             <td><a th:href="@{/panel/user/{id}(id=${userId})/updateBooking}" class="btn btn-primary">Update</a>
                 <a th:href="@{/panel/deleteBooking/{id}(id=${booking.id})}" class="btn btn-danger">Delete</a>

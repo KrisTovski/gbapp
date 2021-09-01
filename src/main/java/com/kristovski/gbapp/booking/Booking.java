@@ -3,7 +3,8 @@ package com.kristovski.gbapp.booking;
 import com.kristovski.gbapp.user.User;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 @Entity
@@ -12,8 +13,9 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private LocalDate date;
+    private LocalTime start;
+    private LocalTime end;
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
@@ -25,19 +27,27 @@ public class Booking {
         this.id = id;
     }
 
-    public LocalDateTime getStart() {
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getStart() {
         return start;
     }
 
-    public void setStart(LocalDateTime start) {
+    public void setStart(LocalTime start) {
         this.start = start;
     }
 
-    public LocalDateTime getEnd() {
+    public LocalTime getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDateTime end) {
+    public void setEnd(LocalTime end) {
         this.end = end;
     }
 

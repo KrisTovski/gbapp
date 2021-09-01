@@ -9,7 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -17,9 +18,12 @@ import java.util.List;
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query("from Booking b where not(b.end < :from or b.start > :to)")
-    public List<Booking> findBetween(@Param("from") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
-                                     @Param("to") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME) LocalDateTime end);
+    public List<Booking> findBetween(@Param("from") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalTime start,
+                                     @Param("to") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalTime end);
 
     Page<Booking> findAllByUserId(Long id, Pageable pageable);
+
+    @Query("from Booking b where (b.date = :date)")
+    public List<Booking> findBookingsByDate(@Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate Date);
 
 }
