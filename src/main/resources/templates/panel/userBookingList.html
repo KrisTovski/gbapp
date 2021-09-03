@@ -27,7 +27,7 @@
                 </a>
             </th>
             <th>Date
-                <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage} + '?sortField=date&sortDir=' + ${reverseSortDir}}"
+                <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage} + '?sortField=myDate&sortDir=' + ${reverseSortDir}}"
                    class="sorticon">
                     <i class="fas fa-sort"></i>
                 </a>
@@ -54,7 +54,7 @@
 
         <tr th:each="booking : ${listBookings}">
             <td th:text="${booking.id}"></td>
-            <td th:text="${#temporals.format(booking.date, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#temporals.format(booking.myDate, 'dd-MM-yyyy')}"></td>
             <td th:text="${#temporals.format(booking.start, 'HH:mm')}"></td>
             <td th:text="${#temporals.format(booking.end, 'HH:mm')}"></td>
 
