@@ -39,7 +39,7 @@
          <div class="col-lg time">
              <table class="table table-striped">
                  <thead class="thead-dark">
-                 <th>Okres czasu</th>
+                 <th>Godziny</th>
                  </thead>
                  <tbody>
                  <tr th:each="i : ${#numbers.sequence(0, 23)}">
@@ -51,7 +51,7 @@
          <div class="col-lg booket">
              <table class="table table-striped table-hover">
                  <thead class="thead-dark">
-                 <th>Zarezerwowane</th>
+                 <th>Dostępność</th>
                  </thead>
                  <tbody>
                  <tr th:each="booking: ${bookingList}">

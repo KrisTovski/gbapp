@@ -1,10 +1,12 @@
 package com.kristovski.gbapp.booking;
 
 import com.kristovski.gbapp.user.User;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 
 @Entity
@@ -57,5 +59,29 @@ public class Booking {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return Objects.equals(id, booking.id) && Objects.equals(date, booking.date) && Objects.equals(start, booking.start);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, date, start);
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", date=" + date +
+                ", start=" + start +
+                ", end=" + end +
+                ", user=" + user +
+                '}';
     }
 }

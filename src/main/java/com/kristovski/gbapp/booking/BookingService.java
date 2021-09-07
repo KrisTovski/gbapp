@@ -47,22 +47,22 @@ public class BookingService {
         bookingRepository.deleteById(id);
     }
 
-    public List<Booking> findBookingsByDate(LocalDate date){
+    public List<Booking> findBookingsByDate(LocalDate date) {
 
         List<Booking> bookingList = bookingRepository.findBookingsByDate(date);
 
-        if(bookingList == null){
+        if (bookingList == null) {
             bookingList = new ArrayList<>();
         }
 
-        for (int i = 0; i <= 23 ; i++) {
+        for (int i = 0; i <= 23; i++) {
             String time = (i + 0) + ":00";
-            if(time.length() != 5){
+            if (time.length() != 5) {
                 time = "0" + time;
             }
 
 
-            if(!timeIsBooked(bookingList, time)){
+            if (!timeIsBooked(bookingList, time)) {
                 bookingList.add(i, new Booking());
                 bookingList.get(i).setId(0L);
                 bookingList.get(i).setDate(date);
@@ -71,16 +71,15 @@ public class BookingService {
             }
         }
 
-
         return bookingList;
     }
 
     private boolean timeIsBooked(List<Booking> bookingList, String time) {
-        if(bookingList == null){
+        if (bookingList == null) {
             return false;
         }
-        for (Booking b : bookingList){
-            if(b.getStart() != null && b.getStart().equals(time)){
+        for (Booking b : bookingList) {
+            if (b.getStart() != null && b.getStart().equals(LocalTime.parse(time))) {
                 return true;
             }
         }
