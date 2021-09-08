@@ -49,6 +49,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
     public User getUserById(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
         User user = null;
@@ -86,6 +91,8 @@ public class UserServiceImpl implements UserService {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         return userRepository.findAll(pageable);
     }
+
+
 
 
 }

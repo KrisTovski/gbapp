@@ -10,6 +10,8 @@ public interface UserService {
 
     List<User> findAll();
 
+    User findByEmail(String email);
+
     User getUserById(Long id);
 
     void mergeWithExistingAndUpdate(User user);

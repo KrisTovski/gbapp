@@ -1,9 +1,12 @@
 package com.kristovski.gbapp.booking;
 
 import com.kristovski.gbapp.date.MyDate;
+import com.kristovski.gbapp.security.IAuthenticationFacade;
 import com.kristovski.gbapp.user.User;
 import com.kristovski.gbapp.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +25,13 @@ public class BookingController {
 
     private BookingService bookingService;
     private UserServiceImpl userService;
+    private IAuthenticationFacade authenticationFacade;
 
     @Autowired
-    public BookingController(BookingService bookingService, UserServiceImpl userService) {
+    public BookingController(BookingService bookingService, UserServiceImpl userService, IAuthenticationFacade authenticationFacade) {
         this.bookingService = bookingService;
         this.userService = userService;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @GetMapping("/booking")
@@ -36,7 +41,7 @@ public class BookingController {
     }
 
     @PostMapping
-    public String saveBooking(Booking booking, Model model){
+    public String saveBooking(Booking booking, Model model) {
         model.addAttribute("booking", booking);
         return "/panel/bookings";
     }
@@ -49,47 +54,56 @@ public class BookingController {
     }
 
     @GetMapping("/bookingtime")
-    public String bookTime(HttpSession session, Model model){
-        User user = (User) session.getAttribute("user");
-     //   if(user != null){
-            Booking booking = new Booking();
-            booking.setUser(user);
-            MyDate myDate = (MyDate) session.getAttribute("choosedate");
+    public String bookTime(HttpSession session, Model model) {
+        Authentication loggedInUser = authenticationFacade.getAuthentication();
+        String userEmail = loggedInUser.getName();
 
-            List<Booking> bookingList;
+        System.out.println(userEmail);
 
-            if(myDate == null){
+        User user = userService.findByEmail(userEmail);
+        //   if(user != null){
+        Booking booking = new Booking();
+        booking.setUser(user);
+        MyDate myDate = (MyDate) session.getAttribute("choosedate");
 
-                LocalDate now = LocalDate.now();
-                booking.setDate(now);
-                bookingList = bookingService.findBookingsByDate(now);
-                model.addAttribute("choosedate", new MyDate(now));
-            } else {
-                booking.setDate(myDate.getDate());
-                bookingList = bookingService.findBookingsByDate(myDate.getDate());
-                model.addAttribute("choosedate", myDate);
-            }
+        List<Booking> bookingList;
 
-            session.setAttribute("booking", booking);
+        if (myDate == null) {
 
-            model.addAttribute("user", user);
-            model.addAttribute("bookingList", bookingList);
+            LocalDate now = LocalDate.now();
+            booking.setDate(now);
+            bookingList = bookingService.findBookingsByDate(now);
+            model.addAttribute("choosedate", new MyDate(now));
+        } else {
+            booking.setDate(myDate.getDate());
+            bookingList = bookingService.findBookingsByDate(myDate.getDate());
+            model.addAttribute("choosedate", myDate);
+        }
 
-            return "bookingtime";
-    //    }
-   //    return REDIRECT;
+        session.setAttribute("booking", booking);
+
+        model.addAttribute("user", user);
+        model.addAttribute("bookingList", bookingList);
+
+        return "bookingtime";
+        //    }
+        //    return REDIRECT;
     }
-    @PostMapping("/bookingtime/changedate")
-    public String changedate(Model model, HttpSession session, @ModelAttribute MyDate date){
 
-        if(date.getDate() != null){
+    @PostMapping("/bookingtime/changedate")
+    public String changedate(HttpSession session, Model model, @ModelAttribute MyDate date) {
+
+        if (date.getDate() != null) {
             session.setAttribute("choosedate", date);
         }
         return REDIRECT + "bookingtime";
 
     }
-
-
+//    @GetMapping("/bookingconfirmation/{time}")
+//    public String bookingConfirmation(Model model, @PathVariable String time){
+//
+//
+//    }
 
 
 }
