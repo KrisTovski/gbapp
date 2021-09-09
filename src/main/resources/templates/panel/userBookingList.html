@@ -54,7 +54,7 @@
 
         <tr th:each="booking : ${listBookings}">
             <td th:text="${booking.id}"></td>
-            <td th:text="${#temporals.format(booking.myDate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#temporals.format(booking.date, 'dd-MM-yyyy')}"></td>
             <td th:text="${#temporals.format(booking.start, 'HH:mm')}"></td>
             <td th:text="${#temporals.format(booking.end, 'HH:mm')}"></td>
 

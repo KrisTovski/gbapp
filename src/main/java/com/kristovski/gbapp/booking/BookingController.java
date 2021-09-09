@@ -47,6 +47,20 @@ public class BookingController {
         return "/panel/bookings";
     }
 
+    @GetMapping("/panel/updateBooking/{id}")
+    public String updateBooking(@PathVariable(value = "id") long id, Model model) {
+        Booking booking = bookingService.getBookingById(id);
+        // pre-populate the form
+        model.addAttribute("booking", booking);
+        return "/panel/updateBookingForm";
+    }
+
+    @PostMapping("/panel/updateBooking")
+    public String updateBooking(@ModelAttribute("booking") Booking booking) {
+        bookingService.mergeWithExistingAndUpdate(booking);
+        return "/panel/updateSuccess";
+    }
+
 
     @GetMapping("/panel/deleteBooking/{id}")
     public String deleteBooking(@PathVariable(value = "id") Long id) {

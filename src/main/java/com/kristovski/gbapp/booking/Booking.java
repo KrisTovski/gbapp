@@ -1,7 +1,6 @@
 package com.kristovski.gbapp.booking;
 
 import com.kristovski.gbapp.user.User;
-import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

@@ -6,11 +6,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingService {
@@ -97,5 +99,26 @@ public class BookingService {
 
     public boolean bookingExists(LocalDate date, LocalTime time) {
         return bookingRepository.existsBookingByDateAndStart(date, time);
+    }
+
+    @Transactional
+    public void mergeWithExistingAndUpdate(Booking booking) {
+        Booking existingBooking = getBookingById(booking.getId());
+        existingBooking.setDate(booking.getDate());
+        LocalTime start = booking.getStart();
+        existingBooking.setStart(start);
+        existingBooking.setEnd(start.plusHours(1));
+
+    }
+
+    public Booking getBookingById(Long id) {
+        Optional<Booking> bookingOptional = bookingRepository.findById(id);
+        Booking booking = null;
+        if (bookingOptional.isPresent()) {
+            booking = bookingOptional.get();
+        } else {
+            throw new RuntimeException("Booking not found for id :: " + id);
+        }
+        return booking;
     }
 }
