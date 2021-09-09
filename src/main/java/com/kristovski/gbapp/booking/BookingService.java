@@ -43,6 +43,15 @@ public class BookingService {
         return bookingRepository.findAllByUserId(id, pageable);
     }
 
+    public void addBooking(Booking booking) {
+
+        LocalTime start = booking.getStart();
+        booking.setEnd(start.plusHours(1));
+        bookingRepository.save(booking);
+
+
+    }
+
     public void deleteBookingById(Long id) {
         bookingRepository.deleteById(id);
     }
@@ -84,5 +93,9 @@ public class BookingService {
             }
         }
         return false;
+    }
+
+    public boolean bookingExists(LocalDate date, LocalTime time) {
+        return bookingRepository.existsBookingByDateAndStart(date, time);
     }
 }

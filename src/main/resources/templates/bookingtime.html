@@ -13,10 +13,6 @@
 
     <div th:replace="/fragments/navbar :: navbar-css"/>
 
-    <!--
-      <div th:include="fragments/header :: navbar"></div>
-      <div th:include="fragments/header :: scripts"></div>
-    -->
 </head>
 <body>
 
@@ -56,7 +52,7 @@
                  <tbody>
                  <tr th:each="booking: ${bookingList}">
                      <td th:if="${booking.id == 0}">
-                         <a th:href="'/bookingconfirmation/' + ${booking.date}">Book</a>
+                         <a th:href="'/bookingconfirmation/'+  ${booking.start}">Book</a>
                      </td>
                      <td class="text-muted" th:unless="${booking.id == 0}">Zajęty</td>
                  </tr>

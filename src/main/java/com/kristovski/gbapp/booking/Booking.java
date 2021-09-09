@@ -2,6 +2,7 @@ package com.kristovski.gbapp.booking;
 
 import com.kristovski.gbapp.user.User;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private LocalTime start;
     private LocalTime end;

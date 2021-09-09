@@ -6,7 +6,6 @@ import com.kristovski.gbapp.user.User;
 import com.kristovski.gbapp.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Controller
 public class BookingController {
 
     private final String REDIRECT = "redirect:/";
+    private String BOOKINGCONFIRMATION = "bookingconfirmation";
 
     private BookingService bookingService;
     private UserServiceImpl userService;
@@ -55,12 +56,9 @@ public class BookingController {
 
     @GetMapping("/bookingtime")
     public String bookTime(HttpSession session, Model model) {
-        Authentication loggedInUser = authenticationFacade.getAuthentication();
-        String userEmail = loggedInUser.getName();
 
-        System.out.println(userEmail);
+        User user = getUser();
 
-        User user = userService.findByEmail(userEmail);
         //   if(user != null){
         Booking booking = new Booking();
         booking.setUser(user);
@@ -99,11 +97,50 @@ public class BookingController {
         return REDIRECT + "bookingtime";
 
     }
-//    @GetMapping("/bookingconfirmation/{time}")
-//    public String bookingConfirmation(Model model, @PathVariable String time){
-//
-//
-//    }
+
+    @GetMapping("/bookingconfirmation/{time}")
+    public String bookingConfirmation(HttpSession session, Model model, @PathVariable String time){
+
+        User user = getUser();
+        Booking booking = (Booking) session.getAttribute("booking");
+
+        System.out.println(time);
+
+       booking.setStart(LocalTime.parse(time));
+
+        System.out.println(booking);
+        System.out.println(booking.getId());
+        System.out.println(booking.getDate());
+        System.out.println(booking.getStart());
+
+        if(bookingService.bookingExists(booking.getDate(), booking.getStart())){
+            session.removeAttribute("booking");
+            return REDIRECT;
+        }
+        model.addAttribute("user", user);
+        model.addAttribute("booking", booking);
+        return BOOKINGCONFIRMATION;
+    }
+
+    @PostMapping("bookingconfirmation/savebooking")
+    public String bookingConfirmation(HttpSession session){
+
+        Booking booking = (Booking) session.getAttribute("booking");
+
+        bookingService.addBooking(booking);
+        session.removeAttribute("booking");
+
+        return REDIRECT;
+    }
+
+
+
+    private User getUser() {
+        Authentication loggedInUser = authenticationFacade.getAuthentication();
+        String userEmail = loggedInUser.getName();
+        User user = userService.findByEmail(userEmail);
+        return user;
+    }
 
 
 }

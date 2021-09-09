@@ -26,4 +26,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query("from Booking b where (b.date = :date)")
     public List<Booking> findBookingsByDate(@Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate Date);
 
+    public boolean existsBookingByDateAndStart(LocalDate date, LocalTime time);
+
 }
