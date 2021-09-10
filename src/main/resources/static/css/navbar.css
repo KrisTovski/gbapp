@@ -6,6 +6,14 @@
     margin: 0;
     padding: 0;
 }
+.header-custom{
+    height: 72px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.navbar-custom{
+    height: 72px;
+}
 
 li {
     font-family: "Montserrat", sans-serif;
@@ -38,6 +46,7 @@ header {
 }
 
 .nav_links {
+    height: 72px;
     list-style: none;
 }
 

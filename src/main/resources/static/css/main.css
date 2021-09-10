@@ -19,7 +19,8 @@ body{
 .container {
     width: 100%;
     margin: 0 auto;
-    background-color: white;
+    /*background-color: rgba(255, 255, 255, 0.4);*/
+
 }
 
 .sorticon {
@@ -30,16 +31,25 @@ body{
     margin-right: auto;
 }
 
-table {
-    border-collapse: collapse;
+.table {
     table-layout: fixed;
     width: 310px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 30px;
+    border: none;
+    outline: none;
 }
 
-table td {
+.table td {
     /*border: solid 1px #fab;*/
     width: 100px;
     word-wrap: break-word;
-}
+    border: none;
+    outline: none;
 
+}
+.footer-custom {
+    height: 54px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
 

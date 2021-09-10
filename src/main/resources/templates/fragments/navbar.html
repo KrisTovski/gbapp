@@ -13,13 +13,13 @@
     </div>
 </head>
 <body>
-<header th:fragment="navbar">
+<header class="header-custom" th:fragment="navbar">
 
     <a href="#" th:href="@{/}" class="logo" alt="logo">
         <i class="fas fa-dumbbell"></i>
         Siłownia Club
     </a>
-        <nav class="navbar">
+        <nav class="navbar navbar-custom">
         <ul class="nav_links">
             <li>
                 <div sec:authorize="!isAuthenticated()">
