@@ -26,6 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/booking/**", "/bookingtime/**", "/changedate","/panel/**").permitAll()
                 .and().authorizeRequests().antMatchers("/register").permitAll()
                 .and().authorizeRequests().antMatchers("/css/**").permitAll()
+                .and().authorizeRequests().antMatchers("/images/**").permitAll()
+                .and().authorizeRequests().antMatchers("/js/**").permitAll()
                 .and().authorizeRequests().antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

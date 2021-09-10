@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
 
 * {
     box-sizing: border-box;
@@ -10,7 +11,7 @@ li {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
     font-size: 16px;
-    color: #F3EFF5;
+    color: white;
     text-decoration: none;
 }
 
@@ -24,11 +25,16 @@ header {
 
 .logo {
     color: #72B01D;
-    font-size: 2em;
+    font-size: 3em;
     font-weight: 400;
     cursor: pointer;
     margin-right: auto;
     text-decoration: none;
+    font-family: 'Caveat', cursive;
+    transition: all 0.3s ease 0s;
+}
+.logo:hover{
+    color: #3F7D20
 }
 
 .nav_links {

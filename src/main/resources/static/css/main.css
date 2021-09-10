@@ -1,9 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
+html,body {
+    height: 100%;
+
+}
+
+body{
+    background-image: url("../images/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.full-height {
+    height: 100%;
+}
+
 .container {
-    max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
-    background-color: #F3EFF5;
+    background-color: white;
 }
 
 .sorticon {

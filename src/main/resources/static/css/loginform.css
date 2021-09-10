@@ -1,47 +1,118 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
 body {
-    background: #eee !important;
+    background: white !important;
 }
 
-.wrapper {
-    margin-top: 80px;
-    margin-bottom: 80px;
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-.form-signin {
-    max-width: 380px;
-    padding: 15px 35px 45px;
-    margin: 0 auto;
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+.row {
+    background: white;
+    border-radius: 30px;
+    box-shadow: 12px 12px 22px;
 }
 
-.form-signin-heading,
-.checkbox {
-    margin-bottom: 30px;
-}
-
-.checkbox {
-    font-weight: normal;
-}
-
-.form-control {
-    position: relative;
-    font-size: 16px;
+.login img {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    max-width: 80%;
     height: auto;
-    padding: 10px;
 }
 
-
-input[type="text"] {
-    margin-bottom: -1px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+.login h1{
+    font-size: 3rem;
+    font-weight: 700;
+    font-family: 'Caveat', cursive;
 }
 
-input[type="password"] {
-    margin-bottom: 20px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+.inp{
+    height: 50px;
+    width: 70%;
+    border: none;
+    outline: none;
+    border-radius: 60px;
+    -webkit-box-shadow: -1px -1px 30px -11px rgba(0, 0, 0, 1);
+    -moz-box-shadow: -1px -1px 30px -11px rgba(0, 0, 0, 1);
+    box-shadow: -1px -1px 30px -11px rgba(0, 0, 0, 1);
 }
+
+.submitbtn{
+    height: 50px;
+    width: 50%;
+    border: none;
+    outline: none;
+    border-radius: 60px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    background: #72B01D;
+    color: #24252A;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.submitbtn:hover{
+    background: #3F7D20;
+}
+
+.register-link{
+    border-radius: 60px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #72B01D;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+.register-link:hover {
+    color: #3F7D20;
+}
+
+/* Old */
+
+/*.wrapper {*/
+/*    margin-top: 80px;*/
+/*    margin-bottom: 80px;*/
+/*}*/
+
+/*.form-signin {*/
+/*    max-width: 380px;*/
+/*    padding: 15px 35px 45px;*/
+/*    margin: 0 auto;*/
+/*    background-color: #fff;*/
+/*    border: 1px solid rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.form-signin-heading,*/
+/*.checkbox {*/
+/*    margin-bottom: 30px;*/
+/*}*/
+
+/*.checkbox {*/
+/*    font-weight: normal;*/
+/*}*/
+
+/*.form-control {*/
+/*    position: relative;*/
+/*    font-size: 16px;*/
+/*    height: auto;*/
+/*    padding: 10px;*/
+/*}*/
+
+
+/*input[type="text"] {*/
+/*    margin-bottom: -1px;*/
+/*    border-bottom-left-radius: 0;*/
+/*    border-bottom-right-radius: 0;*/
+/*}*/
+
+/*input[type="password"] {*/
+/*    margin-bottom: 20px;*/
+/*    border-top-left-radius: 0;*/
+/*    border-top-right-radius: 0;*/
+/*}*/
 
