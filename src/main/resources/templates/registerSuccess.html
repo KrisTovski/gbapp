@@ -1,19 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Registration Success</title>
     <meta charset="UTF-8"></meta>
+    <title>Login Form</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+          crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/loginform.css}"/>
     <div th:replace="/fragments/navbar :: navbar-css"/>
 </head>
 <body>
+<div th:insert="/fragments/navbar :: navbar"></div>
+
 <div class="container">
-    <div th:insert="/fragments/navbar :: navbar"></div>
-    <h1>Thanks for registration!</h1>
-    <a href="#" th:href="@{/}">Go to homepage</a> or
-    <a href="#" th:href="@{/loginform}">Login</a>
+    <section class="login py-md-5">
+        <div class="container">
+            <div class="row g-0">
+                <div class="col-lg-5 col-md-5 col-sm-12 col-12">
+                    <img src="/images/loginimage.jpg" class="img-fluid" alt="login-image">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center py-5">
+                    <h1 class="animate__animated animate__pulse">Thanks for registration!</h1>
+
+                        <div class="offset-1 col-lg-10 pt-3">
+                            <a href="#" class="button" th:href="@{/loginform}">Login now</a>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 <div th:replace="fragments/footer :: footer"/>
+
 </body>
 </html>

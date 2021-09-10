@@ -72,6 +72,39 @@ body {
     color: #3F7D20;
 }
 
+.login-link {
+    border-radius: 60px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #72B01D;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+.login-link:hover {
+    color: #3F7D20;
+}
+
+.button {
+    padding: 9px 25px;
+    background-color: rgba(114, 176, 29, 1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: #24252A;
+    text-decoration: none;
+}
+
+.button:hover {
+    color: #24252A;
+    background-color: rgba(63, 125, 32, 1);
+}
+
+
 /* Old */
 
 /*.wrapper {*/

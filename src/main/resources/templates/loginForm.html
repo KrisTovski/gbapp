@@ -29,22 +29,22 @@
                     <form action="processlogin" th:action="@{/processlogin}" method="post">
 
                         <div class="form-row pt-5">
-                            <div class="offset-1 clo-lg-10">
+                            <div class="offset-1 col-lg-10">
                                 <input type="text" class="inp px-3" name="user" placeholder="Email"/>
                             </div>
                         </div>
                         <div class="form-row pt-3">
-                            <div class="offset-1 clo-lg-10">
+                            <div class="offset-1 col-lg-10">
                                 <input type="password" class="inp px-3" name="pass" placeholder="Password"/>
                             </div>
                         </div>
                         <div class="form-row pt-4 pb-3">
-                            <div class="offset-1 clo-lg-10">
+                            <div class="offset-1 col-lg-10">
                                 <input type="submit" class="submitbtn" value="Login"/>
                             </div>
                         </div>
                     </form>
-                    <div class="offset-1 clo-lg-10">
+                    <div class="offset-1 col-lg-10">
                         Don't have an account? <a href="#" class="register-link" th:href="@{/register}">Register</a>
                     </div>
 
@@ -52,8 +52,6 @@
             </div>
         </div>
     </section>
-
-
 </div>
 <div th:replace="fragments/footer :: footer"/>
 </body>
