@@ -12,4 +12,6 @@ INSERT INTO USER_ROLE(user_id, role_id) VALUES
 (2,1),
 (3,1),
 (4,1),
-(5,1);
+(5,1),
+(101,1),
+(101,2);

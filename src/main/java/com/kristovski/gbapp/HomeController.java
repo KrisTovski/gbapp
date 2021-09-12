@@ -1,6 +1,7 @@
 package com.kristovski.gbapp;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -9,13 +10,12 @@ public class HomeController {
 
     private final String REDIRECT = "redirect:/";
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String home() {
         return REDIRECT + "loginform";
     }
 
-    @RequestMapping("/gym")
-    @ResponseBody
+    @GetMapping("/gym")
     public String gym() {
         return "gym";
     }

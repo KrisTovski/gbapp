@@ -1,6 +1,6 @@
 --liquibase formatted sql
 --changeset kris:1
-insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (1, 'bgoodhay0', 'Bradly', 'Goodhay', 'bgoodhay0@chronoengine.com', 'AJ0GCw1n', 1, '2020-08-31 16:29:41', null, 1);
+insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (1, 'test', 'Testowy', 'Tester', 'tester0@test.com', '{bcrypt}$2a$10$IHFKibCSJBOZpgo6QqOLpOIUS/jXMvt3/RvOIrwR7DXP8toxQ9u2C', 1, '2020-08-31 16:29:41', null, 1);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (2, 'tverbrugghen1', 'Tobit', 'Verbrugghen', 'tverbrugghen1@weather.com', 'C8zL1VR4O1', 1, '2020-08-28 14:02:38', null, 1);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (3, 'spumfrey2', 'Stephanus', 'Pumfrey', 'spumfrey2@guardian.co.uk', 'IjiTQMB', 0, '2020-10-20 12:28:51', null, 1);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (4, 'blouedey3', 'Boycie', 'Louedey', 'blouedey3@quantcast.com', 'WbvzLY20V91U', 0, '2021-03-07 13:36:46', null, 1);
@@ -100,3 +100,4 @@ insert into user (id, login, first_name, last_name, email, password, enable, cre
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (98, 'aparnell2p', 'Alex', 'Parnell', 'aparnell2p@netlog.com', 'WAwhHf', 0, '2020-09-24 02:13:57', null, 0);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (99, 'bnodin2q', 'Brina', 'Nodin', 'bnodin2q@wikipedia.org', 'EceTr03ip2v', 1, '2021-04-29 18:00:34', null, 0);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (100, 'lsherbourne2r', 'Lizzy', 'Sherbourne', 'lsherbourne2r@springer.com', 'Y9aVFM3q', 0, '2021-01-28 14:35:06', null, 0);
+insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (101, 'test', 'test', 'test', 'testowy@gmail.com', '{bcrypt}$2a$10$DN80wkQZ600Lw1b6tOQ9duVdGfYsqOxH5qRhfhYLKamuFaSL1lEMu', 0, '2021-09-12 17:18:00.268912', null, 0);
