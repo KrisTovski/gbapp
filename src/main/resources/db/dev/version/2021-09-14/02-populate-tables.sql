@@ -1,5 +1,6 @@
 --liquibase formatted sql
 --changeset kris:1
+
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (1, 'test', 'Testowy', 'Tester', 'tester0@test.com', '{bcrypt}$2a$10$IHFKibCSJBOZpgo6QqOLpOIUS/jXMvt3/RvOIrwR7DXP8toxQ9u2C', 1, '2020-08-31 16:29:41', null, 1);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (2, 'tverbrugghen1', 'Tobit', 'Verbrugghen', 'tverbrugghen1@weather.com', 'C8zL1VR4O1', 1, '2020-08-28 14:02:38', null, 1);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (3, 'spumfrey2', 'Stephanus', 'Pumfrey', 'spumfrey2@guardian.co.uk', 'IjiTQMB', 0, '2020-10-20 12:28:51', null, 1);
@@ -101,3 +102,32 @@ insert into user (id, login, first_name, last_name, email, password, enable, cre
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (99, 'bnodin2q', 'Brina', 'Nodin', 'bnodin2q@wikipedia.org', 'EceTr03ip2v', 1, '2021-04-29 18:00:34', null, 0);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (100, 'lsherbourne2r', 'Lizzy', 'Sherbourne', 'lsherbourne2r@springer.com', 'Y9aVFM3q', 0, '2021-01-28 14:35:06', null, 0);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (101, 'test', 'test', 'test', 'testowy@gmail.com', '{bcrypt}$2a$10$DN80wkQZ600Lw1b6tOQ9duVdGfYsqOxH5qRhfhYLKamuFaSL1lEMu', 0, '2021-09-12 17:18:00.268912', null, 0);
+
+--changeset kris:2
+INSERT INTO ROLE(id, role, description) VALUES
+(1, 'ROLE_USER', 'default role for user'),
+(2, 'ROLE_ADMIN', 'administration');
+
+--changeset kris:3
+INSERT INTO USER_ROLE(user_id, role_id) VALUES
+(1,1),
+(1,2),
+(2,1),
+(3,1),
+(4,1),
+(5,1),
+(101,1),
+(101,2);
+
+--changeset kris:4
+INSERT INTO ROOM (id, name) VALUES (1, 'Gym'), (2, 'Cardio');
+
+--changeset kris:5
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(1,'2021-09-02', '04:00', '05:00', 1, 1);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(2,'2021-09-02', '05:00', '06:00', 2, 1);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(3,'2021-09-02', '12:00', '13:00', 3, 2);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(4,'2021-09-02', '13:00', '14:00', 4, 2);

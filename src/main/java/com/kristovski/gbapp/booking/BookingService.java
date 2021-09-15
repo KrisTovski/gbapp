@@ -1,5 +1,6 @@
 package com.kristovski.gbapp.booking;
 
+import com.kristovski.gbapp.Room.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -97,8 +98,8 @@ public class BookingService {
         return false;
     }
 
-    public boolean bookingExists(LocalDate date, LocalTime time) {
-        return bookingRepository.existsBookingByDateAndStart(date, time);
+    public boolean bookingExists(LocalDate date, LocalTime time, Room room) {
+        return bookingRepository.existsBookingByDateAndStartAndRoom(date, time, room);
     }
 
     @Transactional
@@ -108,6 +109,7 @@ public class BookingService {
         LocalTime start = booking.getStart();
         existingBooking.setStart(start);
         existingBooking.setEnd(start.plusHours(1));
+        existingBooking.setRoom(booking.getRoom());
 
     }
 

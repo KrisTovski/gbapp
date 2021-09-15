@@ -1,5 +1,6 @@
 package com.kristovski.gbapp.booking;
 
+import com.kristovski.gbapp.Room.Room;
 import com.kristovski.gbapp.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,6 +22,8 @@ public class Booking {
     private LocalTime end;
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Room room;
 
     public Long getId() {
         return id;
@@ -62,6 +65,14 @@ public class Booking {
         this.user = user;
     }
 
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,14 +86,5 @@ public class Booking {
         return Objects.hash(id, date, start);
     }
 
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", date=" + date +
-                ", start=" + start +
-                ", end=" + end +
-                ", user=" + user +
-                '}';
-    }
+
 }

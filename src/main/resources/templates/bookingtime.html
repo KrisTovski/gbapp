@@ -20,17 +20,16 @@
 
     <div th:insert="/fragments/navbar :: navbar"></div>
 
-    <div>
-        <h1>Booking
+    <div class="title">
+        <h1 th:text="'Booking ' + ${roomName}">
             <i class="fas fa-clock"></i>
         </h1>
 
 
         <h3 th:text="${choosedate.getDate()}"></h3>
 
-
-
     </div>
+
      <div class="row">
          <div class="col-lg time">
              <table class="table table-striped">
@@ -62,7 +61,7 @@
          <div class="col-4">
              <div class="card">
                  <div class="card-body">
-                     <form th:method="Post" th:object="${choosedate}" th:action="@{/bookingtime/changedate}">
+                     <form th:method="Post" th:object="${choosedate}" th:action="@{changedate}">
                          <div class="form-group">
                              <label for="dateInput">Booking date</label>
                              <input id="dateInput" type="date" class="form-control" th:field="${choosedate.date}">

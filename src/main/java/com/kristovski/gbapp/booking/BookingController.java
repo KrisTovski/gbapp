@@ -1,5 +1,7 @@
 package com.kristovski.gbapp.booking;
 
+import com.kristovski.gbapp.Room.Room;
+import com.kristovski.gbapp.Room.RoomService;
 import com.kristovski.gbapp.date.MyDate;
 import com.kristovski.gbapp.security.IAuthenticationFacade;
 import com.kristovski.gbapp.user.User;
@@ -8,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -21,17 +26,21 @@ import java.util.List;
 @Controller
 public class BookingController {
 
-    private final String REDIRECT = "redirect:/";
-    private String BOOKINGCONFIRMATION = "bookingconfirmation";
+    private String REDIRECT = "redirect:/";
 
     private BookingService bookingService;
     private UserServiceImpl userService;
+    private RoomService roomService;
     private IAuthenticationFacade authenticationFacade;
 
     @Autowired
-    public BookingController(BookingService bookingService, UserServiceImpl userService, IAuthenticationFacade authenticationFacade) {
+    public BookingController(BookingService bookingService,
+                             UserServiceImpl userService,
+                             RoomService roomService,
+                             IAuthenticationFacade authenticationFacade) {
         this.bookingService = bookingService;
         this.userService = userService;
+        this.roomService = roomService;
         this.authenticationFacade = authenticationFacade;
     }
 
@@ -68,13 +77,36 @@ public class BookingController {
         return REDIRECT + "panel/bookings";
     }
 
-    @GetMapping("/bookingtime")
-    public String bookTime(HttpSession session, Model model) {
-
+    @GetMapping("/selectroom")
+    public String selectRoom(Model model) {
         User user = getUser();
 
-        //   if(user != null){
+        model.addAttribute("user", user);
+        model.addAttribute("booking", new Booking());
+        model.addAttribute("roomList", roomService.findAll());
+        return "selectRoom";
+    }
+
+    @GetMapping({"/bookingtime/{roomId}", "/bookingtime"})
+    public String bookTime(HttpSession session, Model model, @PathVariable(required = false) Long roomId) {
+
+
+
+        User user = getUser();
         Booking booking = new Booking();
+
+        if (roomId == null) {
+            return REDIRECT + "selectroom";
+        }
+
+        if (roomId != 0) {
+            Room roomById = roomService.findRoomById(roomId);
+            model.addAttribute("roomName", roomById.getName());
+            booking.setRoom(roomById);
+            session.setAttribute("booking", booking);
+        }
+
+
         booking.setUser(user);
         MyDate myDate = (MyDate) session.getAttribute("choosedate");
 
@@ -92,52 +124,46 @@ public class BookingController {
             model.addAttribute("choosedate", myDate);
         }
 
-        session.setAttribute("booking", booking);
-
         model.addAttribute("user", user);
         model.addAttribute("bookingList", bookingList);
 
+
         return "bookingtime";
-        //    }
-        //    return REDIRECT;
+
     }
 
     @PostMapping("/bookingtime/changedate")
-    public String changedate(HttpSession session, Model model, @ModelAttribute MyDate date) {
+    public String changedate(Model model, HttpSession session, @ModelAttribute MyDate date) {
 
         if (date.getDate() != null) {
             session.setAttribute("choosedate", date);
         }
-        return REDIRECT + "bookingtime";
+
+        return REDIRECT + "bookingtime/0";
 
     }
 
     @GetMapping("/bookingconfirmation/{time}")
-    public String bookingConfirmation(HttpSession session, Model model, @PathVariable String time){
+    public String bookingConfirmation(HttpSession session, Model model, @PathVariable String time) {
 
         User user = getUser();
         Booking booking = (Booking) session.getAttribute("booking");
 
         System.out.println(time);
 
-       booking.setStart(LocalTime.parse(time));
+        booking.setStart(LocalTime.parse(time));
 
-        System.out.println(booking);
-        System.out.println(booking.getId());
-        System.out.println(booking.getDate());
-        System.out.println(booking.getStart());
-
-        if(bookingService.bookingExists(booking.getDate(), booking.getStart())){
+        if (bookingService.bookingExists(booking.getDate(), booking.getStart(), booking.getRoom())) {
             session.removeAttribute("booking");
             return REDIRECT;
         }
         model.addAttribute("user", user);
         model.addAttribute("booking", booking);
-        return BOOKINGCONFIRMATION;
+        return "bookingconfirmation";
     }
 
     @PostMapping("bookingconfirmation/savebooking")
-    public String bookingConfirmation(HttpSession session){
+    public String bookingConfirmation(HttpSession session) {
 
         Booking booking = (Booking) session.getAttribute("booking");
 
@@ -146,7 +172,6 @@ public class BookingController {
 
         return REDIRECT;
     }
-
 
 
     private User getUser() {

@@ -1,5 +1,6 @@
 package com.kristovski.gbapp.booking;
 
+import com.kristovski.gbapp.Room.Room;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,6 +27,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query("from Booking b where (b.date = :date)")
     public List<Booking> findBookingsByDate(@Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate Date);
 
-    public boolean existsBookingByDateAndStart(LocalDate date, LocalTime time);
+    public boolean existsBookingByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room);
 
 }
