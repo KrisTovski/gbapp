@@ -12,6 +12,8 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String description;
+    private String imgUri;
     @OneToMany(mappedBy = "room")
     private List<Booking> bookings;
 
@@ -29,6 +31,22 @@ public class Room {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImgUri() {
+        return imgUri;
+    }
+
+    public void setImgUri(String imgUri) {
+        this.imgUri = imgUri;
     }
 
     public List<Booking> getBookings() {

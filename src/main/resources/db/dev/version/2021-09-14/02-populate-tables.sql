@@ -120,7 +120,9 @@ INSERT INTO USER_ROLE(user_id, role_id) VALUES
 (101,2);
 
 --changeset kris:4
-INSERT INTO ROOM (id, name) VALUES (1, 'Gym'), (2, 'Cardio');
+INSERT INTO ROOM (id, name, description, img_uri) VALUES
+                                   (1, 'Gym', 'Czas na ciężary','/images/gym-img-button.jpg'),
+                                   (2, 'Cardio', 'Dobrze jest się trochę zmęczyć','/images/cardio-img-button.jpg');
 
 --changeset kris:5
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES

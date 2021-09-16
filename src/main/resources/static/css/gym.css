@@ -7,13 +7,20 @@
     box-sizing: border-box;
 }
 
-.row {
-    background: none;
+.card {
+    border: none;
+    transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+    overflow:hidden;
+    border-radius:30px;
+    box-shadow: 12px 12px 22px;
 }
 
 .gym h1 {
     font-size: 3rem;
     font-weight: 700;
     font-family: 'Caveat', cursive;
+}
+.card-title {
+    text-align: center;
 }
 

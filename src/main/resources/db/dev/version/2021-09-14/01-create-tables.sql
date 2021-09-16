@@ -31,7 +31,9 @@ CREATE TABLE IF NOT EXISTS USER_ROLE(
 --changeset kris:4
 CREATE TABLE IF NOT EXISTS ROOM (
                                     id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-                                    name VARCHAR(50)
+                                    name VARCHAR(50),
+                                    description VARCHAR (250),
+                                    img_uri VARCHAR(100)
 
 );
 

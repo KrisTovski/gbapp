@@ -139,6 +139,7 @@ public class BookingController {
             session.setAttribute("choosedate", date);
         }
 
+
         return REDIRECT + "bookingtime/0";
 
     }
