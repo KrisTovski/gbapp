@@ -17,10 +17,10 @@
 
 </head>
 <body>
-
+<div th:insert="/fragments/navbar :: navbar"></div>
 <div class="container">
 
-    <div th:insert="/fragments/navbar :: navbar"></div>
+
     <section class="gym py-4">
         <div class="container py-4">
             <h1 class="text-center pb-3">Wybierz salę do ćwiczeń</h1>
@@ -40,8 +40,10 @@
             </div>
         </div>
     </section>
-</div>
 
+
+</div>
 <div th:replace="fragments/footer :: footer"/>
+
 </body>
 </html>

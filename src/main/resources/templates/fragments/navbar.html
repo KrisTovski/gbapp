@@ -34,6 +34,16 @@
                 </div>
             </li>
             <li>
+                <div  sec:authorize="hasRole('USER')">
+                    <a class="nav-button" href="#" th:href="@{panel/userpanel}">User Panel</a>
+                </div>
+            </li>
+            <li>
+                <div  sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-button" href="#" th:href="@{panel/adminpanel}">Admin Panel</a>
+                </div>
+            </li>
+            <li>
                 <div  sec:authorize="isAuthenticated()">
                     <form action="logout" th:action="@{/logout}" method="post">
                         <button type="submit" id="logoutBtn">Logout</button>

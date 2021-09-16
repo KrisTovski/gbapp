@@ -49,4 +49,9 @@ public class UserController {
         }
     }
 
+    @GetMapping("/panel/userpanel")
+    public String userPanel(){
+        return "panel/userPanel";
+    }
+
 }

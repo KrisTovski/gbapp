@@ -23,6 +23,10 @@ public class AdminController {
         this.bookingService = bookingService;
     }
 
+    @GetMapping("/adminpanel")
+    public String adminPanel(){
+        return "panel/adminPanel";
+    }
 
     @GetMapping("/users")
     public String getAllUsers(Model model) {
