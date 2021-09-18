@@ -11,10 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -133,12 +130,25 @@ public class BookingController {
     }
 
     @PostMapping("/bookingtime/changedate")
-    public String changedate(Model model, HttpSession session, @ModelAttribute MyDate date) {
+    public String changedate(Model model, HttpSession session,
+                             @ModelAttribute MyDate date
+                             ) {
+
+        Booking booking = (Booking) session.getAttribute("booking");
+
+        Long id = booking.getRoom().getId();
 
         if (date.getDate() != null) {
             session.setAttribute("choosedate", date);
         }
 
+
+        if(id == 1){
+            return REDIRECT + "bookingtime/1";
+        }
+        if(id == 2){
+            return REDIRECT + "bookingtime/2";
+        }
 
         return REDIRECT + "bookingtime/0";
 
@@ -150,7 +160,7 @@ public class BookingController {
         User user = getUser();
         Booking booking = (Booking) session.getAttribute("booking");
 
-        System.out.println(time);
+
 
         booking.setStart(LocalTime.parse(time));
 
