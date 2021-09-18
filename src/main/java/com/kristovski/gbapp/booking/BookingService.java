@@ -59,9 +59,9 @@ public class BookingService {
         bookingRepository.deleteById(id);
     }
 
-    public List<Booking> findBookingsByDate(LocalDate date) {
+    public List<Booking> findBookingsByDate(LocalDate date, Room room) {
 
-        List<Booking> bookingList = bookingRepository.findBookingsByDate(date);
+        List<Booking> bookingList = bookingRepository.findBookingsByDateAndRoom(date, room);
 
         if (bookingList == null) {
             bookingList = new ArrayList<>();

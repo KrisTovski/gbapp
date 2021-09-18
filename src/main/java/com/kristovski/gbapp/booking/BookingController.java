@@ -112,11 +112,11 @@ public class BookingController {
 
             LocalDate now = LocalDate.now();
             booking.setDate(now);
-            bookingList = bookingService.findBookingsByDate(now);
+            bookingList = bookingService.findBookingsByDate(now, roomService.findRoomById(roomId));
             model.addAttribute("choosedate", new MyDate(now));
         } else {
             booking.setDate(myDate.getDate());
-            bookingList = bookingService.findBookingsByDate(myDate.getDate());
+            bookingList = bookingService.findBookingsByDate(myDate.getDate(), roomService.findRoomById(roomId));
             model.addAttribute("choosedate", myDate);
         }
 
