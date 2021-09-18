@@ -60,3 +60,11 @@ body{
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+.datechange {
+    width: 30%;
+    margin: 0 auto;
+}
+.text-muted{
+    cursor: help ;
+}
+

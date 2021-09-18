@@ -88,7 +88,6 @@ public class BookingController {
     public String bookTime(HttpSession session, Model model, @PathVariable(required = false) Long roomId) {
 
 
-
         User user = getUser();
         Booking booking = new Booking();
 
@@ -130,9 +129,9 @@ public class BookingController {
     }
 
     @PostMapping("/bookingtime/changedate")
-    public String changedate(Model model, HttpSession session,
+    public String changedate(HttpSession session,
                              @ModelAttribute MyDate date
-                             ) {
+    ) {
 
         Booking booking = (Booking) session.getAttribute("booking");
 
@@ -143,10 +142,10 @@ public class BookingController {
         }
 
 
-        if(id == 1){
+        if (id == 1) {
             return REDIRECT + "bookingtime/1";
         }
-        if(id == 2){
+        if (id == 2) {
             return REDIRECT + "bookingtime/2";
         }
 
@@ -159,7 +158,6 @@ public class BookingController {
 
         User user = getUser();
         Booking booking = (Booking) session.getAttribute("booking");
-
 
 
         booking.setStart(LocalTime.parse(time));
