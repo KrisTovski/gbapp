@@ -30,4 +30,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     public boolean existsBookingByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room);
 
+    public List<Booking> findBookingByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room);
+
 }

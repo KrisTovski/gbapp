@@ -14,6 +14,7 @@ public class Room {
     private String name;
     private String description;
     private String imgUri;
+    private int capacity;
     @OneToMany(mappedBy = "room")
     private List<Booking> bookings;
 
@@ -47,6 +48,14 @@ public class Room {
 
     public void setImgUri(String imgUri) {
         this.imgUri = imgUri;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public List<Booking> getBookings() {

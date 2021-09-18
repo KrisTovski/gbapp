@@ -69,6 +69,7 @@
             <table class="table table-striped table-hover">
                 <thead class="thead-dark">
                 <th>Availability</th>
+                <th>Users</th>
 
                 </thead>
                 <tbody>
@@ -80,6 +81,7 @@
                     <td class="text-muted" th:unless="${booking.id == 0}"
                         data-toogle="tooltip" data-placement="right" th:title="${booking?.user?.login}">Booked
                     </td>
+                    <td th:each="user: ${userList}"> <p th:text="${user.login}"></p></td>
 
                 </tr>
 

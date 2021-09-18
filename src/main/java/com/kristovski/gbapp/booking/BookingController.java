@@ -120,6 +120,15 @@ public class BookingController {
             model.addAttribute("choosedate", myDate);
         }
 
+        List<User> userList = bookingService.findUsersWithTheSameReservation(booking.getDate(), booking.getStart(), booking.getRoom());
+
+        for (User user1 : userList) {
+            System.out.println(user1);
+        }
+
+
+
+        model.addAttribute("userList", userList);
         model.addAttribute("user", user);
         model.addAttribute("bookingList", bookingList);
 
@@ -162,7 +171,12 @@ public class BookingController {
 
         booking.setStart(LocalTime.parse(time));
 
-        if (bookingService.bookingExists(booking.getDate(), booking.getStart(), booking.getRoom())) {
+        List<Booking> bookings = bookingService.findBookingByDateAndStartAndRoom(booking.getDate(),
+                booking.getStart(),
+                booking.getRoom());
+
+        if ((bookingService.bookingExists(booking.getDate(), booking.getStart(), booking.getRoom()))
+        && (bookings.size() >= booking.getRoom().getCapacity())) {
             session.removeAttribute("booking");
             return REDIRECT;
         }

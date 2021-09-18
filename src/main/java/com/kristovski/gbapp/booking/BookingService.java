@@ -1,6 +1,7 @@
 package com.kristovski.gbapp.booking;
 
 import com.kristovski.gbapp.Room.Room;
+import com.kristovski.gbapp.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +15,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingService {
@@ -73,17 +75,29 @@ public class BookingService {
                 time = "0" + time;
             }
 
+            List<User> userList = new ArrayList<>();
+            List<Booking> bookings = bookingRepository.findBookingByDateAndStartAndRoom(date, LocalTime.parse(time), room);
+            for (Booking booking : bookings) {
+                User user = booking.getUser();
+                userList.add(user);
+            }
 
-            if (!timeIsBooked(bookingList, time)) {
+            if (!timeIsBooked(bookingList, time) || (timeIsBooked(bookingList, time) && userList.size() < room.getCapacity())) {
                 bookingList.add(i, new Booking());
                 bookingList.get(i).setId(0L);
                 bookingList.get(i).setDate(date);
                 bookingList.get(i).setStart(LocalTime.parse(time));
-                // TODO: add endTime
+
             }
         }
 
-        return bookingList;
+        for (Booking booking : bookingList) {
+            System.out.println(booking.getStart());
+        }
+        List<Booking> bookingList1 = bookingList.stream().limit(24).collect(Collectors.toList());
+
+
+        return bookingList1;
     }
 
     private boolean timeIsBooked(List<Booking> bookingList, String time) {
@@ -101,6 +115,20 @@ public class BookingService {
     public boolean bookingExists(LocalDate date, LocalTime time, Room room) {
         return bookingRepository.existsBookingByDateAndStartAndRoom(date, time, room);
     }
+
+    public List<Booking> findBookingByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room) {
+        return bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
+    }
+
+    public List<User> findUsersWithTheSameReservation(LocalDate date, LocalTime time, Room room){
+        List<Booking> bookingByDateAndStartAndRoom = bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
+        List<User> userList = new ArrayList<>();
+        for (Booking booking : bookingByDateAndStartAndRoom) {
+            userList.add(booking.getUser());
+        }
+        return userList;
+    }
+
 
     @Transactional
     public void mergeWithExistingAndUpdate(Booking booking) {
