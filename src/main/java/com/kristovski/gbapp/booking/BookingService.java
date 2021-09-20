@@ -70,7 +70,7 @@ public class BookingService {
         }
 
         for (int i = 0; i <= 23; i++) {
-            String time = (i + 0) + ":00";
+            String time = (i) + ":00";
             if (time.length() != 5) {
                 time = "0" + time;
             }
@@ -91,14 +91,39 @@ public class BookingService {
             }
         }
 
-        for (Booking booking : bookingList) {
-            System.out.println(booking.getStart());
-        }
-        List<Booking> bookingList1 = bookingList.stream().limit(24).collect(Collectors.toList());
+        List<Booking> bookingListFirst24 = bookingList.stream()
+                .limit(24)
+                .collect(Collectors.toList());
 
-
-        return bookingList1;
+        return bookingListFirst24;
     }
+
+    public List<Integer> availablePlacesInRoom(LocalDate date, Room room) {
+
+        List<Integer> availablePlaces = new ArrayList<>();
+
+
+        for (int i = 0; i <= 23; i++) {
+            String time = (i) + ":00";
+            if (time.length() != 5) {
+                time = "0" + time;
+            }
+            List<User> userList = new ArrayList<>();
+            List<Booking> bookings = bookingRepository.findBookingByDateAndStartAndRoom(date, LocalTime.parse(time), room);
+            for (Booking booking : bookings) {
+                User user = booking.getUser();
+                userList.add(user);
+            }
+            availablePlaces.add(room.getCapacity() - userList.size());
+        }
+
+        for (Integer availablePlace : availablePlaces) {
+            System.out.println(availablePlace);
+        }
+
+        return availablePlaces;
+    }
+
 
     private boolean timeIsBooked(List<Booking> bookingList, String time) {
         if (bookingList == null) {
@@ -120,7 +145,7 @@ public class BookingService {
         return bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
     }
 
-    public List<User> findUsersWithTheSameReservation(LocalDate date, LocalTime time, Room room){
+    public List<User> findUsersWithTheSameReservation(LocalDate date, LocalTime time, Room room) {
         List<Booking> bookingByDateAndStartAndRoom = bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
         List<User> userList = new ArrayList<>();
         for (Booking booking : bookingByDateAndStartAndRoom) {

@@ -126,10 +126,18 @@ INSERT INTO ROOM (id, name, description, img_uri, capacity) VALUES
 
 --changeset kris:5
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
-(1,'2021-09-02', '04:00', '05:00', 1, 1);
+(1,'2021-09-20', '04:00', '05:00', 1, 1);
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
-(2,'2021-09-02', '05:00', '06:00', 2, 1);
+(2,'2021-09-20', '05:00', '06:00', 2, 1);
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
-(3,'2021-09-02', '12:00', '13:00', 3, 2);
+(3,'2021-09-20', '12:00', '13:00', 3, 2);
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
-(4,'2021-09-02', '13:00', '14:00', 4, 2);
+(4,'2021-09-20', '13:00', '14:00', 4, 2);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(5,'2021-09-20', '13:00', '14:00', 1, 2);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(6,'2021-09-20', '13:00', '14:00', 2, 2);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(7,'2021-09-20', '13:00', '14:00', 3, 1);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(8,'2021-09-20', '12:00', '14:00', 4, 2);

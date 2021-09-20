@@ -18,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -107,31 +108,27 @@ public class BookingController {
         MyDate myDate = (MyDate) session.getAttribute("choosedate");
 
         List<Booking> bookingList;
+        List<Integer> availablePlacesList;
 
         if (myDate == null) {
 
             LocalDate now = LocalDate.now();
             booking.setDate(now);
             bookingList = bookingService.findBookingsByDate(now, roomService.findRoomById(roomId));
+            availablePlacesList = bookingService.availablePlacesInRoom(now, roomService.findRoomById(roomId));
             model.addAttribute("choosedate", new MyDate(now));
         } else {
             booking.setDate(myDate.getDate());
             bookingList = bookingService.findBookingsByDate(myDate.getDate(), roomService.findRoomById(roomId));
+            availablePlacesList = bookingService.availablePlacesInRoom(myDate.getDate(), roomService.findRoomById(roomId));
             model.addAttribute("choosedate", myDate);
         }
 
-        List<User> userList = bookingService.findUsersWithTheSameReservation(booking.getDate(), booking.getStart(), booking.getRoom());
-
-        for (User user1 : userList) {
-            System.out.println(user1);
-        }
 
 
-
-        model.addAttribute("userList", userList);
+        model.addAttribute("availablePlacesList", availablePlacesList);
         model.addAttribute("user", user);
         model.addAttribute("bookingList", bookingList);
-
 
         return "bookingtime";
 
