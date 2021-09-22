@@ -12,7 +12,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return REDIRECT + "loginform";
+        return REDIRECT + "selectroom";
     }
 
     @GetMapping("/gym")

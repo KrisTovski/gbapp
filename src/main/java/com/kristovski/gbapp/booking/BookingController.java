@@ -6,23 +6,28 @@ import com.kristovski.gbapp.date.MyDate;
 import com.kristovski.gbapp.security.IAuthenticationFacade;
 import com.kristovski.gbapp.user.User;
 import com.kristovski.gbapp.user.UserServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class BookingController {
+
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     private String REDIRECT = "redirect:/";
 
@@ -71,12 +76,26 @@ public class BookingController {
 
     @GetMapping("/panel/deleteBooking/{id}")
     public String deleteBooking(@PathVariable(value = "id") Long id) {
-        bookingService.deleteBookingById(id);
-        return REDIRECT + "panel/bookings";
+
+        log.debug("Delete booking by Id started");
+
+        try {
+            bookingService.deleteBookingById(id);
+            log.info("Booking with ID " + id + " was deleted.");
+            return REDIRECT + "panel/bookings";
+        } catch (Exception e){
+            log.error("Unable to delete booking with ID: " + id + ", message: " + e.getMessage(), e);
+            return "errorPage";
+        }
     }
 
     @GetMapping("/selectroom")
     public String selectRoom(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "loginForm";
+        }
+
         User user = getUser();
 
         model.addAttribute("user", user);
