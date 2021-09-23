@@ -10,6 +10,7 @@
               crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
         <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+        <script th:src="@{/js/foundation.min.js}"></script>
     </div>
 </head>
 <body>
@@ -19,7 +20,7 @@
         <i class="fas fa-dumbbell"></i>
         Siłownia Club
     </a>
-        <nav class="navbar navbar-custom">
+    <nav class="navbar navbar-custom">
         <ul class="nav_links">
             <li>
                 <div sec:authorize="!isAuthenticated()">
@@ -34,17 +35,17 @@
                 </div>
             </li>
             <li>
-                <div  sec:authorize="hasRole('USER')">
+                <div sec:authorize="hasRole('USER')">
                     <a class="nav-button" href="#" th:href="@{panel/userpanel}">User Panel</a>
                 </div>
             </li>
             <li>
-                <div  sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-button" href="#" th:href="@{panel/adminpanel}">Admin Panel</a>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-button" href="#" th:href="@{panel/adminPanel}">Admin Panel</a>
                 </div>
             </li>
             <li>
-                <div  sec:authorize="isAuthenticated()">
+                <div sec:authorize="isAuthenticated()">
                     <form action="logout" th:action="@{/logout}" method="post">
                         <button type="submit" id="logoutBtn">Logout</button>
                     </form>

@@ -35,7 +35,7 @@ public class AdminController {
 
     @GetMapping("/updateUser/{id}")
     public String updateUser(@PathVariable(value = "id") long id, Model model) {
-        User user = userService.getUserById(id);
+        User user = userService.getById(id);
         // pre-populate the form
         model.addAttribute("user", user);
         return "panel/updateUserForm";
@@ -49,7 +49,7 @@ public class AdminController {
 
     @GetMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable(value = "id") Long id) {
-        userService.deleteUserById(id);
+        userService.deleteById(id);
         return "redirect:/panel/users";
     }
 

@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUserWithDefaultRole(User user) {
+    public void addWithDefaultRole(User user) {
         UserRole defaultRole = userRoleRepository.findByRole(DEFAULT_ROLE);
         user.getRoles().add(defaultRole);
         String passwordHash = passwordEncoder.encode(user.getPassword());
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Long id) {
+    public User getById(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
         User user = null;
         if (userOptional.isPresent()) {
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void mergeWithExistingAndUpdate(User user) {
-        User existingUser = getUserById(user.getId());
+        User existingUser = getById(user.getId());
         existingUser.setLogin(user.getLogin());
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUserById(Long id) {
+    public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
 

@@ -54,33 +54,33 @@ public class BookingController {
     }
 
     @PostMapping
-    public String saveBooking(Booking booking, Model model) {
+    public String save(Booking booking, Model model) {
         model.addAttribute("booking", booking);
         return "/panel/bookings";
     }
 
     @GetMapping("/panel/updateBooking/{id}")
-    public String updateBooking(@PathVariable(value = "id") long id, Model model) {
-        Booking booking = bookingService.getBookingById(id);
+    public String update(@PathVariable(value = "id") long id, Model model) {
+        Booking booking = bookingService.getById(id);
         // pre-populate the form
         model.addAttribute("booking", booking);
         return "/panel/updateBookingForm";
     }
 
     @PostMapping("/panel/updateBooking")
-    public String updateBooking(@ModelAttribute("booking") Booking booking) {
+    public String update(@ModelAttribute("booking") Booking booking) {
         bookingService.mergeWithExistingAndUpdate(booking);
         return "/panel/updateSuccess";
     }
 
 
     @GetMapping("/panel/deleteBooking/{id}")
-    public String deleteBooking(@PathVariable(value = "id") Long id) {
+    public String delete(@PathVariable(value = "id") Long id) {
 
         log.debug("Delete booking by Id started");
 
         try {
-            bookingService.deleteBookingById(id);
+            bookingService.deleteById(id);
             log.info("Booking with ID " + id + " was deleted.");
             return REDIRECT + "panel/bookings";
         } catch (Exception e){
@@ -116,7 +116,7 @@ public class BookingController {
         }
 
         if (roomId != 0) {
-            Room roomById = roomService.findRoomById(roomId);
+            Room roomById = roomService.findById(roomId);
             model.addAttribute("roomName", roomById.getName());
             booking.setRoom(roomById);
             session.setAttribute("booking", booking);
@@ -133,13 +133,13 @@ public class BookingController {
 
             LocalDate now = LocalDate.now();
             booking.setDate(now);
-            bookingList = bookingService.findBookingsByDate(now, roomService.findRoomById(roomId));
-            availablePlacesList = bookingService.availablePlacesInRoom(now, roomService.findRoomById(roomId));
+            bookingList = bookingService.findByDate(now, roomService.findById(roomId));
+            availablePlacesList = bookingService.availablePlacesInRoom(now, roomService.findById(roomId));
             model.addAttribute("choosedate", new MyDate(now));
         } else {
             booking.setDate(myDate.getDate());
-            bookingList = bookingService.findBookingsByDate(myDate.getDate(), roomService.findRoomById(roomId));
-            availablePlacesList = bookingService.availablePlacesInRoom(myDate.getDate(), roomService.findRoomById(roomId));
+            bookingList = bookingService.findByDate(myDate.getDate(), roomService.findById(roomId));
+            availablePlacesList = bookingService.availablePlacesInRoom(myDate.getDate(), roomService.findById(roomId));
             model.addAttribute("choosedate", myDate);
         }
 
@@ -187,11 +187,11 @@ public class BookingController {
 
         booking.setStart(LocalTime.parse(time));
 
-        List<Booking> bookings = bookingService.findBookingByDateAndStartAndRoom(booking.getDate(),
+        List<Booking> bookings = bookingService.findByDateAndStartAndRoom(booking.getDate(),
                 booking.getStart(),
                 booking.getRoom());
 
-        if ((bookingService.bookingExists(booking.getDate(), booking.getStart(), booking.getRoom()))
+        if ((bookingService.isExists(booking.getDate(), booking.getStart(), booking.getRoom()))
         && (bookings.size() >= booking.getRoom().getCapacity())) {
             session.removeAttribute("booking");
             return REDIRECT;
@@ -206,7 +206,7 @@ public class BookingController {
 
         Booking booking = (Booking) session.getAttribute("booking");
 
-        bookingService.addBooking(booking);
+        bookingService.add(booking);
         session.removeAttribute("booking");
 
         return REDIRECT;

@@ -6,17 +6,17 @@ import java.util.List;
 
 public interface UserService {
 
-    void addUserWithDefaultRole(User user);
+    void addWithDefaultRole(User user);
 
     List<User> findAll();
 
     User findByEmail(String email);
 
-    User getUserById(Long id);
+    User getById(Long id);
 
     void mergeWithExistingAndUpdate(User user);
 
-    void deleteUserById(Long id);
+    void deleteById(Long id);
 
     Page<User> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 

@@ -19,7 +19,7 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
-    public Room findRoomById(Long roomId) {
+    public Room findById(Long roomId) {
         return roomRepository.findRoomById(roomId);
     }
 }

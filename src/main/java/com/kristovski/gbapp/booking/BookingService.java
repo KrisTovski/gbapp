@@ -48,7 +48,7 @@ public class BookingService {
         return bookingRepository.findAllByUserId(id, pageable);
     }
 
-    public void addBooking(Booking booking) {
+    public void add(Booking booking) {
 
         LocalTime start = booking.getStart();
         booking.setEnd(start.plusHours(1));
@@ -57,11 +57,11 @@ public class BookingService {
 
     }
 
-    public void deleteBookingById(Long id) {
+    public void deleteById(Long id) {
         bookingRepository.deleteById(id);
     }
 
-    public List<Booking> findBookingsByDate(LocalDate date, Room room) {
+    public List<Booking> findByDate(LocalDate date, Room room) {
 
         List<Booking> bookingList = bookingRepository.findBookingsByDateAndRoom(date, room);
 
@@ -137,11 +137,11 @@ public class BookingService {
         return false;
     }
 
-    public boolean bookingExists(LocalDate date, LocalTime time, Room room) {
+    public boolean isExists(LocalDate date, LocalTime time, Room room) {
         return bookingRepository.existsBookingByDateAndStartAndRoom(date, time, room);
     }
 
-    public List<Booking> findBookingByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room) {
+    public List<Booking> findByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room) {
         return bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
     }
 
@@ -157,7 +157,7 @@ public class BookingService {
 
     @Transactional
     public void mergeWithExistingAndUpdate(Booking booking) {
-        Booking existingBooking = getBookingById(booking.getId());
+        Booking existingBooking = getById(booking.getId());
         existingBooking.setDate(booking.getDate());
         LocalTime start = booking.getStart();
         existingBooking.setStart(start);
@@ -166,7 +166,7 @@ public class BookingService {
 
     }
 
-    public Booking getBookingById(Long id) {
+    public Booking getById(Long id) {
         Optional<Booking> bookingOptional = bookingRepository.findById(id);
         Booking booking = null;
         if (bookingOptional.isPresent()) {
