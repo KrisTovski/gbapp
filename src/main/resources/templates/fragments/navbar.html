@@ -36,12 +36,12 @@
             </li>
             <li>
                 <div sec:authorize="hasRole('USER')">
-                    <a class="nav-button" href="#" th:href="@{panel/userpanel}">User Panel</a>
+                    <a class="nav-button" href="#" th:href="@{~/panel/userpanel}">User Panel</a>
                 </div>
             </li>
             <li>
                 <div sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-button" href="#" th:href="@{panel/adminPanel}">Admin Panel</a>
+                    <a class="nav-button" href="#" th:href="@{~/panel/adminpanel}">Admin Panel</a>
                 </div>
             </li>
             <li>
