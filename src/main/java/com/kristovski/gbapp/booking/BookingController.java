@@ -89,7 +89,7 @@ public class BookingController {
         }
     }
 
-    @GetMapping("/selectroom")
+    @GetMapping("/")
     public String selectRoom(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
@@ -196,6 +196,7 @@ public class BookingController {
             session.removeAttribute("booking");
             return REDIRECT;
         }
+
         model.addAttribute("user", user);
         model.addAttribute("booking", booking);
         return "bookingconfirmation";

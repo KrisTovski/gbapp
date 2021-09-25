@@ -91,11 +91,9 @@ public class BookingService {
             }
         }
 
-        List<Booking> bookingListFirst24 = bookingList.stream()
+        return bookingList.stream()
                 .limit(24)
                 .collect(Collectors.toList());
-
-        return bookingListFirst24;
     }
 
     public List<Integer> availablePlacesInRoom(LocalDate date, Room room) {
@@ -115,10 +113,6 @@ public class BookingService {
                 userList.add(user);
             }
             availablePlaces.add(room.getCapacity() - userList.size());
-        }
-
-        for (Integer availablePlace : availablePlaces) {
-            System.out.println(availablePlace);
         }
 
         return availablePlaces;

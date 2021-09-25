@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
 
 html,body {
     height: 100%;
@@ -45,14 +46,19 @@ body{
     outline: none;
 }
 
-.table td {
+.table tr, th, td {
     /*border: solid 1px #fab;*/
     /*width: 100px;*/
     word-wrap: break-word;
     border: none;
     outline: none;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-size: medium;
+
 
 }
+
 .footer-custom {
     bottom: 0;
     width: 100%;

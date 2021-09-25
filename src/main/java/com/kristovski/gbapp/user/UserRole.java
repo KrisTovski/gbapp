@@ -1,6 +1,7 @@
 package com.kristovski.gbapp.user;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -14,7 +15,7 @@ public class UserRole {
     private String role;
     private String description;
     @ManyToMany(mappedBy = "roles")
-    Set<User> users;
+    Set<User> users = new HashSet<>();
 
     public UserRole() {
     }
