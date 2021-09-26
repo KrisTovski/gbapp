@@ -5,6 +5,7 @@ import com.kristovski.gbapp.Room.RoomService;
 import com.kristovski.gbapp.date.MyDate;
 import com.kristovski.gbapp.security.IAuthenticationFacade;
 import com.kristovski.gbapp.user.User;
+import com.kristovski.gbapp.user.UserRole;
 import com.kristovski.gbapp.user.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class BookingController {
@@ -78,12 +80,19 @@ public class BookingController {
     public String delete(@PathVariable(value = "id") Long id) {
 
         log.debug("Delete booking by Id started");
+        User user = getUser();
+        Long userId = user.getId();
+
 
         try {
             bookingService.deleteById(id);
             log.info("Booking with ID " + id + " was deleted.");
-            return REDIRECT + "panel/bookings";
-        } catch (Exception e){
+            if (isAdmin()) {
+                return REDIRECT + "panel/bookings";
+            }
+            return REDIRECT + "panel/user/" + userId + "/bookings";
+
+        } catch (Exception e) {
             log.error("Unable to delete booking with ID: " + id + ", message: " + e.getMessage(), e);
             return "errorPage";
         }
@@ -144,7 +153,6 @@ public class BookingController {
         }
 
 
-
         model.addAttribute("availablePlacesList", availablePlacesList);
         model.addAttribute("user", user);
         model.addAttribute("bookingList", bookingList);
@@ -192,7 +200,7 @@ public class BookingController {
                 booking.getRoom());
 
         if ((bookingService.isExists(booking.getDate(), booking.getStart(), booking.getRoom()))
-        && (bookings.size() >= booking.getRoom().getCapacity())) {
+                && (bookings.size() >= booking.getRoom().getCapacity())) {
             session.removeAttribute("booking");
             return REDIRECT;
         }
@@ -206,11 +214,12 @@ public class BookingController {
     public String bookingConfirmation(HttpSession session) {
 
         Booking booking = (Booking) session.getAttribute("booking");
+        Long userId = getUser().getId();
 
         bookingService.add(booking);
         session.removeAttribute("booking");
 
-        return REDIRECT;
+        return REDIRECT + "panel/user/" + userId + "/bookings";
     }
 
 
@@ -219,6 +228,18 @@ public class BookingController {
         String userEmail = loggedInUser.getName();
         User user = userService.findByEmail(userEmail);
         return user;
+    }
+
+    private boolean isAdmin() {
+        User user = getUser();
+        Set<UserRole> roles = user.getRoles();
+        for (UserRole role : roles) {
+            if (role.equals("ROLE_ADMIN")) {
+                return true;
+            }
+        }
+        return false;
+
     }
 
 

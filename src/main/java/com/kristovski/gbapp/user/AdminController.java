@@ -2,13 +2,16 @@ package com.kristovski.gbapp.user;
 
 import com.kristovski.gbapp.booking.Booking;
 import com.kristovski.gbapp.booking.BookingService;
+import com.kristovski.gbapp.security.IAuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/panel")
@@ -16,15 +19,21 @@ public class AdminController {
 
     private UserServiceImpl userService;
     private BookingService bookingService;
+    private IAuthenticationFacade authenticationFacade;
 
-    @Autowired
-    public AdminController(UserServiceImpl userService, BookingService bookingService) {
+    public AdminController(UserServiceImpl userService,
+                           BookingService bookingService,
+                           IAuthenticationFacade authenticationFacade) {
         this.userService = userService;
         this.bookingService = bookingService;
+        this.authenticationFacade = authenticationFacade;
     }
 
+    @Autowired
+
+
     @GetMapping("/adminpanel")
-    public String adminPanel(){
+    public String adminPanel() {
         return "panel/adminPanel";
     }
 
@@ -62,7 +71,12 @@ public class AdminController {
 
     @GetMapping("/user/{userId}/bookings")
     public String getAllBookingsByUser(@PathVariable(value = "userId") Long id, Model model) {
-        return getPaginatedBookingsByUser(id, 1, "id", "asc", model);
+        Long currentUserId = getUser().getId();
+
+        if(isAdmin()){
+            return getPaginatedBookingsByUser(id, 1, "id", "asc", model);
+        }
+        return getPaginatedBookingsByUser(currentUserId, 1, "id", "asc", model);
     }
 
     @GetMapping("/bookings/page/{pageNo}")
@@ -125,5 +139,24 @@ public class AdminController {
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+    }
+
+    private User getUser() {
+        Authentication loggedInUser = authenticationFacade.getAuthentication();
+        String userEmail = loggedInUser.getName();
+        User user = userService.findByEmail(userEmail);
+        return user;
+    }
+
+    private boolean isAdmin() {
+        User user = getUser();
+        Set<UserRole> roles = user.getRoles();
+        for (UserRole role : roles) {
+            if (role.equals("ROLE_ADMIN")) {
+                return true;
+            }
+        }
+        return false;
+
     }
 }

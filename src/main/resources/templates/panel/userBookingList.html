@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Admin Panel</title>
@@ -20,12 +20,13 @@
     <table class="table table-striped table-responsive">
         <thead>
         <tr>
-            <th>Id
+            <th sec:authorize="hasRole('ADMIN')">Id
                 <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}"
                    class="sorticon">
                     <i class="fas fa-sort"></i>
                 </a>
             </th>
+
             <th>Date
                 <a th:href="@{'/panel/user/'+ ${userId} +'/bookings/page/' + ${currentPage} + '?sortField=myDate&sortDir=' + ${reverseSortDir}}"
                    class="sorticon">
@@ -54,13 +55,16 @@
         </tr>
 
         <tr th:each="booking : ${listBookings}">
-            <td th:text="${booking.id}"></td>
+            <td sec:authorize="hasRole('ADMIN')" th:text="${booking.id}"></td>
             <td th:text="${#temporals.format(booking.date, 'dd-MM-yyyy')}"></td>
             <td th:text="${#temporals.format(booking.start, 'HH:mm')}"></td>
             <td th:text="${#temporals.format(booking.end, 'HH:mm')}"></td>
             <td th:text="${booking.room.getName()}"></td>
 
-            <td><a th:href="@{/panel/user/{id}(id=${userId})/updateBooking}" class="btn btn-primary btn-sm">Update</a>
+            <td>
+                <a sec:authorize="hasRole('ADMIN')" th:href="@{/panel/user/{id}(id=${userId})/updateBooking}"
+                   class="btn btn-primary btn-sm">Update</a>
+
                 <a th:href="@{/panel/deleteBooking/{id}(id=${booking.id})}" class="btn btn-danger btn-sm">Delete</a>
             </td>
         </tr>

@@ -102,6 +102,7 @@ insert into user (id, login, first_name, last_name, email, password, enable, cre
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (99, 'bnodin2q', 'Brina', 'Nodin', 'bnodin2q@wikipedia.org', 'EceTr03ip2v', 1, '2021-04-29 18:00:34', null, 0);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (100, 'lsherbourne2r', 'Lizzy', 'Sherbourne', 'lsherbourne2r@springer.com', 'Y9aVFM3q', 0, '2021-01-28 14:35:06', null, 0);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (101, 'test', 'test', 'test', 'testowy@gmail.com', '{bcrypt}$2a$10$DN80wkQZ600Lw1b6tOQ9duVdGfYsqOxH5qRhfhYLKamuFaSL1lEMu', 0, '2021-09-12 17:18:00.268912', null, 0);
+insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (102, 'testUser', 'User', 'User', 'user@gmail.com', '{bcrypt}$2a$10$FQxJoLVJNrSVnFHllqSZUu1RzMLOxEt3Fiydtu8/pdrcJIRcqukPO', 0, '2021-09-26 10:58:04.047992', null, 0);
 
 --changeset kris:2
 INSERT INTO ROLE(id, role, description) VALUES
@@ -115,7 +116,7 @@ INSERT INTO USER_ROLE(user_id, role_id) VALUES
 (39,1),(40,1),(41,1),(42,1),(43,1),(44,1),(45,1),(46,2),(47,1),(48,1),(49,1),(50,1),(51,1),(52,1),(53,1),(54,1),(55,1),(56,2),(57,1),(58,1),
 (59,1),(60,1),(61,1),(62,1),(63,1),(64,1),(65,1),(66,2),(67,1),(68,1),(69,1),(70,1),(71,1),(72,1),(73,1),(74,1),(75,1),(76,1),(77,1),(78,1),
 (79,1),(80,1),(81,1),(82,1),(83,1),(84,1),(85,1),(86,2),(87,1),(88,1),(89,1),(90,1),(91,1),(92,1),(93,1),(94,1),(95,1),(96,1),(97,1),(98,1),
-(99,1),(100,1),(101,1),(101,2);
+(99,1),(100,1),(101,1),(101,2),(102,1);
 
 --changeset kris:4
 INSERT INTO ROOM (id, name, description, img_uri, capacity) VALUES
