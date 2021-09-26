@@ -75,14 +75,7 @@ public class BookingService {
                 time = "0" + time;
             }
 
-            List<User> userList = new ArrayList<>();
-            List<Booking> bookings = bookingRepository.findBookingByDateAndStartAndRoom(date, LocalTime.parse(time), room);
-            for (Booking booking : bookings) {
-                User user = booking.getUser();
-                userList.add(user);
-            }
-
-            if (!timeIsBooked(bookingList, time) || (timeIsBooked(bookingList, time) && userList.size() < room.getCapacity())) {
+            if (!timeIsBooked(bookingList, time) || (timeIsBooked(bookingList, time) && isAvailable(date, LocalTime.parse(time), room))) {
                 bookingList.add(i, new Booking());
                 bookingList.get(i).setId(0L);
                 bookingList.get(i).setDate(date);
@@ -156,7 +149,6 @@ public class BookingService {
         LocalTime start = booking.getStart();
         existingBooking.setStart(start);
         existingBooking.setEnd(start.plusHours(1));
-        existingBooking.setRoom(booking.getRoom());
 
     }
 
@@ -169,5 +161,21 @@ public class BookingService {
             throw new RuntimeException("Booking not found for id :: " + id);
         }
         return booking;
+    }
+
+    private boolean isAvailable(LocalDate date, LocalTime time, Room room) {
+
+            List<User> userList = new ArrayList<>();
+            List<Booking> bookings = bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
+            for (Booking booking : bookings) {
+                User user = booking.getUser();
+                userList.add(user);
+            }
+
+            if (userList.size() < room.getCapacity()) {
+                return true;
+            }
+
+        return false;
     }
 }

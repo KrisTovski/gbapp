@@ -71,9 +71,13 @@ public class AdminController {
 
     @GetMapping("/user/{userId}/bookings")
     public String getAllBookingsByUser(@PathVariable(value = "userId") Long id, Model model) {
+        User userById = userService.getById(id);
+        String userLogin = userById.getLogin();
+        model.addAttribute("userLogin", userLogin);
+
         Long currentUserId = getUser().getId();
 
-        if(isAdmin()){
+        if (isAdmin()) {
             return getPaginatedBookingsByUser(id, 1, "id", "asc", model);
         }
         return getPaginatedBookingsByUser(currentUserId, 1, "id", "asc", model);
@@ -149,14 +153,10 @@ public class AdminController {
     }
 
     private boolean isAdmin() {
-        User user = getUser();
-        Set<UserRole> roles = user.getRoles();
-        for (UserRole role : roles) {
-            if (role.equals("ROLE_ADMIN")) {
-                return true;
-            }
+        Authentication loggedInUser = authenticationFacade.getAuthentication();
+        if (loggedInUser != null && loggedInUser.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return true;
         }
         return false;
-
     }
 }

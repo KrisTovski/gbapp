@@ -5,7 +5,6 @@ import com.kristovski.gbapp.Room.RoomService;
 import com.kristovski.gbapp.date.MyDate;
 import com.kristovski.gbapp.security.IAuthenticationFacade;
 import com.kristovski.gbapp.user.User;
-import com.kristovski.gbapp.user.UserRole;
 import com.kristovski.gbapp.user.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +23,6 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class BookingController {
@@ -231,15 +229,11 @@ public class BookingController {
     }
 
     private boolean isAdmin() {
-        User user = getUser();
-        Set<UserRole> roles = user.getRoles();
-        for (UserRole role : roles) {
-            if (role.equals("ROLE_ADMIN")) {
-                return true;
-            }
+        Authentication loggedInUser = authenticationFacade.getAuthentication();
+        if (loggedInUser != null && loggedInUser.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return true;
         }
         return false;
-
     }
 
 

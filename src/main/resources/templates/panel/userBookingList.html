@@ -14,8 +14,10 @@
 
 <div class="container-xl">
     <div th:insert="/fragments/navbar :: navbar"></div>
+    <h1 class="title" th:text="|${userLogin} bookings|"></h1>
+
     <span th:each="booking : ${listBookings}">
-    <h1 th:text="${booking.user.getLogin()}"></h1>
+
     </span>
     <table class="table table-striped table-responsive">
         <thead>
@@ -62,7 +64,7 @@
             <td th:text="${booking.room.getName()}"></td>
 
             <td>
-                <a sec:authorize="hasRole('ADMIN')" th:href="@{/panel/user/{id}(id=${userId})/updateBooking}"
+                <a sec:authorize="hasRole('ADMIN')" th:href="@{/panel/updateBooking/{id}(id=${booking.id})}"
                    class="btn btn-primary btn-sm">Update</a>
 
                 <a th:href="@{/panel/deleteBooking/{id}(id=${booking.id})}" class="btn btn-danger btn-sm">Delete</a>

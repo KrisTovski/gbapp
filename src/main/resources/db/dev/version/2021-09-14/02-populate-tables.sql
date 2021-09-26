@@ -139,4 +139,4 @@ INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
 (7,'2021-09-20', '13:00', '14:00', 3, 1);
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
-(8,'2021-09-20', '12:00', '14:00', 4, 2);
+(8,'2021-09-20', '12:00', '13:00', 4, 2);
