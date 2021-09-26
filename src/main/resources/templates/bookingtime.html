@@ -56,7 +56,7 @@
     <!-- Booking slots -->
 
     <div class="row justify-content-md-center">
-        <div class="col-lg-2 col-md-12">
+       <!-- <div class="col-lg-2 col-md-12">
             <table class="table table-striped">
                 <thead class="thead-dark">
                 <th>Hours</th>
@@ -68,21 +68,21 @@
 
                 </tbody>
             </table>
-        </div>
+        </div>-->
         <div class="col-lg-2 col-md-12">
             <table class="table table-striped table-hover">
                 <thead class="thead-dark">
-                <th>Availability</th>
+                <th>Slots</th>
 
                 </thead>
                 <tbody>
                 <tr th:each="booking: ${bookingList}">
 
                     <td th:if="${booking.id == 0}">
-                        <a th:href="'/bookingconfirmation/'+  ${booking.start}">Available</a>
+                        <a th:href="'/bookingconfirmation/'+  ${booking.start}" type="button" class="btn btn-success" th:text="${booking.start}">Available</a>
 
                     </td>
-                    <td class="text-muted" th:unless="${booking.id == 0}"
+                    <td type="button" class="btn btn-secondary" th:unless="${booking.id == 0}"
                         data-toogle="tooltip" data-placement="right" th:title="${booking?.user?.login}">Booked
                     </td>
 
@@ -94,11 +94,13 @@
         <div class="col-lg-2 col-md-12">
             <table class="table table-striped">
                 <thead class="thead-dark">
-                <th>Places</th>
+                <th>Availability</th>
                 </thead>
                 <tbody>
                 <tr th:each="places: ${availablePlacesList}">
-                    <td th:text="${places}"></td>
+                    <td>
+                    <span type="button" class="btn btn-outline-dark disabled" th:text="${places}"></span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
