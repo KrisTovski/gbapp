@@ -7,6 +7,7 @@
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
           crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <div th:replace="/fragments/navbar :: navbar-css"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
@@ -64,10 +65,14 @@
             <td th:text="${booking.room.getName()}"></td>
 
             <td>
-                <a sec:authorize="hasRole('ADMIN')" th:href="@{/panel/updateBooking/{id}(id=${booking.id})}"
-                   class="btn btn-primary btn-sm">Update</a>
+                <a th:href="@{/panel/addextrahour/{id}(id=${booking.id})}" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus-square"></i></a>
 
-                <a th:href="@{/panel/deleteBooking/{id}(id=${booking.id})}" class="btn btn-danger btn-sm">Delete</a>
+                <a sec:authorize="hasRole('ADMIN')" th:href="@{/panel/updateBooking/{id}(id=${booking.id})}"
+                   class="btn btn-primary btn-sm"><i class="fas fa-user-edit"></i></a>
+
+                <a th:href="@{/panel/deleteBooking/{id}(id=${booking.id})}" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash"></i></a>
             </td>
         </tr>
         </tbody>

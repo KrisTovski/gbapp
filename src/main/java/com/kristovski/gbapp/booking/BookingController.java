@@ -220,6 +220,35 @@ public class BookingController {
         return REDIRECT + "panel/user/" + userId + "/bookings";
     }
 
+    @GetMapping("/panel/addextrahour/{id}")
+    public String addNextHourToBooking( @PathVariable(value = "id") Long id) {
+
+        Booking booking = bookingService.getById(id);
+
+
+
+        log.debug("Add extra hour booking started");
+        User user = getUser();
+        Long userId = user.getId();
+
+
+        try {
+            bookingService.addNextHourAsNewBooking(booking);
+            log.info("Extra Hour Booking was added.");
+            if (isAdmin()) {
+                return REDIRECT + "panel/bookings";
+            }
+            return REDIRECT + "panel/user/" + userId + "/bookings";
+
+        } catch (Exception e) {
+            log.error("Unable to add extra booking, message: " + e.getMessage(), e);
+            return "errorPage";
+        }
+
+
+
+    }
+
 
     private User getUser() {
         Authentication loggedInUser = authenticationFacade.getAuthentication();

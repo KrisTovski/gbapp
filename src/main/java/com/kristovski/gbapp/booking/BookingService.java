@@ -75,7 +75,7 @@ public class BookingService {
                 time = "0" + time;
             }
 
-            if (!timeIsBooked(bookingList, time) || (timeIsBooked(bookingList, time) && isAvailable(date, LocalTime.parse(time), room))) {
+            if (!timeIsBooked(bookingList, time) || (timeIsBooked(bookingList, time) && isBookingAvailable(date, LocalTime.parse(time), room))) {
                 bookingList.add(i, new Booking());
                 bookingList.get(i).setId(0L);
                 bookingList.get(i).setDate(date);
@@ -152,6 +152,21 @@ public class BookingService {
 
     }
 
+    public void addNextHourAsNewBooking(Booking booking) {
+        Booking nextHourBooking = new Booking();
+        nextHourBooking.setUser(booking.getUser());
+        nextHourBooking.setDate(booking.getDate());
+        //TODO 23:00 to 00:00 change day issue
+        nextHourBooking.setStart(booking.getStart().plusHours(1));
+        nextHourBooking.setEnd(booking.getEnd().plusHours(1));
+        nextHourBooking.setRoom(booking.getRoom());
+
+        // TODO check availability
+        if(isBookingAvailable(nextHourBooking.getDate(), nextHourBooking.getStart(), nextHourBooking.getRoom()))
+            bookingRepository.save(nextHourBooking);
+
+    }
+
     public Booking getById(Long id) {
         Optional<Booking> bookingOptional = bookingRepository.findById(id);
         Booking booking = null;
@@ -163,7 +178,7 @@ public class BookingService {
         return booking;
     }
 
-    private boolean isAvailable(LocalDate date, LocalTime time, Room room) {
+    private boolean isBookingAvailable(LocalDate date, LocalTime time, Room room) {
 
             List<User> userList = new ArrayList<>();
             List<Booking> bookings = bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
