@@ -54,7 +54,6 @@ public class BookingService {
         booking.setEnd(start.plusHours(1));
         bookingRepository.save(booking);
 
-
     }
 
     public void deleteById(Long id) {

@@ -225,8 +225,6 @@ public class BookingController {
 
         Booking booking = bookingService.getById(id);
 
-
-
         log.debug("Add extra hour booking started");
         User user = getUser();
         Long userId = user.getId();
@@ -245,10 +243,7 @@ public class BookingController {
             return "errorPage";
         }
 
-
-
     }
-
 
     private User getUser() {
         Authentication loggedInUser = authenticationFacade.getAuthentication();

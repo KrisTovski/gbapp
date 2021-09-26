@@ -21,6 +21,11 @@
     <div th:insert="/fragments/navbar :: navbar"></div>
 
     <div class="title">
+        <div>
+        <a href="#" th:href="@{/}">
+        <i class="fa fa-undo" aria-hidden="true"> back</i>
+        </a></div>
+
         <h1 th:text="'Booking ' + ${roomName}">
             <i class="fas fa-clock"></i>
         </h1>

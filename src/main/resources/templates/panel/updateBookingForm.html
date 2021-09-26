@@ -12,7 +12,7 @@
 <body>
 <div class="container">
     <div th:insert="/fragments/navbar :: navbar"></div>
-    <h1>Update Booking</h1>
+    <h1 class="title">Update Booking</h1>
     <form action="#" method="post" th:action="@{/panel/updateBooking}" th:object="${booking}">
 
         <input type="hidden" th:field="*{id}"/>
