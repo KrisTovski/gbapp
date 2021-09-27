@@ -44,7 +44,10 @@ body{
     border-radius: 30px;
     border: none;
     outline: none;
+
+
 }
+
 
 .table tr, th, td {
     /*border: solid 1px #fab;*/

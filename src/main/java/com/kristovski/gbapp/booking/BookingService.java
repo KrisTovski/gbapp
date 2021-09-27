@@ -154,14 +154,17 @@ public class BookingService {
     public void addNextHourAsNewBooking(Booking booking) {
         Booking nextHourBooking = new Booking();
         nextHourBooking.setUser(booking.getUser());
-        nextHourBooking.setDate(booking.getDate());
-        //TODO 23:00 to 00:00 change day issue
+        // 23:00 to 00:00 change day
+        if (booking.getStart().toString().equals("23:00")) {
+            nextHourBooking.setDate(booking.getDate().plusDays(1));
+        } else {
+            nextHourBooking.setDate(booking.getDate());
+        }
         nextHourBooking.setStart(booking.getStart().plusHours(1));
         nextHourBooking.setEnd(booking.getEnd().plusHours(1));
         nextHourBooking.setRoom(booking.getRoom());
 
-        // TODO check availability
-        if(isBookingAvailable(nextHourBooking.getDate(), nextHourBooking.getStart(), nextHourBooking.getRoom()))
+        if (isBookingAvailable(nextHourBooking.getDate(), nextHourBooking.getStart(), nextHourBooking.getRoom()))
             bookingRepository.save(nextHourBooking);
 
     }
@@ -179,16 +182,16 @@ public class BookingService {
 
     private boolean isBookingAvailable(LocalDate date, LocalTime time, Room room) {
 
-            List<User> userList = new ArrayList<>();
-            List<Booking> bookings = bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
-            for (Booking booking : bookings) {
-                User user = booking.getUser();
-                userList.add(user);
-            }
+        List<User> userList = new ArrayList<>();
+        List<Booking> bookings = bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
+        for (Booking booking : bookings) {
+            User user = booking.getUser();
+            userList.add(user);
+        }
 
-            if (userList.size() < room.getCapacity()) {
-                return true;
-            }
+        if (userList.size() < room.getCapacity()) {
+            return true;
+        }
 
         return false;
     }
