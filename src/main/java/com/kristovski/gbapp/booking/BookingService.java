@@ -98,30 +98,29 @@ public class BookingService {
             if (time.length() != 5) {
                 time = "0" + time;
             }
-            List<User> userList = new ArrayList<>();
-            List<Booking> bookings = bookingRepository.findBookingByDateAndStartAndRoom(date, LocalTime.parse(time), room);
-            for (Booking booking : bookings) {
-                User user = booking.getUser();
-                userList.add(user);
-            }
+            List<User> userList = findUsersWithTheSameReservation(date, LocalTime.parse(time), room);
+
             availablePlaces.add(room.getCapacity() - userList.size());
         }
 
         return availablePlaces;
     }
 
+    public List<List<User>> usersInRoom(LocalDate date, Room room){
+        List<List<User>> usersInRoom = new ArrayList<>();
 
-    private boolean timeIsBooked(List<Booking> bookingList, String time) {
-        if (bookingList == null) {
-            return false;
-        }
-        for (Booking b : bookingList) {
-            if (b.getStart() != null && b.getStart().equals(LocalTime.parse(time))) {
-                return true;
+        for (int i = 0; i <= 23; i++) {
+            String time = (i) + ":00";
+            if (time.length() != 5) {
+                time = "0" + time;
             }
+            List<User> userList = findUsersWithTheSameReservation(date, LocalTime.parse(time), room);
+
+            usersInRoom.add(userList);
         }
-        return false;
+        return usersInRoom;
     }
+
 
     public boolean isExists(LocalDate date, LocalTime time, Room room) {
         return bookingRepository.existsBookingByDateAndStartAndRoom(date, time, room);
@@ -130,16 +129,6 @@ public class BookingService {
     public List<Booking> findByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room) {
         return bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
     }
-
-    public List<User> findUsersWithTheSameReservation(LocalDate date, LocalTime time, Room room) {
-        List<Booking> bookingByDateAndStartAndRoom = bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
-        List<User> userList = new ArrayList<>();
-        for (Booking booking : bookingByDateAndStartAndRoom) {
-            userList.add(booking.getUser());
-        }
-        return userList;
-    }
-
 
     @Transactional
     public void mergeWithExistingAndUpdate(Booking booking) {
@@ -179,6 +168,28 @@ public class BookingService {
         }
         return booking;
     }
+
+    private boolean timeIsBooked(List<Booking> bookingList, String time) {
+        if (bookingList == null) {
+            return false;
+        }
+        for (Booking b : bookingList) {
+            if (b.getStart() != null && b.getStart().equals(LocalTime.parse(time))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<User> findUsersWithTheSameReservation(LocalDate date, LocalTime time, Room room) {
+        List<Booking> bookingByDateAndStartAndRoom = bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
+        List<User> userList = new ArrayList<>();
+        for (Booking booking : bookingByDateAndStartAndRoom) {
+            userList.add(booking.getUser());
+        }
+        return userList;
+    }
+
 
     private boolean isBookingAvailable(LocalDate date, LocalTime time, Room room) {
 

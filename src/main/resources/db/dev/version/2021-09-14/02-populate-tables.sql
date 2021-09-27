@@ -129,14 +129,26 @@ INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
 (2,'2021-09-20', '05:00', '06:00', 2, 1);
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
-(3,'2021-09-20', '12:00', '13:00', 3, 2);
+(3,'2021-09-20', '05:00', '06:00', 81, 1);
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
-(4,'2021-09-20', '13:00', '14:00', 4, 2);
+(4,'2021-09-20', '05:00', '06:00', 86, 1);
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
-(5,'2021-09-20', '13:00', '14:00', 1, 2);
+(5,'2021-09-20', '05:00', '06:00', 100, 1);
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
-(6,'2021-09-20', '13:00', '14:00', 2, 2);
+(6,'2021-09-20', '12:00', '13:00', 3, 2);
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
-(7,'2021-09-20', '13:00', '14:00', 3, 1);
+(7,'2021-09-20', '13:00', '14:00', 4, 2);
 INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
-(8,'2021-09-20', '12:00', '13:00', 4, 2);
+(8,'2021-09-20', '13:00', '14:00', 1, 2);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(9,'2021-09-20', '13:00', '14:00', 2, 2);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(10,'2021-09-20', '13:00', '14:00', 3, 1);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(11,'2021-09-20', '12:00', '13:00', 4, 2);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(12,'2021-09-20', '12:00', '13:00', 94, 2);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(13,'2021-09-20', '12:00', '13:00', 95, 2);
+INSERT INTO booking (id, date, start, end, user_id, room_id) VALUES
+(14,'2021-09-20', '12:00', '13:00', 96, 2);

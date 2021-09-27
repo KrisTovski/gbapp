@@ -49,7 +49,7 @@ body{
 }
 
 
-.table tr, th, td {
+.table tr, th, td a{
     /*border: solid 1px #fab;*/
     /*width: 100px;*/
     word-wrap: break-word;

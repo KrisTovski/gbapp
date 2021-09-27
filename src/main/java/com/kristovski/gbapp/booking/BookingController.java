@@ -135,6 +135,7 @@ public class BookingController {
 
         List<Booking> bookingList;
         List<Integer> availablePlacesList;
+        List<List<User>> usersInRoom;
 
         if (myDate == null) {
 
@@ -142,18 +143,22 @@ public class BookingController {
             booking.setDate(now);
             bookingList = bookingService.findByDate(now, roomService.findById(roomId));
             availablePlacesList = bookingService.availablePlacesInRoom(now, roomService.findById(roomId));
+            usersInRoom = bookingService.usersInRoom(now, roomService.findById(roomId));
             model.addAttribute("choosedate", new MyDate(now));
         } else {
             booking.setDate(myDate.getDate());
             bookingList = bookingService.findByDate(myDate.getDate(), roomService.findById(roomId));
             availablePlacesList = bookingService.availablePlacesInRoom(myDate.getDate(), roomService.findById(roomId));
+            usersInRoom = bookingService.usersInRoom(myDate.getDate(), roomService.findById(roomId));
             model.addAttribute("choosedate", myDate);
         }
+
 
 
         model.addAttribute("availablePlacesList", availablePlacesList);
         model.addAttribute("user", user);
         model.addAttribute("bookingList", bookingList);
+        model.addAttribute("usersInRoom", usersInRoom);
 
         return "bookingtime";
 

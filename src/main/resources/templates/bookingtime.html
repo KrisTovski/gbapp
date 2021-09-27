@@ -53,63 +53,90 @@
         </div>
     </div>
 
-    <!-- Booking slots -->
+
+    <div class="col-12">
+        <div class="row justify-content-md-center">
+
+            <!-- Booking slots -->
+
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
+
+                <table class="table table-striped table-hover">
+                    <thead class="thead-dark">
+                    <th>Slots</th>
+
+                    </thead>
+                    <tbody>
+                    <tr th:each="booking: ${bookingList}">
+
+                        <td th:if="${booking.id == 0}">
+                            <a th:href="'/bookingconfirmation/'+  ${booking.start}" type="button"
+                               class="btn btn-success"
+                               th:text="${booking.start}">Available</a>
+
+                        </td>
+                        <td type="button" class="btn btn-secondary disabled" th:unless="${booking.id == 0}">Booked
+                        </td>
 
 
-    <div class="row justify-content-md-center">
+                    </tr>
+                    </tbody>
 
-        <div class="col-lg-2 col-md-12">
+                </table>
+            </div>
 
-            <table class="table table-striped table-hover">
-                <thead class="thead-dark">
-                <th>Slots</th>
+            <!-- Available places -->
 
-                </thead>
-                <tbody>
-                <tr th:each="booking: ${bookingList}">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <th>Availability</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="places: ${availablePlacesList}">
+                        <td>
+                            <span type="button" class="btn btn-outline-dark disabled" th:text="${places}"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 
-                    <td th:if="${booking.id == 0}">
-                        <a th:href="'/bookingconfirmation/'+  ${booking.start}" type="button"
-                           class="btn btn-success"
-                           th:text="${booking.start}">Available</a>
+            </div>
 
-                    </td>
-                    <td type="button" class="btn btn-secondary" th:unless="${booking.id == 0}"
-                        data-toogle="tooltip" data-placement="right" th:title="${booking?.user?.login}">Booked
-                    </td>
+            <!-- Users who booked the slots -->
 
+            <div class="col-lg-6 col-md-4 col-sm-4 col-xs-4">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <th>Users</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="listOfuserList: ${usersInRoom}">
 
-                </tr>
-                </tbody>
+                        <td th:if="${listOfuserList.isEmpty()}">
+                        <span type="button" class="btn btn-outline-dark disabled">
+                            ---
+                        </span>
 
-            </table>
+                        </td>
+                        <td th:unless="${listOfuserList.isEmpty()}">
+                        <span type="button" class="btn btn-outline-dark disabled"
+                              th:each="users, iterStat: ${listOfuserList}"
+                              th:text="${users.login}">
+                        </span>
+
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
-        <div class="col-lg-2 col-md-12">
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                <th>Availability</th>
-                </thead>
-                <tbody>
-                <tr th:each="places: ${availablePlacesList}">
-                    <td>
-                        <span type="button" class="btn btn-outline-dark disabled" th:text="${places}"></span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
 
-        </div>
     </div>
-
 </div>
-
 <div th:replace="fragments/footer :: footer"/>
-
-<script>
-    $(document).ready(function () {
-        $('id').tooltip();
-    })
-</script>
 
 
 </body>
