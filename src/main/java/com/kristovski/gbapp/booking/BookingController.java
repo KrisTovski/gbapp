@@ -47,13 +47,7 @@ public class BookingController {
         this.authenticationFacade = authenticationFacade;
     }
 
-    @GetMapping("/booking")
-    public String calendar(Model model) {
-        model.addAttribute("booking", new Booking());
-        return "booking";
-    }
-
-    @PostMapping
+   @PostMapping
     public String save(Booking booking, Model model) {
         model.addAttribute("booking", booking);
         return "/panel/bookings";
@@ -226,7 +220,7 @@ public class BookingController {
     }
 
     @GetMapping("/panel/addextrahour/{id}")
-    public String addNextHourToBooking( @PathVariable(value = "id") Long id) {
+    public String addNextHourToBooking(@PathVariable(value = "id") Long id) {
 
         Booking booking = bookingService.getById(id);
 

@@ -22,13 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                .authorizeRequests().antMatchers("/", "/calendar", "/schedule", "/selectroom",
-                "/booking/**", "/bookingtime/**", "/changedate","/panel/**").permitAll()
-                .and().authorizeRequests().antMatchers("/register").permitAll()
-                .and().authorizeRequests().antMatchers("/css/**").permitAll()
-                .and().authorizeRequests().antMatchers("/images/**").permitAll()
-                .and().authorizeRequests().antMatchers("/js/**").permitAll()
-                .and().authorizeRequests().antMatchers("/h2-console/**").permitAll()
+                .authorizeRequests().antMatchers("/register").permitAll()
+                .and().authorizeRequests().antMatchers("/css/**", "/images/**", "/js/**").permitAll()
+                .and().authorizeRequests().antMatchers("/h2-console/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -42,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .permitAll();
+
         http.csrf().disable();
         http.headers().frameOptions().disable();
     }

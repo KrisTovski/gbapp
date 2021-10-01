@@ -15,7 +15,12 @@
 
 <div class="container-xl">
     <div th:insert="/fragments/navbar :: navbar"></div>
+    <div class="title">
+    <a href="#" th:href="@{/}">
+        <i class="fa fa-undo" aria-hidden="true"> back</i>
+    </a>
     <h1 class="title" th:text="|${userLogin} bookings|"></h1>
+    </div>
 
     <span th:each="booking : ${listBookings}">
 
