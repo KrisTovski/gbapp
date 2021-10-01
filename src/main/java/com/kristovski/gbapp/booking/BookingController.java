@@ -47,7 +47,7 @@ public class BookingController {
         this.authenticationFacade = authenticationFacade;
     }
 
-   @PostMapping
+    @PostMapping
     public String save(Booking booking, Model model) {
         model.addAttribute("booking", booking);
         return "/panel/bookings";
@@ -148,7 +148,6 @@ public class BookingController {
         }
 
 
-
         model.addAttribute("availablePlacesList", availablePlacesList);
         model.addAttribute("user", user);
         model.addAttribute("bookingList", bookingList);
@@ -201,6 +200,10 @@ public class BookingController {
             session.removeAttribute("booking");
             return REDIRECT;
         }
+        if (bookingService.alreadyBookedByUser(booking.getDate(), booking.getStart(), booking.getRoom(), booking.getUser().getId(), user.getId())) {
+            session.removeAttribute("booking");
+            return "errorDoubleReservation";
+        }
 
         model.addAttribute("user", user);
         model.addAttribute("booking", booking);
@@ -220,26 +223,31 @@ public class BookingController {
     }
 
     @GetMapping("/panel/addextrahour/{id}")
-    public String addNextHourToBooking(@PathVariable(value = "id") Long id) {
+    public String addNextHourToBooking(Model model, @PathVariable(value = "id") Long id) {
 
         Booking booking = bookingService.getById(id);
 
         log.debug("Add extra hour booking started");
         User user = getUser();
         Long userId = user.getId();
+        model.addAttribute("userId", userId);
 
+        if (bookingService.alreadyBookedByUser(booking.getDate(), booking.getStart().plusHours(1), booking.getRoom(), booking.getUser().getId(), user.getId())) {
+            return "errorAddNextHourReservation";
+        } else {
 
-        try {
-            bookingService.addNextHourAsNewBooking(booking);
-            log.info("Extra Hour Booking was added.");
-            if (isAdmin()) {
-                return REDIRECT + "panel/bookings";
+            try {
+                bookingService.addNextHourAsNewBooking(booking);
+                log.info("Extra Hour Booking was added.");
+                if (isAdmin()) {
+                    return REDIRECT + "panel/bookings";
+                }
+                return REDIRECT + "panel/user/" + userId + "/bookings";
+
+            } catch (Exception e) {
+                log.error("Unable to add extra booking, message: " + e.getMessage(), e);
+                return "errorPage";
             }
-            return REDIRECT + "panel/user/" + userId + "/bookings";
-
-        } catch (Exception e) {
-            log.error("Unable to add extra booking, message: " + e.getMessage(), e);
-            return "errorPage";
         }
 
     }

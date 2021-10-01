@@ -206,4 +206,12 @@ public class BookingService {
 
         return false;
     }
+
+    public boolean alreadyBookedByUser(LocalDate date, LocalTime time, Room room,Long existingBookingUserId, Long loggedUserId) {
+        if(isExists(date,time,room) && existingBookingUserId == loggedUserId){
+            return true;
+        }
+        return false;
+
+    }
 }
