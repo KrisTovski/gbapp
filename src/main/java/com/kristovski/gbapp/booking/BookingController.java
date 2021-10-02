@@ -240,7 +240,7 @@ public class BookingController {
                 bookingService.addNextHourAsNewBooking(booking);
                 log.info("Extra Hour Booking was added.");
                 if (isAdmin()) {
-                    return REDIRECT + "panel/bookings";
+                    return REDIRECT + "panel/user/" + booking.getUser().getId() + "/bookings";
                 }
                 return REDIRECT + "panel/user/" + userId + "/bookings";
 
