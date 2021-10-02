@@ -24,10 +24,17 @@ body{
     /*background-color: rgba(255, 255, 255, 0.4);*/
 
 }
-
 .title {
     text-align: center;
 }
+
+.title h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    font-family: 'Caveat', cursive;
+}
+
+
 
 .sorticon {
     color: #72B01D;

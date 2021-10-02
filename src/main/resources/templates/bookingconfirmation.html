@@ -20,32 +20,38 @@
 
     <div th:insert="/fragments/navbar :: navbar"></div>
 
-    <h1 class="title">
-        Potwierdź rezerwację
-    </h1>
+    <div class="row justify-content-md-center py-md-5">
+        <div class="col-4">
+            <div class="title">
+                <h1>Confirm your booking</h1>
+            </div>
 
-    <form th:method="Post" th:action="@{savebooking}" th:object="${booking}">
-        <input type="hidden" th:field="${booking.id}">
-        <input type="hidden" th:field="${booking.user}">
-        <div class="form-group">
-            <label for="room"></label>
-            <input class="form-control" type="text" placeholder="Nazwa" id="room" th:field="${booking.room.name}" readonly>
+            <form th:method="Post" th:action="@{savebooking}" th:object="${booking}">
+                <input type="hidden" th:field="${booking.id}">
+                <input type="hidden" th:field="${booking.user}">
+                <div class="form-group">
+                    <label for="room"></label>
+                    <input class="form-control" type="text" placeholder="Nazwa" id="room"
+                           th:field="${booking.room.name}"
+                           readonly>
+                </div>
+                <div class="form-group">
+                    <label for="time"></label>
+                    <input class="form-control" type="text" placeholder="Godzina" id="time" th:field="${booking.start}"
+                           readonly>
+                </div>
+                <div class="form-group">
+                    <label for="date"></label>
+                    <input class="form-control" type="date" placeholder="Data" id="date" th:field="${booking.date}"
+                           readonly>
+                </div>
+                <div class="form-group">
+                <input class="btn btn-dark" type="submit" value="Confirm your reservation "/>
+                <a class="btn btn-light btn-outline-secondary" href="/">Cancel reservation </a>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="time"></label>
-            <input class="form-control" type="text" placeholder="Godzina" id="time" th:field="${booking.start}" readonly>
-        </div>
-        <div class="form-group">
-            <label for="date"></label>
-            <input class="form-control" type="date" placeholder="Data" id="date" th:field="${booking.date}" readonly>
-        </div>
-
-        <input class="btn btn-dark" type="submit" value="Potwierdź rezerwację "/>
-        <a class="btn btn-light btn-outline-secondary" href="/">Anuluj rezerwację </a>
-    </form>
-    <br>
-    <br>
-    <br>
+    </div>
 </div>
 <div th:include="fragments/footer :: footer"></div>
 </body>
