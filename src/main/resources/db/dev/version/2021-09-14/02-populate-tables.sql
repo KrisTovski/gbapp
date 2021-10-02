@@ -101,7 +101,7 @@ insert into user (id, login, first_name, last_name, email, password, enable, cre
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (98, 'aparnell2p', 'Alex', 'Parnell', 'aparnell2p@netlog.com', 'WAwhHf', 0, '2020-09-24 02:13:57', null, 0);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (99, 'bnodin2q', 'Brina', 'Nodin', 'bnodin2q@wikipedia.org', 'EceTr03ip2v', 1, '2021-04-29 18:00:34', null, 0);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (100, 'lsherbourne2r', 'Lizzy', 'Sherbourne', 'lsherbourne2r@springer.com', 'Y9aVFM3q', 0, '2021-01-28 14:35:06', null, 0);
-insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (101, 'test', 'test', 'test', 'testowy@gmail.com', '{bcrypt}$2a$10$DN80wkQZ600Lw1b6tOQ9duVdGfYsqOxH5qRhfhYLKamuFaSL1lEMu', 0, '2021-09-12 17:18:00.268912', null, 0);
+insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (101, 'testAdmin', 'test', 'test', 'testowy@gmail.com', '{bcrypt}$2a$10$DN80wkQZ600Lw1b6tOQ9duVdGfYsqOxH5qRhfhYLKamuFaSL1lEMu', 0, '2021-09-12 17:18:00.268912', null, 0);
 insert into user (id, login, first_name, last_name, email, password, enable, create_time, update_time, locked) values (102, 'testUser', 'User', 'User', 'user@gmail.com', '{bcrypt}$2a$10$FQxJoLVJNrSVnFHllqSZUu1RzMLOxEt3Fiydtu8/pdrcJIRcqukPO', 0, '2021-09-26 10:58:04.047992', null, 0);
 
 --changeset kris:2

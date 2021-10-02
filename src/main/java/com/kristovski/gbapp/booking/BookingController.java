@@ -200,7 +200,7 @@ public class BookingController {
             session.removeAttribute("booking");
             return REDIRECT;
         }
-        if (bookingService.alreadyBookedByUser(booking.getDate(), booking.getStart(), booking.getRoom(), booking.getUser().getId(), user.getId())) {
+        if (bookingService.alreadyBookedByUser(booking.getDate(), booking.getStart(), booking.getRoom(), booking.getUser())) {
             session.removeAttribute("booking");
             return "errorDoubleReservation";
         }
@@ -226,23 +226,21 @@ public class BookingController {
     public String addNextHourToBooking(Model model, @PathVariable(value = "id") Long id) {
 
         Booking booking = bookingService.getById(id);
+        Long userId = booking.getUser().getId();
 
         log.debug("Add extra hour booking started");
-        User user = getUser();
-        Long userId = user.getId();
         model.addAttribute("userId", userId);
 
-        if (bookingService.alreadyBookedByUser(booking.getDate(), booking.getStart().plusHours(1), booking.getRoom(), booking.getUser().getId(), user.getId())) {
+        if (bookingService.alreadyBookedByUser(booking.getDate(), booking.getStart().plusHours(1), booking.getRoom(), booking.getUser())) {
             return "errorAddNextHourReservation";
         } else {
 
             try {
                 bookingService.addNextHourAsNewBooking(booking);
                 log.info("Extra Hour Booking was added.");
-                if (isAdmin()) {
-                    return REDIRECT + "panel/user/" + booking.getUser().getId() + "/bookings";
-                }
-                return REDIRECT + "panel/user/" + userId + "/bookings";
+
+                return REDIRECT + "panel/user/" + booking.getUser().getId() + "/bookings";
+
 
             } catch (Exception e) {
                 log.error("Unable to add extra booking, message: " + e.getMessage(), e);

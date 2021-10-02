@@ -106,7 +106,7 @@ public class BookingService {
         return availablePlaces;
     }
 
-    public List<List<User>> usersInRoom(LocalDate date, Room room){
+    public List<List<User>> usersInRoom(LocalDate date, Room room) {
         List<List<User>> usersInRoom = new ArrayList<>();
 
         for (int i = 0; i <= 23; i++) {
@@ -124,6 +124,10 @@ public class BookingService {
 
     public boolean isExists(LocalDate date, LocalTime time, Room room) {
         return bookingRepository.existsBookingByDateAndStartAndRoom(date, time, room);
+    }
+
+    public boolean alreadyBookedByUser(LocalDate date, LocalTime time, Room room, User user) {
+        return bookingRepository.existsBookingByDateAndStartAndRoomAndUser(date, time, room, user);
     }
 
     public List<Booking> findByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room) {
@@ -205,13 +209,5 @@ public class BookingService {
         }
 
         return false;
-    }
-
-    public boolean alreadyBookedByUser(LocalDate date, LocalTime time, Room room,Long existingBookingUserId, Long loggedUserId) {
-        if(isExists(date,time,room) && existingBookingUserId == loggedUserId){
-            return true;
-        }
-        return false;
-
     }
 }

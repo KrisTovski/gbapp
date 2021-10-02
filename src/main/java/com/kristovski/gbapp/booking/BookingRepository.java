@@ -1,6 +1,7 @@
 package com.kristovski.gbapp.booking;
 
 import com.kristovski.gbapp.Room.Room;
+import com.kristovski.gbapp.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,6 +30,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
                                                    @Param("room") Room room);
 
     public boolean existsBookingByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room);
+
+    public boolean existsBookingByDateAndStartAndRoomAndUser(LocalDate date, LocalTime time, Room room, User user);
 
     public List<Booking> findBookingByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room);
 
