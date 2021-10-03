@@ -77,18 +77,34 @@ public class AdminController {
 
         Long currentUserId = getUser().getId();
 
+
         if (isAdmin()) {
             return getPaginatedBookingsByUser(id, 1, "id", "asc", model);
         }
         return getPaginatedBookingsByUser(currentUserId, 1, "id", "asc", model);
     }
 
+    @GetMapping("/user/{userId}")
+    public String getUserInfo(@PathVariable(value = "userId") Long id, Model model) {
+        User userById = userService.getById(id);
+        String userLogin = userById.getLogin();
+        model.addAttribute("user", userById);
+        model.addAttribute("userid", id);
+        model.addAttribute("userFirstName", userById.getFirstName());
+        model.addAttribute("userLogin", userLogin);
+
+
+        return "panel/userInfo";
+    }
+
+
+
     @GetMapping("/bookings/page/{pageNo}")
     private String getPaginatedBookings(@PathVariable(value = "pageNo") int pageNo,
                                         @RequestParam("sortField") String sortField,
                                         @RequestParam("sortDir") String sortDir,
                                         Model model) {
-        int pageSize = 5;
+        int pageSize = 10;
         Page<Booking> page = bookingService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Booking> listBookings = page.getContent();
         addPaginationAttributes(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements());
@@ -104,7 +120,7 @@ public class AdminController {
                                     @RequestParam("sortField") String sortField,
                                     @RequestParam("sortDir") String sortDir,
                                     Model model) {
-        int pageSize = 5;
+        int pageSize = 10;
         Page<User> page = userService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<User> listUsers = page.getContent();
         addPaginationAttributes(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements());

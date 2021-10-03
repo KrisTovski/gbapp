@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <div th:replace="/fragments/navbar :: navbar-css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+
+<div class="container">
+    <div th:insert="/fragments/navbar :: navbar"></div>
+    <div class="container">
+        <div class="row py-md-5">
+            <section class="info py-md-5">
+
+                <dl class="row">
+                    <dt class="col-sm-3">ID:</dt>
+                    <dd class="col-sm-9"><h3 th:text="${user.id}"></h3></dd>
+
+                    <dt class="col-sm-3">LOGIN:</dt>
+                    <dd class="col-sm-9"><h3 th:text="${user.login}"></h3></dd>
+
+                    <dt class="col-sm-3">FIRSTNAME:</dt>
+                    <dd class="col-sm-9"><h3 th:text="${user.firstName} ?: '---'"></h3></dd>
+
+                    <dt class="col-sm-3">LASTNAME:</dt>
+                    <dd class="col-sm-9"><h3 th:text="${user.lastName} ?: '---'"></h3></dd>
+
+                    <dt class="col-sm-3">EMAIL:</dt>
+                    <dd class="col-sm-9"><h3 th:text="${user.email}"></h3></dd>
+
+                    <dt class="col-sm-3">ENABLE:</dt>
+                    <dd class="col-sm-9"><h3 th:text="${user.enable}"></h3></dd>
+
+                    <dt class="col-sm-3">REGISTERED:</dt>
+                    <dd class="col-sm-9"><h3 th:text="${#temporals.format(user.createTime, 'dd.MM.yyyy HH:mm')}"></h3></dd>
+
+                    <dt class="col-sm-3">LAST UPADTED</dt>
+                    <dd class="col-sm-9"><h3 th:text="${#temporals.format(user.updateTime, 'dd.MM.yyyy HH:mm')} ?: '---'"></h3></dd>
+
+                    <dt class="col-sm-3">LOCKED:</dt>
+                    <dd class="col-sm-9"><h3 th:text="${user.locked}"></h3></dd>
+
+                </dl>
+
+            </section>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div>
+
+
+</body>
+</html>

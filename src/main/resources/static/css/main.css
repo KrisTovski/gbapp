@@ -82,3 +82,9 @@ body{
     cursor: help ;
 }
 
+.info {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 30px;
+    box-shadow: 12px 12px 22px;
+}
+

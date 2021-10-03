@@ -58,10 +58,9 @@
             <td th:text="${#temporals.format(booking.date, 'dd-MM-yyyy')}"></td>
             <td th:text="${#temporals.format(booking.start, 'HH:mm')}"></td>
             <td th:text="${#temporals.format(booking.end, 'HH:mm')}"></td>
-            <td th:text="${booking.user.getId()}">
-            <td th:text="${booking.user.getLogin()}">
-            <td th:text="${booking.room.getName()}">
-            </td>
+            <td th:text="${booking.user.id}"></td>
+            <td> <a th:text="${booking.user.login}" th:href="@{'/panel/user/' + ${booking.user.id}}">View bookings</a></td>
+            <td th:text="${booking.room.name}"></td>
 
             <td><a th:href="@{/panel/updateBooking/{id}(id=${booking.id})}" class="btn btn-primary btn-sm">Update</a>
                 <a th:href="@{/panel/deleteBooking/{id}(id=${booking.id})}" class="btn btn-danger btn-sm">Delete</a>
