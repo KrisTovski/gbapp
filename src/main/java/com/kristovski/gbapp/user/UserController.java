@@ -1,5 +1,6 @@
 package com.kristovski.gbapp.user;
 
+import com.kristovski.gbapp.security.IAuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,45 +14,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 
+
+//    user can do:
+//    - show his details,
+//    - change name, password, email address
+//    - reserve the room,
+//    - cancel reservation,
+//    - show all bookings,
+
+
 @Controller
 public class UserController {
 
     private UserServiceImpl userService;
+    private IAuthenticationFacade authenticationFacade;
 
     @Autowired
     public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/loginform")
-    public String loginForm() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "loginForm";
-        }
-        return "loginSuccess";
-    }
-
-    @GetMapping("/register")
-    public String register(Model model) {
-        model.addAttribute("user", new User());
-        return "registerForm";
-    }
-
-    @PostMapping("/register")
-    public String add(@ModelAttribute @Valid User user,
-                      BindingResult bindResult) {
-        if (bindResult.hasErrors())
-            return "registerForm";
-        else {
-            userService.addWithDefaultRole(user);
-            return "registerSuccess";
-        }
-    }
-
     @GetMapping("/panel/userpanel")
     public String userPanel(){
         return "panel/userPanel";
     }
+
+
+
 
 }

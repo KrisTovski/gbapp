@@ -20,5 +20,9 @@ public interface UserService {
 
     Page<User> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 
+    User getAuthenticatedUser();
+
+    boolean isAdmin();
+
 
 }

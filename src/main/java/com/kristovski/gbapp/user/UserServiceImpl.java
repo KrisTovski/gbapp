@@ -1,10 +1,12 @@
 package com.kristovski.gbapp.user;
 
+import com.kristovski.gbapp.security.IAuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +23,17 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private UserRoleRepository userRoleRepository;
     private PasswordEncoder passwordEncoder;
+    private IAuthenticationFacade authenticationFacade;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            UserRoleRepository userRoleRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder,
+                           IAuthenticationFacade authenticationFacade) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @Override
@@ -92,6 +97,23 @@ public class UserServiceImpl implements UserService {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         return userRepository.findAll(pageable);
     }
+
+    public User getAuthenticatedUser() {
+        Authentication loggedInUser = authenticationFacade.getAuthentication();
+        String userEmail = loggedInUser.getName();
+        User authenticatedUser = findByEmail(userEmail);
+        return authenticatedUser;
+    }
+
+    public boolean isAdmin() {
+        Authentication loggedInUser = authenticationFacade.getAuthentication();
+        if (loggedInUser != null && loggedInUser.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return true;
+        }
+        return false;
+    }
+
+
 
 
 }

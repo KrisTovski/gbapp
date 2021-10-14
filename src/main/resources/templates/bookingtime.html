@@ -31,7 +31,7 @@
         </h1>
 
 
-        <h3 th:text="${choosedate.getDate()}"></h3>
+        <h3 th:text="${#temporals.format(choosedate.getDate(), 'dd-MM-yyyy') }"></h3>
 
     </div>
 

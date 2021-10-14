@@ -75,10 +75,10 @@ public class AdminController {
         String userLogin = userById.getLogin();
         model.addAttribute("userLogin", userLogin);
 
-        Long currentUserId = getUser().getId();
+        Long currentUserId = userService.getAuthenticatedUser().getId();
 
 
-        if (isAdmin()) {
+        if (userService.isAdmin()) {
             return getPaginatedBookingsByUser(id, 1, "id", "asc", model);
         }
         return getPaginatedBookingsByUser(currentUserId, 1, "id", "asc", model);
@@ -86,17 +86,23 @@ public class AdminController {
 
     @GetMapping("/user/{userId}")
     public String getUserInfo(@PathVariable(value = "userId") Long id, Model model) {
-        User userById = userService.getById(id);
+        if(userService.isAdmin()) {
+            User userById = userService.getById(id);
+            extractedUser(id, model, userById);
+        } else {
+            User authenticatedUser = userService.getAuthenticatedUser();
+            extractedUser(authenticatedUser.getId(), model, authenticatedUser);
+        }
+        return "panel/userInfo";
+    }
+
+    private void extractedUser(@PathVariable("userId") Long id, Model model, User userById) {
         String userLogin = userById.getLogin();
         model.addAttribute("user", userById);
         model.addAttribute("userid", id);
         model.addAttribute("userFirstName", userById.getFirstName());
         model.addAttribute("userLogin", userLogin);
-
-
-        return "panel/userInfo";
     }
-
 
 
     @GetMapping("/bookings/page/{pageNo}")
@@ -161,18 +167,4 @@ public class AdminController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
     }
 
-    private User getUser() {
-        Authentication loggedInUser = authenticationFacade.getAuthentication();
-        String userEmail = loggedInUser.getName();
-        User user = userService.findByEmail(userEmail);
-        return user;
-    }
-
-    private boolean isAdmin() {
-        Authentication loggedInUser = authenticationFacade.getAuthentication();
-        if (loggedInUser != null && loggedInUser.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            return true;
-        }
-        return false;
-    }
 }

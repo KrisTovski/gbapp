@@ -72,14 +72,14 @@ public class BookingController {
     public String delete(@PathVariable(value = "id") Long id) {
 
         log.debug("Delete booking by Id started");
-        User user = getUser();
+        User user = userService.getAuthenticatedUser();
         Long userId = user.getId();
 
 
         try {
             bookingService.deleteById(id);
             log.info("Booking with ID " + id + " was deleted.");
-            if (isAdmin()) {
+            if (userService.isAdmin()) {
                 return REDIRECT + "panel/bookings";
             }
             return REDIRECT + "panel/user/" + userId + "/bookings";
@@ -97,7 +97,7 @@ public class BookingController {
             return "loginForm";
         }
 
-        User user = getUser();
+        User user = userService.getAuthenticatedUser();
 
         model.addAttribute("user", user);
         model.addAttribute("booking", new Booking());
@@ -109,7 +109,7 @@ public class BookingController {
     public String bookTime(HttpSession session, Model model, @PathVariable(required = false) Long roomId) {
 
 
-        User user = getUser();
+        User user = userService.getAuthenticatedUser();
         Booking booking = new Booking();
 
         if (roomId == null) {
@@ -185,7 +185,7 @@ public class BookingController {
     @GetMapping("/bookingconfirmation/{time}")
     public String bookingConfirmation(HttpSession session, Model model, @PathVariable String time) {
 
-        User user = getUser();
+        User user = userService.getAuthenticatedUser();
         Booking booking = (Booking) session.getAttribute("booking");
 
 
@@ -214,7 +214,7 @@ public class BookingController {
     public String bookingConfirmation(HttpSession session) {
 
         Booking booking = (Booking) session.getAttribute("booking");
-        Long userId = getUser().getId();
+        Long userId = userService.getAuthenticatedUser().getId();
 
         bookingService.add(booking);
         session.removeAttribute("booking");
@@ -248,21 +248,6 @@ public class BookingController {
             }
         }
 
-    }
-
-    private User getUser() {
-        Authentication loggedInUser = authenticationFacade.getAuthentication();
-        String userEmail = loggedInUser.getName();
-        User user = userService.findByEmail(userEmail);
-        return user;
-    }
-
-    private boolean isAdmin() {
-        Authentication loggedInUser = authenticationFacade.getAuthentication();
-        if (loggedInUser != null && loggedInUser.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            return true;
-        }
-        return false;
     }
 
 
