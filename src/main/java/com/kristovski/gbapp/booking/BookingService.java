@@ -1,6 +1,6 @@
 package com.kristovski.gbapp.booking;
 
-import com.kristovski.gbapp.Room.Room;
+import com.kristovski.gbapp.room.Room;
 import com.kristovski.gbapp.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

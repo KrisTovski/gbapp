@@ -1,7 +1,7 @@
 package com.kristovski.gbapp.booking;
 
-import com.kristovski.gbapp.Room.Room;
-import com.kristovski.gbapp.Room.RoomService;
+import com.kristovski.gbapp.room.Room;
+import com.kristovski.gbapp.room.RoomService;
 import com.kristovski.gbapp.date.MyDate;
 import com.kristovski.gbapp.security.IAuthenticationFacade;
 import com.kristovski.gbapp.user.User;

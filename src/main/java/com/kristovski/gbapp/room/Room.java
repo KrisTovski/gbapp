@@ -1,4 +1,4 @@
-package com.kristovski.gbapp.Room;
+package com.kristovski.gbapp.room;
 
 import com.kristovski.gbapp.booking.Booking;
 

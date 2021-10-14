@@ -1,6 +1,6 @@
 package com.kristovski.gbapp.booking;
 
-import com.kristovski.gbapp.Room.Room;
+import com.kristovski.gbapp.room.Room;
 import com.kristovski.gbapp.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
