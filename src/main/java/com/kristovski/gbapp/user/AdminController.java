@@ -43,7 +43,7 @@ public class AdminController {
     }
 
     @GetMapping("/updateUser/{id}")
-    public String updateUser(@PathVariable(value = "id") long id, Model model) {
+    public String updateUserById(@PathVariable(value = "id") long id, Model model) {
         User user = userService.getById(id);
         // pre-populate the form
         model.addAttribute("user", user);
@@ -51,7 +51,7 @@ public class AdminController {
     }
 
     @PostMapping("/updateUser")
-    public String updateUser(@ModelAttribute("user") User user) {
+    public String updateUserById(@ModelAttribute("user") User user) {
         userService.mergeWithExistingAndUpdate(user);
         return "panel/updateSuccess";
     }
@@ -85,7 +85,7 @@ public class AdminController {
     }
 
     @GetMapping("/user/{userId}")
-    public String getUserInfo(@PathVariable(value = "userId") Long id, Model model) {
+    public String getInfoByUserId(@PathVariable(value = "userId") Long id, Model model) {
         if(userService.isAdmin()) {
             User userById = userService.getById(id);
             extractedUser(id, model, userById);

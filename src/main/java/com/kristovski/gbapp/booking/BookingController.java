@@ -112,8 +112,8 @@ public class BookingController {
         User user = userService.getAuthenticatedUser();
         Booking booking = new Booking();
 
-        if (roomId == null) {
-            return REDIRECT + "selectroom";
+        if (roomId == null || roomId < 1 || roomId > 2 ) {
+            return REDIRECT;
         }
 
         if (roomId != 0) {
@@ -122,7 +122,6 @@ public class BookingController {
             booking.setRoom(roomById);
             session.setAttribute("booking", booking);
         }
-
 
         booking.setUser(user);
         MyDate myDate = (MyDate) session.getAttribute("choosedate");
@@ -147,14 +146,12 @@ public class BookingController {
             model.addAttribute("choosedate", myDate);
         }
 
-
         model.addAttribute("availablePlacesList", availablePlacesList);
         model.addAttribute("user", user);
         model.addAttribute("bookingList", bookingList);
         model.addAttribute("usersInRoom", usersInRoom);
 
         return "bookingtime";
-
     }
 
     @PostMapping("/bookingtime/changedate")
@@ -247,8 +244,5 @@ public class BookingController {
                 return "errorPage";
             }
         }
-
     }
-
-
 }

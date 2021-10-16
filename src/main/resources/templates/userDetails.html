@@ -18,7 +18,7 @@
 <div class="container">
     <div class="row py-md-5">
         <section class="info py-md-5">
-            USER INFO:
+            <h4 class="title">YOUR DETAILS:</h4>
             <dl class="row">
 
                 <dt class="col-sm-3">Your Id:</dt>
@@ -34,10 +34,10 @@
                         th:text="${user.firstName} + ' ' + ${user.lastName}"></h5></dd>
             </dl>
             <dl class="row">
-            <dt class="col-sm-3">Email:</dt>
+                <dt class="col-sm-3">Email:</dt>
                 <dd class="col-sm-9"><h5 th:text="${user.email}"></h5></dd>
             </dl>
-            <dl class="row">
+            <dl class="row" sec:authorize="hasRole('ADMIN')">
                 <dt class="col-sm-3">Enable:</dt>
                 <dd class="col-sm-9"><h5 th:text="${user.enable}"></h5></dd>
             </dl>
@@ -50,11 +50,33 @@
                 <dd class="col-sm-9"><h5
                         th:text="${#temporals.format(user.updateTime, 'dd.MM.yyyy HH:mm')} ?: '---'"></h5></dd>
             </dl>
-            <dl class="row">
+            <dl class="row" sec:authorize="hasRole('ADMIN')">
                 <dt class="col-sm-3">Locked:</dt>
                 <dd class="col-sm-9"><h5 th:text="${user.locked}"></h5></dd>
             </dl>
+            <dl class="row">
+                <dt class="col-sm-3"></dt>
+                <dd class="col-sm-9">
+                    <a th:href="@{/update-user-details}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-user-edit"></i>EDIT</a>
+                </dd>
+            </dl>
+            <h4 class="title">SECURITY:</h4>
+            <dl class="row">
+                <dt class="col-sm-3">Password:</dt>
+                <dd class="col-sm-9"><i class="fas fa-ellipsis-h"></i><i class="fas fa-ellipsis-h"></i><i
+                        class="fas fa-ellipsis-h"></i>
+                <a href="#" id="change_password_btn" class="btn btn-outline-secondary-sm">
+                    Change password</a></dd>
 
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="col-sm-3">Delete account:</dt>
+                <dd class="col-sm-9"><i>Sorry to see you go </i><a href="#" id="delete_account_btn"
+                                                                   class="btn btn-outline-danger-sm">
+                    Delete account</a></dd>
+            </dl>
         </section>
     </div>
 </div>
