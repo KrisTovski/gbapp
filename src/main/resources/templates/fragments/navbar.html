@@ -45,10 +45,8 @@
                        data-bs-toggle="dropdown" aria-expanded="false">User Panel</a>
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownUserPanelLink">
-                        <li>FirstName LastName</li>
-                        <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#" th:href="@{~/user-details}">Account</a></li>
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{~/user-bookings}">Bookings</a></li>
                     </ul>
 
 
@@ -59,7 +57,9 @@
                     <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownAdminPanelLink"
                        data-bs-toggle="dropdown" aria-expanded="false">Admin Panel</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownAdminPanelLink">
-                        <li><a class="dropdown-item" href="#" th:href="@{~/panel/adminpanel}">Action</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{~/panel/users}">All Users</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{~/panel/bookings}">All Bookings</a></li>
+
                     </ul>
                 </div>
             </li>

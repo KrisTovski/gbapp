@@ -17,10 +17,12 @@ import java.util.Set;
 @RequestMapping(value = "/panel")
 public class AdminController {
 
+    private static final int PAGE_SIZE = 10;
     private UserServiceImpl userService;
     private BookingService bookingService;
     private IAuthenticationFacade authenticationFacade;
 
+    @Autowired
     public AdminController(UserServiceImpl userService,
                            BookingService bookingService,
                            IAuthenticationFacade authenticationFacade) {
@@ -29,10 +31,10 @@ public class AdminController {
         this.authenticationFacade = authenticationFacade;
     }
 
-    @Autowired
 
 
-    @GetMapping("/adminpanel")
+
+    @GetMapping("/admin-panel")
     public String adminPanel() {
         return "panel/adminPanel";
     }
@@ -110,7 +112,7 @@ public class AdminController {
                                         @RequestParam("sortField") String sortField,
                                         @RequestParam("sortDir") String sortDir,
                                         Model model) {
-        int pageSize = 10;
+        int pageSize = PAGE_SIZE;
         Page<Booking> page = bookingService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Booking> listBookings = page.getContent();
         addPaginationAttributes(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements());
@@ -121,12 +123,12 @@ public class AdminController {
 
     }
 
-    @GetMapping("/page/{pageNo}")
+    @GetMapping("/users/page/{pageNo}")
     public String getPaginatedUsers(@PathVariable(value = "pageNo") int pageNo,
                                     @RequestParam("sortField") String sortField,
                                     @RequestParam("sortDir") String sortDir,
                                     Model model) {
-        int pageSize = 10;
+        int pageSize = PAGE_SIZE;
         Page<User> page = userService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<User> listUsers = page.getContent();
         addPaginationAttributes(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements());
@@ -143,7 +145,7 @@ public class AdminController {
                                              @RequestParam("sortField") String sortField,
                                              @RequestParam("sortDir") String sortDir,
                                              Model model) {
-        int pageSize = 10;
+        int pageSize = PAGE_SIZE;
         Page<Booking> page = bookingService.findPaginatedByUser(id, pageNo, pageSize, sortField, sortDir);
 
         List<Booking> listBookings = page.getContent();

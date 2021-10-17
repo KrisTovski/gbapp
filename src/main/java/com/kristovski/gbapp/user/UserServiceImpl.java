@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -85,6 +87,15 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Transactional
+    @Override
+    public void updateName(User user) {
+        User existingUser = getById(user.getId());
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setUpdateTime(LocalDateTime.now());
+    }
+
     @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
@@ -113,7 +124,9 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    public void disable(User user) {
+        User existingUser = getById(user.getId());
+        userRepository.setEnable(existingUser.getId(), false);
 
-
-
+    }
 }

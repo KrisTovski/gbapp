@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
 
-html,body {
+html, body {
     height: 100%;
 
 }
 
-body{
+body {
     background-image: url("../images/background.jpg");
     background-position: center;
     background-attachment: fixed;
@@ -14,7 +14,7 @@ body{
     background-size: cover;
 }
 
-full-height {
+.full-height {
     height: 100%;
 }
 
@@ -24,20 +24,22 @@ full-height {
     /*background-color: rgba(255, 255, 255, 0.4);*/
 
 }
+
 .title {
     text-align: center;
 }
 
-.title h1{
+.title h1 {
     font-size: 3rem;
     font-weight: 700;
     font-family: 'Caveat', cursive;
 }
+
 h4 {
     font-family: 'Caveat', cursive;
 }
 
-sorticon {
+.sorticon {
     color: #72B01D;
     font-size: 1em;
     font-weight: 400;
@@ -57,7 +59,7 @@ table {
 }
 
 
-table tr, th, td a{
+table tr, th, td a {
     /*border: solid 1px #fab;*/
     /*width: 100px;*/
     word-wrap: break-word;
@@ -72,7 +74,7 @@ table tr, th, td a{
     bottom: 0;
     width: 100%;
     height: 2.5rem;
-  /* background-color: rgba(0, 0, 0, 0.3); */
+    /* background-color: rgba(0, 0, 0, 0.3); */
     text-align: center;
 }
 
@@ -80,8 +82,9 @@ table tr, th, td a{
     width: 30%;
     margin: 0 auto;
 }
-text-muted{
-    cursor: help ;
+
+text-muted {
+    cursor: help;
 }
 
 .info {
@@ -89,32 +92,72 @@ text-muted{
     border-radius: 30px;
     box-shadow: 12px 12px 22px;
 }
+
 dt {
     display: table-cell;
     padding-left: 5px;
     margin-bottom: -14px;
     background: rgba(255, 255, 255, 0.4);
     text-align: left;
-
+    height: 50px;
 
 }
-dd{
+
+dd {
     display: table-cell;
     margin-bottom: -14px;
     background: rgba(255, 255, 255, 0.4);
     text-align: right;
+    font-weight: 500;
+    height: 50px;
 
 }
 
-#delete_account_btn{
+#delete_account_btn {
     border-color: red;
     color: red;
     margin: 4px;
+
 }
 
-#change_password_btn{
+#delete_account_btn:hover {
+    background-color: darksalmon;
+}
+
+#change_password_btn {
     border-color: gray;
     color: gray;
     margin: 4px;
 }
 
+#change_password_btn:hover {
+    background-color: lightgray;
+}
+
+#edit_email_btn {
+    border-color: gray;
+    color: gray;
+    margin: 4px;
+}
+
+#edit_email_btn:hover {
+    background-color: lightgray;
+}
+
+#edit_name_btn {
+    border-color: gray;
+    color: gray;
+    margin: 4px;
+}
+
+#edit_name_btn:hover {
+    background-color: lightgray;
+}
+
+#backbtn{
+    background-color: #72B01D;
+}
+
+#backbtn:hover{
+    background-color: #3F7D20;
+}

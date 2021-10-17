@@ -24,5 +24,7 @@ public interface UserService {
 
     boolean isAdmin();
 
+    void updateName(User user);
 
+    void disable(User user);
 }

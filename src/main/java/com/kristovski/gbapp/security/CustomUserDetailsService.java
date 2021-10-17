@@ -28,7 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
-        if (user == null)
+        if (user == null || !user.isEnable())
             throw new UsernameNotFoundException("User not found");
         org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
@@ -37,6 +37,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return userDetails;
 
     }
+
+
 
     private Set<GrantedAuthority> convertAuthorities(Set<UserRole> userRoles) {
         Set<GrantedAuthority> authorities = new HashSet<>();

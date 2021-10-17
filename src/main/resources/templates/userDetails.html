@@ -22,60 +22,57 @@
             <dl class="row">
 
                 <dt class="col-sm-3">Your Id:</dt>
-                <dd class="col-sm-9"><h5 th:text="${user.id}"></h5></dd>
+                <dd class="col-sm-9"><span th:text="${user.id}"></span></dd>
             </dl>
             <dl class="row">
                 <dt class="col-sm-3">Login:</dt>
-                <dd class="col-sm-9"><h5 th:text="${user.login}"></h5></dd>
+                <dd class="col-sm-9"><span th:text="${user.login}"></span></dd>
             </dl>
             <dl class="row">
                 <dt class="col-sm-3">Name:</dt>
-                <dd class="col-sm-9"><h5
-                        th:text="${user.firstName} + ' ' + ${user.lastName}"></h5></dd>
+                <dd class="col-sm-9"><span
+                        th:text="${user.firstName} + ' ' + ${user.lastName}"></span>
+                    <a href="#" th:href="@{/update-name}" id="edit_name_btn" class="btn btn-outline-secondary-sm">
+                        Edit</a></dd>
             </dl>
             <dl class="row">
                 <dt class="col-sm-3">Email:</dt>
-                <dd class="col-sm-9"><h5 th:text="${user.email}"></h5></dd>
+                <dd class="col-sm-9"><span th:text="${user.email}"></span></dd>
             </dl>
             <dl class="row" sec:authorize="hasRole('ADMIN')">
                 <dt class="col-sm-3">Enable:</dt>
-                <dd class="col-sm-9"><h5 th:text="${user.enable}"></h5></dd>
+                <dd class="col-sm-9"><span th:text="${user.enable}"></span></dd>
             </dl>
-            <dl class="row">
+            <dl class="row" sec:authorize="hasRole('ADMIN')">
                 <dt class="col-sm-3">Registered date:</dt>
-                <dd class="col-sm-9"><h5 th:text="${#temporals.format(user.createTime, 'dd.MM.yyyy HH:mm')}"></h5></dd>
+                <dd class="col-sm-9"><span th:text="${#temporals.format(user.createTime, 'dd.MM.yyyy HH:mm')}"></span>
+                </dd>
             </dl>
-            <dl class="row">
+            <dl class="row" sec:authorize="hasRole('ADMIN')">
                 <dt class="col-sm-3">Last update</dt>
-                <dd class="col-sm-9"><h5
-                        th:text="${#temporals.format(user.updateTime, 'dd.MM.yyyy HH:mm')} ?: '---'"></h5></dd>
+                <dd class="col-sm-9"><span
+                        th:text="${#temporals.format(user.updateTime, 'dd.MM.yyyy HH:mm')} ?: '---'"></span></dd>
             </dl>
             <dl class="row" sec:authorize="hasRole('ADMIN')">
                 <dt class="col-sm-3">Locked:</dt>
-                <dd class="col-sm-9"><h5 th:text="${user.locked}"></h5></dd>
+                <dd class="col-sm-9"><span th:text="${user.locked}"></span></dd>
             </dl>
-            <dl class="row">
-                <dt class="col-sm-3"></dt>
-                <dd class="col-sm-9">
-                    <a th:href="@{/update-user-details}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-user-edit"></i>EDIT</a>
-                </dd>
-            </dl>
+
             <h4 class="title">SECURITY:</h4>
             <dl class="row">
                 <dt class="col-sm-3">Password:</dt>
                 <dd class="col-sm-9"><i class="fas fa-ellipsis-h"></i><i class="fas fa-ellipsis-h"></i><i
                         class="fas fa-ellipsis-h"></i>
-                <a href="#" id="change_password_btn" class="btn btn-outline-secondary-sm">
-                    Change password</a></dd>
+                    <a href="#" id="change_password_btn" class="btn btn-outline-success-sm">
+                        Change password</a></dd>
 
                 </dd>
             </dl>
             <dl class="row">
                 <dt class="col-sm-3">Delete account:</dt>
-                <dd class="col-sm-9"><i>Sorry to see you go </i><a href="#" id="delete_account_btn"
-                                                                   class="btn btn-outline-danger-sm">
-                    Delete account</a></dd>
+                <dd class="col-sm-9"><i>Sorry to see you go </i>
+                    <a href="#" th:href="@{/delete-user-confirmation}" id="delete_account_btn" class="btn btn danger-sm">Delete account</a>
+                </dd>
             </dl>
         </section>
     </div>
