@@ -27,6 +27,9 @@ import java.util.List;
 @Controller
 public class BookingController {
 
+    private static final int GYM = 1;
+    private static final int CARDIO = 2;
+
     Logger log = LoggerFactory.getLogger(this.getClass());
 
     private String REDIRECT = "redirect:/";
@@ -112,7 +115,7 @@ public class BookingController {
         User user = userService.getAuthenticatedUser();
         Booking booking = new Booking();
 
-        if (roomId == null || roomId < 1 || roomId > 2 ) {
+        if (roomId == null || roomId < 1 || roomId > 2) {
             return REDIRECT;
         }
 
@@ -168,11 +171,11 @@ public class BookingController {
         }
 
 
-        if (id == 1) {
-            return REDIRECT + "bookingtime/1";
+        if (id == GYM) {
+            return REDIRECT + "bookingtime/" +GYM;
         }
-        if (id == 2) {
-            return REDIRECT + "bookingtime/2";
+        if (id == CARDIO) {
+            return REDIRECT + "bookingtime/" + CARDIO;
         }
 
         return REDIRECT + "bookingtime/0";
@@ -201,10 +204,23 @@ public class BookingController {
             session.removeAttribute("booking");
             return "errorDoubleReservation";
         }
+        Long id = booking.getRoom().getId();
+
+        bookingService.add(booking);
+        session.removeAttribute("booking");
+
 
         model.addAttribute("user", user);
         model.addAttribute("booking", booking);
-        return "bookingconfirmation";
+
+        if (id == GYM) {
+            return REDIRECT + "bookingtime/" + GYM;
+        }
+        if (id == CARDIO) {
+            return REDIRECT + "bookingtime/" + CARDIO;
+        }
+        return REDIRECT + "bookingtime/0";
+
     }
 
     @PostMapping("bookingconfirmation/savebooking")

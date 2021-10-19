@@ -52,6 +52,28 @@ public class User {
                 boolean enable,
                 LocalDateTime createTime,
                 LocalDateTime updateTime,
+                boolean locked) {
+        this.id = id;
+        this.login = login;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.enable = enable;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.locked = locked;
+    }
+
+    public User(Long id,
+                String login,
+                String firstName,
+                String lastName,
+                String email,
+                String password,
+                boolean enable,
+                LocalDateTime createTime,
+                LocalDateTime updateTime,
                 boolean locked,
                 Set<UserRole> roles,
                 List<Booking> bookings) {

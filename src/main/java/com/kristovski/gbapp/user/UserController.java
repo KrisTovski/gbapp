@@ -37,14 +37,14 @@ public class UserController {
     }
 
     @GetMapping("/user-details")
-    public String getDetails(Long id, Model model) {
-            User user = userService.getAuthenticatedUser();
-            model.addAttribute("user", user);
-            return "userDetails";
+    public String getDetails(Model model) {
+        User user = userService.getAuthenticatedUser();
+        model.addAttribute("user", user);
+        return "userDetails";
     }
 
     @GetMapping("/update-name")
-    public String updateName( Model model) {
+    public String updateName(Model model) {
         User user = userService.getAuthenticatedUser();
         // pre-populate the form
         model.addAttribute("user", user);
@@ -79,7 +79,7 @@ public class UserController {
     @GetMapping("/user-bookings")
     public String getAllBookings(Model model) {
         User authenticatedUser = userService.getAuthenticatedUser();
-        model.addAttribute("userLogin",authenticatedUser.getLogin());
+        model.addAttribute("userLogin", authenticatedUser.getLogin());
 
         Long id = userService.getAuthenticatedUser().getId();
 
