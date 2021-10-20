@@ -223,17 +223,17 @@ public class BookingController {
 
     }
 
-    @PostMapping("bookingconfirmation/savebooking")
-    public String bookingConfirmation(HttpSession session) {
-
-        Booking booking = (Booking) session.getAttribute("booking");
-        Long userId = userService.getAuthenticatedUser().getId();
-
-        bookingService.add(booking);
-        session.removeAttribute("booking");
-
-        return REDIRECT + "panel/user/" + userId + "/bookings";
-    }
+//    @PostMapping("bookingconfirmation/savebooking")
+//    public String bookingConfirmation(HttpSession session) {
+//
+//        Booking booking = (Booking) session.getAttribute("booking");
+//        Long userId = userService.getAuthenticatedUser().getId();
+//
+//        bookingService.add(booking);
+//        session.removeAttribute("booking");
+//
+//        return REDIRECT + "panel/user/" + userId + "/bookings";
+//    }
 
     @GetMapping("/panel/addextrahour/{id}")
     public String addNextHourToBooking(Model model, @PathVariable(value = "id") Long id) {

@@ -42,8 +42,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String add(@ModelAttribute @Valid User user,
-                      BindingResult bindResult) {
+    public String addNewUser(@ModelAttribute @Valid User user,
+                             BindingResult bindResult) {
         if (bindResult.hasErrors())
             return "registerForm";
         else {
