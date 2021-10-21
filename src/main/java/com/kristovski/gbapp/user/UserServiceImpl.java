@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -66,14 +67,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(Long id) {
-        Optional<User> userOptional = userRepository.findById(id);
-        User user = null;
-        if (userOptional.isPresent()) {
-            user = userOptional.get();
-        } else {
-            throw new RuntimeException("User not found for id :: " + id);
-        }
-        return user;
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("User not found for id: %s", id)));
     }
 
     @Transactional

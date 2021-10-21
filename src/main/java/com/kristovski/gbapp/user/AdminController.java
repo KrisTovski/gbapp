@@ -139,7 +139,7 @@ public class AdminController {
 
     }
 
-    @GetMapping("user/{id}/bookings/page/{pageNo}")
+    @GetMapping("/user/{id}/bookings/page/{pageNo}")
     public String getPaginatedBookingsByUser(@PathVariable(value = "id") Long id,
                                              @PathVariable(value = "pageNo") int pageNo,
                                              @RequestParam("sortField") String sortField,
