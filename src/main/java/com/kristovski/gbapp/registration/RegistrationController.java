@@ -47,8 +47,12 @@ public class RegistrationController {
         if (bindResult.hasErrors())
             return "registerForm";
         else {
-            userService.addWithDefaultRole(user);
-            return "registerSuccess";
+            boolean b = userService.addWithDefaultRole(user);
+            if (b == true) {
+                return "registerSuccess";
+            } else {
+                return "registerForm";
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.kristovski.gbapp.user;
 
 import com.kristovski.gbapp.booking.Booking;
+import lombok.Builder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 
 @Entity
+@Builder
 public class User {
 
     @Id

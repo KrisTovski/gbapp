@@ -11,12 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,16 +36,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addWithDefaultRole(User user) {
-        UserRole defaultRole = userRoleRepository.findByRole(DEFAULT_ROLE);
-        user.getRoles().add(defaultRole);
-        String passwordHash = passwordEncoder.encode(user.getPassword());
-        user.setPassword(passwordHash);
-        user.setEnable(false);
-        user.setCreateTime(LocalDateTime.now());
-        user.setUpdateTime(null);
-        user.setLocked(false);
-        userRepository.save(user);
+    public boolean addWithDefaultRole(User user) {
+        try {
+            UserRole defaultRole = userRoleRepository.findByRole(DEFAULT_ROLE);
+            user.getRoles().add(defaultRole);
+            String passwordHash = passwordEncoder.encode(user.getPassword());
+            user.setPassword(passwordHash);
+            user.setEnable(false);
+            user.setCreateTime(LocalDateTime.now());
+            user.setUpdateTime(null);
+            user.setLocked(false);
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
