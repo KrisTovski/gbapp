@@ -5,23 +5,23 @@
 </head>
 <body>
 <div>
-<div th:fragment="footer">
+    <div th:fragment="footer">
 
 
+        <footer class="footer-custom">
 
-    <footer class="footer-custom">
-
-      &copy; 2021 Kristovski
-      <span sec:authorize="isAuthenticated()">
-                | Logged user: <span sec:authentication="name">name@email.com</span> |
-                Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span> |
-                <a th:href="@{/logout}">Sign Out</a>
+            &copy; 2021 Gym Booking App by Kristovski 
+            <span sec:authorize="isAuthenticated()">
+                | You are logged as
+                <span th:text="${#strings.contains(#authentication.principal.authorities, 'ROLE_ADMIN')} ? 'ADMIN ' : 'USER '"/>
+                | <span sec:authentication="name">name@email.com</span>
+                | <a th:href="@{/logout}">Sign Out</a>
             </span>
 
-    </footer>
+        </footer>
 
 
-</div>
+    </div>
 </div>
 </body>
 </html>
