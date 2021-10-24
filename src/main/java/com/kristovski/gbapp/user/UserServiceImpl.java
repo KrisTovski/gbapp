@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -152,6 +153,6 @@ public class UserServiceImpl implements UserService {
 
             return savedUser;
 
-        }).orElseThrow(RuntimeException::new); //TODO improve exception handling
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 }
