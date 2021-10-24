@@ -37,7 +37,7 @@ public class AdminRestController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id){
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         User user = userService.getById(id);
         return new ResponseEntity<>(mapper.mapToUserDto(user), HttpStatus.OK);
     }
@@ -48,6 +48,12 @@ public class AdminRestController {
         User user = mapper.mapToUser(userDto);
         userService.patch(id, user);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable Long id) {
+        userService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
