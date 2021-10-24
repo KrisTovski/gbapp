@@ -31,14 +31,6 @@ public class AdminController {
         this.authenticationFacade = authenticationFacade;
     }
 
-
-
-
-    @GetMapping("/admin-panel")
-    public String adminPanel() {
-        return "panel/adminPanel";
-    }
-
     @GetMapping("/users")
     public String getAllUsers(Model model) {
         return getPaginatedUsers(1, "id", "asc", model);
@@ -87,7 +79,7 @@ public class AdminController {
     }
 
     @GetMapping("/user/{userId}")
-    public String getInfoByUserId(@PathVariable(value = "userId") Long id, Model model) {
+    public String getUserById(@PathVariable(value = "userId") Long id, Model model) {
         if(userService.isAdmin()) {
             User userById = userService.getById(id);
             extractedUser(id, model, userById);

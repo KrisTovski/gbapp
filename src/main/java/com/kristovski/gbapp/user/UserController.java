@@ -93,14 +93,17 @@ public class UserController {
                                              @RequestParam("sortDir") String sortDir,
                                              Model model) {
         int pageSize = PAGE_SIZE;
-        model.addAttribute("userId", userService.getAuthenticatedUser().getId());
 
         Page<Booking> page = bookingService.findPaginatedByUser(id, pageNo, pageSize, sortField, sortDir);
 
         List<Booking> listBookings = page.getContent();
         addPaginationAttributes(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements());
 
+        User authenticatedUser = userService.getAuthenticatedUser();
+        model.addAttribute("userLogin", authenticatedUser.getLogin());
+        model.addAttribute("id", id);
         model.addAttribute("listBookings", listBookings);
+
         return "panel/userBookingList";
 
     }
@@ -109,6 +112,7 @@ public class UserController {
                                          @RequestParam("sortField") String sortField,
                                          @RequestParam("sortDir") String sortDir,
                                          Model model, int totalPages, long totalElements) {
+
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalElements);
