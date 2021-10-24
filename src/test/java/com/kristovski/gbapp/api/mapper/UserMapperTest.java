@@ -38,7 +38,7 @@ class UserMapperTest {
     public void shouldMapDtoToUser() {
         // given
         UserDto dto = new UserDto(1L, "MyLogin", "John", "Covalsky", "john@gmail.com", "pass", true,
-                CREATE_TIME, UPDATE_TIME, false);
+                CREATE_TIME, UPDATE_TIME, false, "/api/panel/user/1");
         // when
         User user = UserMapper.INSTANCE.mapToUser(dto);
         // then
@@ -54,5 +54,4 @@ class UserMapperTest {
         assertThat(user.getUpdateTime()).isEqualTo(UPDATE_TIME);
         assertThat(user.isLocked()).isEqualTo(false);
     }
-
 }

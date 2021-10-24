@@ -1,5 +1,6 @@
 package com.kristovski.gbapp.api.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,6 @@ public class UserDto {
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
     private boolean locked;
-
+    @JsonProperty("user_url")
+    private String userUrl;
 }

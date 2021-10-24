@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -107,6 +106,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll(pageable);
     }
 
+    @Override
     public User getAuthenticatedUser() {
         Authentication loggedInUser = authenticationFacade.getAuthentication();
         String userEmail = loggedInUser.getName();
@@ -114,6 +114,7 @@ public class UserServiceImpl implements UserService {
         return authenticatedUser;
     }
 
+    @Override
     public boolean isAdmin() {
         Authentication loggedInUser = authenticationFacade.getAuthentication();
         if (loggedInUser != null && loggedInUser.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
@@ -126,5 +127,31 @@ public class UserServiceImpl implements UserService {
         User existingUser = getById(user.getId());
         userRepository.setEnable(existingUser.getId(), false);
 
+    }
+
+    @Override
+    public User patch(Long id, User user) {
+        return userRepository.findById(id).map(u -> {
+            if (user.getLogin() != null) {
+                u.setLogin(user.getLogin());
+            }
+            if (user.getFirstName() != null) {
+                u.setFirstName(user.getFirstName());
+            }
+            if (user.getLastName() != null) {
+                u.setLastName(user.getLastName());
+            }
+            if (user.getEmail() != null) {
+                u.setEmail(user.getEmail());
+            }
+            u.setEnable(user.isEnable());
+            u.setUpdateTime(LocalDateTime.now());
+            u.setLocked(user.isLocked());
+
+            User savedUser = userRepository.save(u);
+
+            return savedUser;
+
+        }).orElseThrow(RuntimeException::new); //TODO improve exception handling
     }
 }

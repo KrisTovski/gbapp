@@ -7,9 +7,7 @@ import com.kristovski.gbapp.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,5 +36,18 @@ public class AdminRestController {
         return new ResponseEntity<>(collect, HttpStatus.OK);
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id){
+        User user = userService.getById(id);
+        return new ResponseEntity<>(mapper.mapToUserDto(user), HttpStatus.OK);
+    }
+
+    @PatchMapping("/user/{id}")
+    public ResponseEntity<UserDto> updateUserById(@PathVariable Long id, @RequestBody UserDto userDto) {
+        userDto.setUserUrl("/api/panel/user/" + id);
+        User user = mapper.mapToUser(userDto);
+        userService.patch(id, user);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
 
 }

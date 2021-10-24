@@ -27,4 +27,6 @@ public interface UserService {
     void updateName(User user);
 
     void disable(User user);
+
+    User patch(Long id, User user);
 }
