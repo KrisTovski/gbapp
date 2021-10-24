@@ -10,7 +10,7 @@
 
         <footer class="footer-custom">
 
-            &copy; 2021 Gym Booking App by Kristovski 
+            &copy; 2021 Gym Booking App by Kristovski
             <span sec:authorize="isAuthenticated()">
                 | You are logged as
                 <span th:text="${#strings.contains(#authentication.principal.authorities, 'ROLE_ADMIN')} ? 'ADMIN ' : 'USER '"/>
