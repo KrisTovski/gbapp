@@ -1,7 +1,11 @@
 package com.kristovski.gbapp.booking;
 
 import com.kristovski.gbapp.room.Room;
+import com.kristovski.gbapp.room.RoomRepository;
 import com.kristovski.gbapp.user.User;
+import liquibase.pro.packaged.id;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,19 +16,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class BookingService {
 
     private BookingRepository bookingRepository;
+    private RoomRepository roomRepository;
 
     @Autowired
-    public BookingService(BookingRepository bookingRepository) {
+    public BookingService(BookingRepository bookingRepository, RoomRepository roomRepository) {
         this.bookingRepository = bookingRepository;
+        this.roomRepository = roomRepository;
     }
 
     public List<Booking> findAll() {
@@ -173,6 +177,7 @@ public class BookingService {
         return booking;
     }
 
+
     private boolean timeIsBooked(List<Booking> bookingList, String time) {
         if (bookingList == null) {
             return false;
@@ -208,6 +213,20 @@ public class BookingService {
             return true;
         }
 
+        return false;
+    }
+
+
+    public boolean IsUserAlreadyBookOtherRoomAtSameTime(User user, LocalDate date, LocalTime start, Room room) {
+        List<Room> roomList = roomRepository.findAll();
+        for (Room r : roomList) {
+            if (!Objects.equals(r.getId(), room.getId())) {
+                List<User> usersInOtherRoom = findUsersWithTheSameReservation(date, start, r);
+                boolean result = usersInOtherRoom.stream().anyMatch(u -> u.equals(user));
+                return result;
+            } else
+                return false;
+        }
         return false;
     }
 }

@@ -119,10 +119,12 @@ public class BookingController {
             return REDIRECT;
         }
 
+        Room room = roomService.findById(roomId);
+
         if (roomId != 0) {
-            Room roomById = roomService.findById(roomId);
-            model.addAttribute("roomName", roomById.getName());
-            booking.setRoom(roomById);
+
+            model.addAttribute("roomName", room.getName());
+            booking.setRoom(room);
             session.setAttribute("booking", booking);
         }
 
@@ -137,15 +139,15 @@ public class BookingController {
 
             LocalDate now = LocalDate.now();
             booking.setDate(now);
-            bookingList = bookingService.findByDate(now, roomService.findById(roomId));
-            availablePlacesList = bookingService.availablePlacesInRoom(now, roomService.findById(roomId));
-            usersInRoom = bookingService.usersInRoom(now, roomService.findById(roomId));
+            bookingList = bookingService.findByDate(now, room);
+            availablePlacesList = bookingService.availablePlacesInRoom(now, room);
+            usersInRoom = bookingService.usersInRoom(now, room);
             model.addAttribute("choosedate", new MyDate(now));
         } else {
             booking.setDate(myDate.getDate());
-            bookingList = bookingService.findByDate(myDate.getDate(), roomService.findById(roomId));
-            availablePlacesList = bookingService.availablePlacesInRoom(myDate.getDate(), roomService.findById(roomId));
-            usersInRoom = bookingService.usersInRoom(myDate.getDate(), roomService.findById(roomId));
+            bookingList = bookingService.findByDate(myDate.getDate(), room);
+            availablePlacesList = bookingService.availablePlacesInRoom(myDate.getDate(), room);
+            usersInRoom = bookingService.usersInRoom(myDate.getDate(), room);
             model.addAttribute("choosedate", myDate);
         }
 
@@ -172,13 +174,14 @@ public class BookingController {
 
 
         if (id == GYM) {
-            return REDIRECT + "bookingtime/" +GYM;
+            return REDIRECT + "bookingtime/" + GYM;
+
         }
         if (id == CARDIO) {
             return REDIRECT + "bookingtime/" + CARDIO;
         }
 
-        return REDIRECT + "bookingtime/0";
+        return REDIRECT + "bookingtime";
 
     }
 
@@ -195,11 +198,17 @@ public class BookingController {
                 booking.getStart(),
                 booking.getRoom());
 
+
         if ((bookingService.isExists(booking.getDate(), booking.getStart(), booking.getRoom()))
                 && (bookings.size() >= booking.getRoom().getCapacity())) {
             session.removeAttribute("booking");
             return REDIRECT;
         }
+
+        if (bookingService.IsUserAlreadyBookOtherRoomAtSameTime(user, booking.getDate(), booking.getStart(), booking.getRoom())) {
+            return "errorTwoRoomReservation";
+        }
+
         if (bookingService.alreadyBookedByUser(booking.getDate(), booking.getStart(), booking.getRoom(), booking.getUser())) {
             session.removeAttribute("booking");
             return "errorDoubleReservation";
@@ -208,7 +217,6 @@ public class BookingController {
 
         bookingService.add(booking);
         session.removeAttribute("booking");
-
 
         model.addAttribute("user", user);
         model.addAttribute("booking", booking);
