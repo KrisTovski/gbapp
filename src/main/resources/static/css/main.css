@@ -76,6 +76,27 @@ table tr, th, td a {
     height: 2.5rem;
     /* background-color: rgba(0, 0, 0, 0.3); */
     text-align: center;
+
+}
+
+.footer-custom a {
+    color: #72B01D;
+    border-color: #72B01D;
+}
+
+.footer-custom a:hover {
+    color: #3F7D20;
+    border-color: #3F7D20;
+}
+
+#footer-logout {
+    font-style: italic;
+    color: #24252A;
+}
+
+#footer-logout:hover {
+    font-weight: bold;
+    color: #3F7D20;
 }
 
 .datechange {
@@ -154,10 +175,10 @@ dd {
     background-color: lightgray;
 }
 
-#backbtn{
+#backbtn {
     background-color: #72B01D;
 }
 
-#backbtn:hover{
+#backbtn:hover {
     background-color: #3F7D20;
 }

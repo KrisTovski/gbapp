@@ -11,11 +11,12 @@
         <footer class="footer-custom">
 
             &copy; 2021 Gym Booking App by Kristovski
+            <a href="https://github.com/KrisTovski"><i class="fab fa-github fa-2x" style=" vertical-align: middle;"></i></a>
             <span sec:authorize="isAuthenticated()">
                 | You are logged as
                 <span th:text="${#strings.contains(#authentication.principal.authorities, 'ROLE_ADMIN')} ? 'ADMIN ' : 'USER '"/>
                 | <span sec:authentication="name">name@email.com</span>
-                | <a th:href="@{/logout}">Sign Out</a>
+                | <a id="footer-logout" th:href="@{/logout}">Sign Out</a>
             </span>
 
         </footer>
