@@ -130,10 +130,6 @@ public class BookingService {
         return bookingRepository.existsBookingByDateAndStartAndRoom(date, time, room);
     }
 
-    public boolean alreadyBookedByUser(LocalDate date, LocalTime time, Room room, User user) {
-        return bookingRepository.existsBookingByDateAndStartAndRoomAndUser(date, time, room, user);
-    }
-
     public List<Booking> findByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room) {
         return bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
     }
@@ -217,16 +213,12 @@ public class BookingService {
     }
 
 
-    public boolean IsUserAlreadyBookOtherRoomAtSameTime(User user, LocalDate date, LocalTime start, Room room) {
-        List<Room> roomList = roomRepository.findAll();
-        for (Room r : roomList) {
-            if (!Objects.equals(r.getId(), room.getId())) {
-                List<User> usersInOtherRoom = findUsersWithTheSameReservation(date, start, r);
-                boolean result = usersInOtherRoom.stream().anyMatch(u -> u.equals(user));
-                return result;
-            } else
-                return false;
+    public boolean isAlreadyBookedAnyRoomAtSameTime(User user, LocalDate date, LocalTime start) {
+
+        if (bookingRepository.existsBookingByDateAndStartAndUser(date, start, user)) {
+            return true;
         }
         return false;
+
     }
 }

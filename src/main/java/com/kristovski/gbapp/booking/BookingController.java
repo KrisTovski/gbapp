@@ -205,14 +205,10 @@ public class BookingController {
             return REDIRECT;
         }
 
-        if (bookingService.IsUserAlreadyBookOtherRoomAtSameTime(user, booking.getDate(), booking.getStart(), booking.getRoom())) {
-            return "errorTwoRoomReservation";
-        }
-
-        if (bookingService.alreadyBookedByUser(booking.getDate(), booking.getStart(), booking.getRoom(), booking.getUser())) {
-            session.removeAttribute("booking");
+        if (bookingService.isAlreadyBookedAnyRoomAtSameTime(user, booking.getDate(), booking.getStart())) {
             return "errorDoubleReservation";
         }
+
         Long id = booking.getRoom().getId();
 
         bookingService.add(booking);
@@ -252,7 +248,7 @@ public class BookingController {
         log.debug("Add extra hour booking started");
         model.addAttribute("userId", userId);
 
-        if (bookingService.alreadyBookedByUser(booking.getDate(), booking.getStart().plusHours(1), booking.getRoom(), booking.getUser())) {
+        if (bookingService.isAlreadyBookedAnyRoomAtSameTime(booking.getUser(), booking.getDate(), booking.getStart().plusHours(1))) {
             return "errorAddNextHourReservation";
         } else {
 

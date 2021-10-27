@@ -29,9 +29,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     public List<Booking> findBookingsByDateAndRoom(@Param("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
                                                    @Param("room") Room room);
 
-    public boolean existsBookingByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room);
+    public boolean existsBookingByDateAndStartAndUser(LocalDate date, LocalTime time, User user);
 
-    public boolean existsBookingByDateAndStartAndRoomAndUser(LocalDate date, LocalTime time, Room room, User user);
+    public boolean existsBookingByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room);
 
     public List<Booking> findBookingByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room);
 
