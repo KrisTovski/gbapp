@@ -17,12 +17,15 @@
 
     <div class="row py-md-5">
         <section class="info py-md-5">
-            <h1 class="title">ARE YOU SURE?</h1>
+            <h1 class="title">Are you sure you want to delete your booking?</h1>
+            <h3 class="title" th:text="'Date: ' + ${booking.date}"></h3>
+            <h3 class="title" th:text="'Time: ' + ${booking.start}"></h3>
+            <h3 class="title" th:text="'Room: ' + ${booking.room.name}"></h3>
             <dl class="row">
                 <dt class="col-sm-6">
-                    <a href="#" th:href="@{/user-delete}" class="btn btn-danger col-2">YES</a></dt>
+                    <a href="#" th:href="@{/panel/delete/booking/{id}(id=${booking.id})}" class="btn btn-danger col-2">YES</a></dt>
                 <dd class="col-sm-6">
-                    <a href="#" th:href="@{/user-details}" class="btn btn-success col-2">NO</a></dd>
+                    <a href="#" th:href="@{/panel/user/bookings}" class="btn btn-success col-2">NO</a></dd>
             </dl>
         </section>
     </div>

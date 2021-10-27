@@ -36,15 +36,15 @@ public class AdminController {
         return getPaginatedUsers(1, "id", "asc", model);
     }
 
-    @GetMapping("/updateUser/{id}")
+    @GetMapping("/update/user/{id}")
     public String updateUserById(@PathVariable(value = "id") long id, Model model) {
         User user = userService.getById(id);
         // pre-populate the form
         model.addAttribute("user", user);
-        return "panel/updateUserForm";
+        return "panel/update/userForm";
     }
 
-    @PostMapping("/updateUser")
+    @PostMapping("/update/user")
     public String updateUserById(@ModelAttribute("user") User user) {
         userService.mergeWithExistingAndUpdate(user);
         return "panel/updateSuccess";

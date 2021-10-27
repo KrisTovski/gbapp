@@ -56,7 +56,7 @@ public class BookingController {
         return "/panel/bookings";
     }
 
-    @GetMapping("/panel/updateBooking/{id}")
+    @GetMapping("/panel/update/booking/{id}")
     public String update(@PathVariable(value = "id") long id, Model model) {
         Booking booking = bookingService.getById(id);
         // pre-populate the form
@@ -64,14 +64,21 @@ public class BookingController {
         return "/panel/updateBookingForm";
     }
 
-    @PostMapping("/panel/updateBooking")
+    @PostMapping("/panel/update/booking")
     public String update(@ModelAttribute("booking") Booking booking) {
         bookingService.mergeWithExistingAndUpdate(booking);
         return "/panel/updateSuccess";
     }
 
+    @GetMapping("/panel/delete/booking/{id}/confirmation")
+    public String deleteConfirmation(@PathVariable(value = "id") Long id, Model model) {
+        Booking booking = bookingService.getById(id);
+        model.addAttribute("booking", booking);
+        return "deleteBookingConfirmationByAdmin";
+    }
 
-    @GetMapping("/panel/deleteBooking/{id}")
+
+    @GetMapping("/panel/delete/booking/{id}")
     public String delete(@PathVariable(value = "id") Long id) {
 
         log.debug("Delete booking by Id started");
@@ -240,7 +247,7 @@ public class BookingController {
 //    }
 
     @GetMapping("/panel/addextrahour/{id}")
-    public String addNextHourToBooking(Model model, @PathVariable(value = "id") Long id) {
+    public String addNextHourToBookingByAdmin(Model model, @PathVariable(value = "id") Long id) {
 
         Booking booking = bookingService.getById(id);
         Long userId = booking.getUser().getId();
