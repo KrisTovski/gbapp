@@ -61,7 +61,7 @@ public class UserController {
 
     @GetMapping("/delete-user-confirmation")
     public String disableUser() {
-        return "DeleteConfirmation";
+        return "deleteConfirmation";
     }
 
     @GetMapping("/user-delete")

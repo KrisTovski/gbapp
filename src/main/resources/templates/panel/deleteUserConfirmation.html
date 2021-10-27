@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <div th:replace="/fragments/navbar :: navbar-css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div th:insert="/fragments/navbar :: navbar"></div>
+<div class="container">
+
+    <div class="row py-md-5">
+        <section class="info py-md-5">
+            <h3 class="title"
+                th:text="'USER :: id- ' + ${user.id} + ' login- ' + ${user.login} + ' will be remove permanently'"></h3>
+            <h1 class="title"> ARE YOU SURE?</h1>
+            <dl class="row">
+                <dt class="col-sm-6">
+                    <a href="#" th:href="@{/panel/delete/user/{id}(id=${user.id})}" class="btn btn-danger col-2">YES</a>
+                </dt>
+                <dd class="col-sm-6">
+                    <a href="#" th:href="@{/panel/users}" class="btn btn-success col-2">NO</a></dd>
+            </dl>
+        </section>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

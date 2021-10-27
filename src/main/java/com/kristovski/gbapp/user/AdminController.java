@@ -50,11 +50,19 @@ public class AdminController {
         return "panel/updateSuccess";
     }
 
-    @GetMapping("/deleteUser/{id}")
+    @GetMapping("/delete/user/{id}/confirmation")
+    public String disableUser(@PathVariable(value = "id") Long id, Model model) {
+        User user = userService.getById(id);
+        String login = user.getLogin();
+        model.addAttribute("id", id);
+        model.addAttribute("login", login);
+        model.addAttribute("user", user);
+        return "panel/deleteUserConfirmation";
+    }
+
+    @GetMapping("/delete/user/{id}")
     public String deleteUser(@PathVariable(value = "id") Long id) {
         userService.deleteById(id);
-
-
         return "redirect:/panel/users";
     }
 
@@ -80,7 +88,7 @@ public class AdminController {
 
     @GetMapping("/user/{userId}")
     public String getUserById(@PathVariable(value = "userId") Long id, Model model) {
-        if(userService.isAdmin()) {
+        if (userService.isAdmin()) {
             User userById = userService.getById(id);
             extractedUser(id, model, userById);
         } else {
