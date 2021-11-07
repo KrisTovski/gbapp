@@ -1,4 +1,4 @@
-package com.kristovski.gbapp.api.registration;
+package com.kristovski.gbapp.api.controller;
 
 
 import com.kristovski.gbapp.user.UserServiceImpl;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/register")
+@RequestMapping("/api")
 public class RegistrationRestController {
 
     private UserServiceImpl userService;
@@ -16,5 +16,8 @@ public class RegistrationRestController {
     public RegistrationRestController(UserServiceImpl userService) {
         this.userService = userService;
     }
+
+
+
 
 }

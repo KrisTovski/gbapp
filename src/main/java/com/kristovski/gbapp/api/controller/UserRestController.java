@@ -1,13 +1,13 @@
-package com.kristovski.gbapp.api.user;
+package com.kristovski.gbapp.api.controller;
 
 import com.kristovski.gbapp.api.mapper.UserMapper;
+import com.kristovski.gbapp.api.user.UserDto;
 import com.kristovski.gbapp.booking.BookingService;
+import com.kristovski.gbapp.user.User;
 import com.kristovski.gbapp.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
 
@@ -26,8 +26,18 @@ public class UserRestController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/details/{id}")
-    public UserDto getDetails(@PathVariable @Min(1) Long id){
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserDto getById(@PathVariable @Min(1) Long id){
         return mapper.mapToUserDto(userService.getById(id));
+    }
+
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserDto updateById(@PathVariable Long id, @RequestBody UserDto userDto) {
+        userDto.setUserUrl("/api/user/" + id);
+        User user = mapper.mapToUser(userDto);
+        userService.patch(id, user);
+        return userDto;
     }
 }

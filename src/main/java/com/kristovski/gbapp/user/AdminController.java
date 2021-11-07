@@ -5,13 +5,11 @@ import com.kristovski.gbapp.booking.BookingService;
 import com.kristovski.gbapp.security.IAuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/panel")
@@ -41,7 +39,7 @@ public class AdminController {
         User user = userService.getById(id);
         // pre-populate the form
         model.addAttribute("user", user);
-        return "panel/update/userForm";
+        return "panel/updateUserForm";
     }
 
     @PostMapping("/update/user")
@@ -113,6 +111,7 @@ public class AdminController {
                                         @RequestParam("sortDir") String sortDir,
                                         Model model) {
         int pageSize = PAGE_SIZE;
+
         Page<Booking> page = bookingService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Booking> listBookings = page.getContent();
         addPaginationAttributes(pageNo, sortField, sortDir, model, page.getTotalPages(), page.getTotalElements());

@@ -1,6 +1,7 @@
-package com.kristovski.gbapp.api.user;
+package com.kristovski.gbapp.api.controller;
 
 import com.kristovski.gbapp.api.mapper.UserMapper;
+import com.kristovski.gbapp.api.user.UserDto;
 import com.kristovski.gbapp.booking.BookingService;
 import com.kristovski.gbapp.user.User;
 import com.kristovski.gbapp.user.UserServiceImpl;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/panel")
+@RequestMapping("/api/admin-panel")
 public class AdminRestController {
 
     private UserServiceImpl userService;
@@ -46,7 +47,7 @@ public class AdminRestController {
     @PatchMapping("/user/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserDto updateUserById(@PathVariable Long id, @RequestBody UserDto userDto) {
-        userDto.setUserUrl("/api/panel/user/" + id);
+        userDto.setUserUrl("/api/admin-panel/user/" + id);
         User user = mapper.mapToUser(userDto);
         userService.patch(id, user);
         return userDto;
