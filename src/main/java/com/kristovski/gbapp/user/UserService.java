@@ -2,11 +2,12 @@ package com.kristovski.gbapp.user;
 
 import org.springframework.data.domain.Page;
 
+import java.time.Clock;
 import java.util.List;
 
 public interface UserService {
 
-    void addWithDefaultRole(User user);
+    boolean addWithDefaultRole(User user);
 
     List<User> findAll();
 
@@ -27,4 +28,6 @@ public interface UserService {
     void updateName(User user);
 
     void disable(User user);
+
+    User patch(Long id, User user);
 }

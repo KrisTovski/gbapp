@@ -27,6 +27,9 @@ import java.util.List;
 @Controller
 public class BookingController {
 
+    private static final int GYM = 1;
+    private static final int CARDIO = 2;
+
     Logger log = LoggerFactory.getLogger(this.getClass());
 
     private String REDIRECT = "redirect:/";
@@ -53,7 +56,7 @@ public class BookingController {
         return "/panel/bookings";
     }
 
-    @GetMapping("/panel/updateBooking/{id}")
+    @GetMapping("/panel/update/booking/{id}")
     public String update(@PathVariable(value = "id") long id, Model model) {
         Booking booking = bookingService.getById(id);
         // pre-populate the form
@@ -61,14 +64,21 @@ public class BookingController {
         return "/panel/updateBookingForm";
     }
 
-    @PostMapping("/panel/updateBooking")
+    @PostMapping("/panel/update/booking")
     public String update(@ModelAttribute("booking") Booking booking) {
         bookingService.mergeWithExistingAndUpdate(booking);
         return "/panel/updateSuccess";
     }
 
+    @GetMapping("/panel/delete/booking/{id}/confirmation")
+    public String deleteConfirmation(@PathVariable(value = "id") Long id, Model model) {
+        Booking booking = bookingService.getById(id);
+        model.addAttribute("booking", booking);
+        return "deleteBookingConfirmationByAdmin";
+    }
 
-    @GetMapping("/panel/deleteBooking/{id}")
+
+    @GetMapping("/panel/delete/booking/{id}")
     public String delete(@PathVariable(value = "id") Long id) {
 
         log.debug("Delete booking by Id started");
@@ -112,14 +122,16 @@ public class BookingController {
         User user = userService.getAuthenticatedUser();
         Booking booking = new Booking();
 
-        if (roomId == null || roomId < 1 || roomId > 2 ) {
+        if (roomId == null || roomId < 1 || roomId > 2) {
             return REDIRECT;
         }
 
+        Room room = roomService.findById(roomId);
+
         if (roomId != 0) {
-            Room roomById = roomService.findById(roomId);
-            model.addAttribute("roomName", roomById.getName());
-            booking.setRoom(roomById);
+
+            model.addAttribute("roomName", room.getName());
+            booking.setRoom(room);
             session.setAttribute("booking", booking);
         }
 
@@ -134,15 +146,15 @@ public class BookingController {
 
             LocalDate now = LocalDate.now();
             booking.setDate(now);
-            bookingList = bookingService.findByDate(now, roomService.findById(roomId));
-            availablePlacesList = bookingService.availablePlacesInRoom(now, roomService.findById(roomId));
-            usersInRoom = bookingService.usersInRoom(now, roomService.findById(roomId));
+            bookingList = bookingService.findByDate(now, room);
+            availablePlacesList = bookingService.availablePlacesInRoom(now, room);
+            usersInRoom = bookingService.usersInRoom(now, room);
             model.addAttribute("choosedate", new MyDate(now));
         } else {
             booking.setDate(myDate.getDate());
-            bookingList = bookingService.findByDate(myDate.getDate(), roomService.findById(roomId));
-            availablePlacesList = bookingService.availablePlacesInRoom(myDate.getDate(), roomService.findById(roomId));
-            usersInRoom = bookingService.usersInRoom(myDate.getDate(), roomService.findById(roomId));
+            bookingList = bookingService.findByDate(myDate.getDate(), room);
+            availablePlacesList = bookingService.availablePlacesInRoom(myDate.getDate(), room);
+            usersInRoom = bookingService.usersInRoom(myDate.getDate(), room);
             model.addAttribute("choosedate", myDate);
         }
 
@@ -168,14 +180,15 @@ public class BookingController {
         }
 
 
-        if (id == 1) {
-            return REDIRECT + "bookingtime/1";
+        if (id == GYM) {
+            return REDIRECT + "bookingtime/" + GYM;
+
         }
-        if (id == 2) {
-            return REDIRECT + "bookingtime/2";
+        if (id == CARDIO) {
+            return REDIRECT + "bookingtime/" + CARDIO;
         }
 
-        return REDIRECT + "bookingtime/0";
+        return REDIRECT + "bookingtime";
 
     }
 
@@ -192,35 +205,49 @@ public class BookingController {
                 booking.getStart(),
                 booking.getRoom());
 
+
         if ((bookingService.isExists(booking.getDate(), booking.getStart(), booking.getRoom()))
                 && (bookings.size() >= booking.getRoom().getCapacity())) {
             session.removeAttribute("booking");
             return REDIRECT;
         }
-        if (bookingService.alreadyBookedByUser(booking.getDate(), booking.getStart(), booking.getRoom(), booking.getUser())) {
-            session.removeAttribute("booking");
+
+        if (bookingService.isAlreadyBookedAnyRoomAtSameTime(user, booking.getDate(), booking.getStart())) {
             return "errorDoubleReservation";
         }
 
-        model.addAttribute("user", user);
-        model.addAttribute("booking", booking);
-        return "bookingconfirmation";
-    }
-
-    @PostMapping("bookingconfirmation/savebooking")
-    public String bookingConfirmation(HttpSession session) {
-
-        Booking booking = (Booking) session.getAttribute("booking");
-        Long userId = userService.getAuthenticatedUser().getId();
+        Long id = booking.getRoom().getId();
 
         bookingService.add(booking);
         session.removeAttribute("booking");
 
-        return REDIRECT + "panel/user/" + userId + "/bookings";
+        model.addAttribute("user", user);
+        model.addAttribute("booking", booking);
+
+        if (id == GYM) {
+            return REDIRECT + "bookingtime/" + GYM;
+        }
+        if (id == CARDIO) {
+            return REDIRECT + "bookingtime/" + CARDIO;
+        }
+        return REDIRECT + "bookingtime/0";
+
     }
 
+//    @PostMapping("bookingconfirmation/savebooking")
+//    public String bookingConfirmation(HttpSession session) {
+//
+//        Booking booking = (Booking) session.getAttribute("booking");
+//        Long userId = userService.getAuthenticatedUser().getId();
+//
+//        bookingService.add(booking);
+//        session.removeAttribute("booking");
+//
+//        return REDIRECT + "panel/user/" + userId + "/bookings";
+//    }
+
     @GetMapping("/panel/addextrahour/{id}")
-    public String addNextHourToBooking(Model model, @PathVariable(value = "id") Long id) {
+    public String addNextHourToBookingByAdmin(Model model, @PathVariable(value = "id") Long id) {
 
         Booking booking = bookingService.getById(id);
         Long userId = booking.getUser().getId();
@@ -228,7 +255,7 @@ public class BookingController {
         log.debug("Add extra hour booking started");
         model.addAttribute("userId", userId);
 
-        if (bookingService.alreadyBookedByUser(booking.getDate(), booking.getStart().plusHours(1), booking.getRoom(), booking.getUser())) {
+        if (bookingService.isAlreadyBookedAnyRoomAtSameTime(booking.getUser(), booking.getDate(), booking.getStart().plusHours(1))) {
             return "errorAddNextHourReservation";
         } else {
 

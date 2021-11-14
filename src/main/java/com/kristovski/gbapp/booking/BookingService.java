@@ -1,7 +1,11 @@
 package com.kristovski.gbapp.booking;
 
 import com.kristovski.gbapp.room.Room;
+import com.kristovski.gbapp.room.RoomRepository;
 import com.kristovski.gbapp.user.User;
+import liquibase.pro.packaged.id;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,19 +16,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class BookingService {
 
     private BookingRepository bookingRepository;
+    private RoomRepository roomRepository;
 
     @Autowired
-    public BookingService(BookingRepository bookingRepository) {
+    public BookingService(BookingRepository bookingRepository, RoomRepository roomRepository) {
         this.bookingRepository = bookingRepository;
+        this.roomRepository = roomRepository;
     }
 
     public List<Booking> findAll() {
@@ -126,10 +130,6 @@ public class BookingService {
         return bookingRepository.existsBookingByDateAndStartAndRoom(date, time, room);
     }
 
-    public boolean alreadyBookedByUser(LocalDate date, LocalTime time, Room room, User user) {
-        return bookingRepository.existsBookingByDateAndStartAndRoomAndUser(date, time, room, user);
-    }
-
     public List<Booking> findByDateAndStartAndRoom(LocalDate date, LocalTime time, Room room) {
         return bookingRepository.findBookingByDateAndStartAndRoom(date, time, room);
     }
@@ -173,6 +173,7 @@ public class BookingService {
         return booking;
     }
 
+
     private boolean timeIsBooked(List<Booking> bookingList, String time) {
         if (bookingList == null) {
             return false;
@@ -209,5 +210,15 @@ public class BookingService {
         }
 
         return false;
+    }
+
+
+    public boolean isAlreadyBookedAnyRoomAtSameTime(User user, LocalDate date, LocalTime start) {
+
+        if (bookingRepository.existsBookingByDateAndStartAndUser(date, start, user)) {
+            return true;
+        }
+        return false;
+
     }
 }

@@ -42,13 +42,17 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String add(@ModelAttribute @Valid User user,
-                      BindingResult bindResult) {
+    public String addNewUser(@ModelAttribute @Valid User user,
+                             BindingResult bindResult) {
         if (bindResult.hasErrors())
             return "registerForm";
         else {
-            userService.addWithDefaultRole(user);
-            return "registerSuccess";
+            boolean b = userService.addWithDefaultRole(user);
+            if (b == true) {
+                return "registerSuccess";
+            } else {
+                return "registerForm";
+            }
         }
     }
 }

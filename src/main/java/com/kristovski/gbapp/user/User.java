@@ -1,6 +1,7 @@
 package com.kristovski.gbapp.user;
 
 import com.kristovski.gbapp.booking.Booking;
+import lombok.Builder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 
 @Entity
+@Builder
 public class User {
 
     @Id
@@ -41,6 +43,28 @@ public class User {
     private List<Booking> bookings = new ArrayList<>();
 
     public User() {
+    }
+
+    public User(Long id,
+                String login,
+                String firstName,
+                String lastName,
+                String email,
+                String password,
+                boolean enable,
+                LocalDateTime createTime,
+                LocalDateTime updateTime,
+                boolean locked) {
+        this.id = id;
+        this.login = login;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.enable = enable;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.locked = locked;
     }
 
     public User(Long id,

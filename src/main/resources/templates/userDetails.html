@@ -32,7 +32,7 @@
                 <dt class="col-sm-3">Name:</dt>
                 <dd class="col-sm-9"><span
                         th:text="${user.firstName} + ' ' + ${user.lastName}"></span>
-                    <a href="#" th:href="@{/update-name}" id="edit_name_btn" class="btn btn-outline-secondary-sm">
+                    <a href="#" th:href="@{/update/name}" id="edit_name_btn" class="btn btn-outline-secondary-sm">
                         Edit</a></dd>
             </dl>
             <dl class="row">
@@ -71,7 +71,7 @@
             <dl class="row">
                 <dt class="col-sm-3">Delete account:</dt>
                 <dd class="col-sm-9"><i>Sorry to see you go </i>
-                    <a href="#" th:href="@{/delete-user-confirmation}" id="delete_account_btn" class="btn btn danger-sm">Delete account</a>
+                    <a href="#" th:href="@{/delete/user/confirmation}" id="delete_account_btn" class="btn btn danger-sm">Delete account</a>
                 </dd>
             </dl>
         </section>
