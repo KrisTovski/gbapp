@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
             user.getRoles().add(defaultRole);
             String passwordHash = passwordEncoder.encode(user.getPassword());
             user.setPassword(passwordHash);
-            user.setEnable(false);
+            user.setEnable(true);
             user.setCreateTime(LocalDateTime.now(clock));
             user.setUpdateTime(null);
             user.setLocked(false);
