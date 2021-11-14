@@ -1,9 +1,13 @@
 package com.kristovski.gbapp.user;
 
+import liquibase.pro.packaged.B;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -12,7 +16,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -22,7 +26,11 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
 
-    private static final long ID = 1L;
+    private static final Long ID = 1L;
+    private static final String LOGIN = "Login";
+    private static final String FIRST_NAME = "John";
+    private static final String LAST_NAME = "Smith";
+    private static final String PASSWORD = "pass";
     private static final String EMAIL = "test@email.com";
     private static final String DEFAULT_ROLE = "ROLE_USER";
     static final Clock fixed = Clock.fixed(Instant.parse("2021-10-22T10:00:00.000Z"), ZoneId.systemDefault());
@@ -40,10 +48,34 @@ class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userService;
 
+    User user;
+
+    @BeforeEach
+    void setUp() {
+        Set<UserRole> roles = new HashSet<>();
+        for (UserRole role : roles) {
+            role.setId(ID);
+            role.setRole(DEFAULT_ROLE);
+            role.setDescription(null);
+        }
+        user = User.builder()
+                .id(ID)
+                .login(LOGIN)
+                .firstName(FIRST_NAME)
+                .lastName(LAST_NAME)
+                .email(EMAIL)
+                .password(PASSWORD)
+                .enable(true)
+                .createTime(DATE_TIME)
+                .updateTime(null)
+                .locked(false)
+                .roles(roles)
+                .build();
+    }
+
     @Test
     void shouldReturnUserWithGivenEmail() {
         // given
-        User user = User.builder().email(EMAIL).build();
         when(userRepository.findByEmail(EMAIL)).thenReturn(user);
         // when
         User result = userService.findByEmail(EMAIL);
@@ -55,7 +87,6 @@ class UserServiceImplTest {
     @Test
     void shouldReturnUserWithGivenId() {
         // given
-        User user = User.builder().id(ID).build();
         when(userRepository.findById(ID)).thenReturn(Optional.of(user));
         // when
         User result = userService.getById(ID);
@@ -82,35 +113,40 @@ class UserServiceImplTest {
         verify(userRepository, times(1)).deleteById(anyLong());
     }
 
-    /*@Test
-    void shouldCreateUserWithDefaultRole() {
+    @Test
+    void shouldReturnAllUsers() {
         // given
-        Set<UserRole> defaultRole = new HashSet<>();
-        User user = User.builder()
-                .id(1L)
-                .login("Login")
-                .firstName("Jan")
-                .lastName("Kowalski")
-                .email("jan@gmail.com")
-                .password("pass").build();
+        List<User> users = new ArrayList<>();
+        users.add(User.builder().id(1L).build());
+        users.add(User.builder().id(2L).build());
+        users.add(User.builder().id(3L).build());
+        when(userRepository.findAll()).thenReturn(users);
+        // when
+        List<User> result = userService.findAll();
+        // then
+        assertThat(result).isNotNull();
+        assertThat(result).hasSize(3);
+    }
+
+    @Test
+    void shouldCreateUserWithDefaultRole() {
+        //given
         when(clock.instant()).thenReturn(fixed.instant());
         when(clock.getZone()).thenReturn(fixed.getZone());
-        when(user.getRoles()).thenReturn(defaultRole);
-        when(passwordEncoder.encode(user.getPassword())).thenReturn("pass");
-
+        when(passwordEncoder.encode(PASSWORD)).thenReturn(PASSWORD);
         // when
         userService.addWithDefaultRole(user);
         // then
-        assertThat(user.getId()).isEqualTo(1L);
-        assertThat(user.getLogin()).isEqualTo("Login");
-        assertThat(user.getFirstName()).isEqualTo("Jan");
-        assertThat(user.getLastName()).isEqualTo("Kowalski");
-        assertThat(user.getEmail()).isEqualTo("jan@gmail.com");
-        assertThat(user.getPassword()).isEqualTo("pass");
+        assertThat(user.getId()).isEqualTo(ID);
+        assertThat(user.getLogin()).isEqualTo(LOGIN);
+        assertThat(user.getFirstName()).isEqualTo(FIRST_NAME);
+        assertThat(user.getLastName()).isEqualTo(LAST_NAME);
+        assertThat(user.getEmail()).isEqualTo(EMAIL);
+        assertThat(user.getPassword()).isEqualTo(PASSWORD);
         assertThat(user.isEnable()).isFalse();
         assertThat(user.getCreateTime()).isEqualTo(DATE_TIME);
         assertThat(user.getUpdateTime()).isNull();
         assertThat(user.isLocked()).isFalse();
-        verify(userRepository.save(user));
-    }*/
+    }
+
 }

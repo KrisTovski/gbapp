@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,16 +25,15 @@ public class UserServiceImpl implements UserService {
     private UserRoleRepository userRoleRepository;
     private PasswordEncoder passwordEncoder;
     private IAuthenticationFacade authenticationFacade;
+    private Clock clock;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository,
-                           UserRoleRepository userRoleRepository,
-                           PasswordEncoder passwordEncoder,
-                           IAuthenticationFacade authenticationFacade) {
+    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository,
+                           PasswordEncoder passwordEncoder, IAuthenticationFacade authenticationFacade, Clock clock) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationFacade = authenticationFacade;
+        this.clock = clock;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
             String passwordHash = passwordEncoder.encode(user.getPassword());
             user.setPassword(passwordHash);
             user.setEnable(false);
-            user.setCreateTime(LocalDateTime.now());
+            user.setCreateTime(LocalDateTime.now(clock));
             user.setUpdateTime(null);
             user.setLocked(false);
             userRepository.save(user);
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
         existingUser.setLastName(user.getLastName());
         existingUser.setEmail(user.getEmail());
         existingUser.setEnable(user.isEnable());
-        existingUser.setUpdateTime(LocalDateTime.now());
+        existingUser.setUpdateTime(LocalDateTime.now(clock));
         existingUser.setLocked(user.isLocked());
 
     }
