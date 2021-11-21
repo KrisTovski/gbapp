@@ -66,7 +66,11 @@ public class BookingController {
 
     @PostMapping("/panel/update/booking")
     public String update(@ModelAttribute("booking") Booking booking) {
-        bookingService.mergeWithExistingAndUpdate(booking);
+        try {
+            bookingService.mergeWithExistingAndUpdate(booking);
+        } catch (Exception e) {
+            return "errorPage";
+        }
         return "/panel/updateSuccess";
     }
 
