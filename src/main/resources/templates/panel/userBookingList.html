@@ -8,11 +8,11 @@
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
           crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <div th:replace="/fragments/navbar :: navbar-css"/>
+    <div th:replace="fragments/navbar :: navbar-css"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
-<div th:insert="/fragments/navbar :: navbar"></div>
+<div th:insert="fragments/navbar :: navbar"></div>
 <div class="container-xl">
 
     <div class="title">

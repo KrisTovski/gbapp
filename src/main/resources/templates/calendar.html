@@ -5,13 +5,13 @@
     <title>Homepage</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <div th:replace="/fragments/navbar :: navbar-css"/>
+    <div th:replace="fragments/navbar :: navbar-css"/>
     <link rel="stylesheet" href="src/main/resources/css/main.css" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" href="src/main/resources/css/calendar.css" th:href="@{/css/calendar.css}"/>
 </head>
 <body>
 <div class="container">
-    <div th:insert="/fragments/navbar :: navbar"></div>
+    <div th:insert="fragments/navbar :: navbar"></div>
 
     <div class="timeOfDay">
         <button type="button" class="btn btn-primary">Morning</button>

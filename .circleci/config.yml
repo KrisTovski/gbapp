@@ -28,7 +28,7 @@ jobs:
           command: mvn test
 
       -run:
-          name: Push Docker image to Heroku
+          name: Deploy Master to Heroku
           command:
             set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh

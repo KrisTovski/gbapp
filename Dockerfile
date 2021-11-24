@@ -1,5 +1,5 @@
-ARG BUILD_IMAGE=maven:3.8.1-jdk-11
-ARG RUNTIME_IMAGE=openjdk:11.0
+ARG BUILD_IMAGE=maven:3.8.1-jdk-11-slim
+ARG RUNTIME_IMAGE=openjdk:11-jre-slim
 
 # Docker is pulling all maven dependencies
 FROM ${BUILD_IMAGE} as dependencies
@@ -23,5 +23,6 @@ FROM ${RUNTIME_IMAGE}
 WORKDIR /app
 COPY --from=build /build/target/gbapp.jar /app/gbapp.jar
 
-run -d -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name gbapp
-#ENTRYPOINT ["sh", "-c", "-Dspring.profiles.active=prod","java -jar /app/gbapp.jar"]
+ENTRYPOINT ["sh", "-c", "java -jar /app/gbapp.jar"]
+#ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=prod -jar /app/gbapp.jar"]
+#run -d -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name gbapp

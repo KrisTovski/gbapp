@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" th:href="@{/css/adminpanel.css}"/>
-    <div th:replace="/fragments/navbar :: navbar-css"/>
+    <div th:replace="fragments/navbar :: navbar-css"/>
 </head>
 <body>
-<div th:insert="/fragments/navbar :: navbar"></div>
+<div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
     <section class="panel  py-md-5">
         <div class="container">

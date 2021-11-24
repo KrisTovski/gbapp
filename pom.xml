@@ -176,11 +176,15 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>${liquibase.version}</version>
                 <configuration>
-                    <propertyFile>./liquibase.properties</propertyFile>
+                    <propertyFile>src/main/resources/liquibase.properties</propertyFile>
                 </configuration>
                 <executions>
                     <execution>
                         <phase>process-resources</phase>
+                        <configuration>
+                            <propertyFile>target/classes/liquibase.properties</propertyFile>
+                            <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                        </configuration>
                         <goals>
                             <goal>update</goal>
                         </goals>

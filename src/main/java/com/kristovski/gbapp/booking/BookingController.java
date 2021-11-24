@@ -53,7 +53,7 @@ public class BookingController {
     @PostMapping
     public String save(Booking booking, Model model) {
         model.addAttribute("booking", booking);
-        return "/panel/bookings";
+        return "panel/bookings";
     }
 
     @GetMapping("/panel/update/booking/{id}")
@@ -61,13 +61,13 @@ public class BookingController {
         Booking booking = bookingService.getById(id);
         // pre-populate the form
         model.addAttribute("booking", booking);
-        return "/panel/updateBookingForm";
+        return "panel/updateBookingForm";
     }
 
     @PostMapping("/panel/update/booking")
     public String update(@ModelAttribute("booking") Booking booking) {
         bookingService.mergeWithExistingAndUpdate(booking);
-        return "/panel/updateSuccess";
+        return "panel/updateSuccess";
     }
 
     @GetMapping("/panel/delete/booking/{id}/confirmation")
