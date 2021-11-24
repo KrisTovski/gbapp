@@ -26,8 +26,7 @@ jobs:
       - run:
           name: Test
           command: mvn test
-
-      -run:
+      - run:
           name: Deploy Master to Heroku
           command:
             set -x
