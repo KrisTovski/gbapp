@@ -137,10 +137,15 @@ public class BookingService {
     @Transactional
     public void mergeWithExistingAndUpdate(Booking booking) {
         Booking existingBooking = getById(booking.getId());
-        existingBooking.setDate(booking.getDate());
+        LocalDate date = booking.getDate();
         LocalTime start = booking.getStart();
-        existingBooking.setStart(start);
-        existingBooking.setEnd(start.plusHours(1));
+        Room room = booking.getRoom();
+        if (!isBookingAvailable(date, start, room) || isAlreadyBookedAnyRoomAtSameTime(booking.getUser(), date, start)) {
+
+            existingBooking.setDate(date);
+            existingBooking.setStart(start);
+            existingBooking.setEnd(start.plusHours(1));
+        }
 
     }
 
