@@ -29,11 +29,12 @@ jobs:
       - run:
           name: Deploy Master to Heroku
           command:
-            set -x
-            sudo curl https://cli-assets.heroku.com/install.sh | sh
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a gymbookingapp web
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a gymbookingapp web
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+#            set -x
+#            sudo curl https://cli-assets.heroku.com/install.sh | sh
+#            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+#            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a gymbookingapp web
+#            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a gymbookingapp web
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
