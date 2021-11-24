@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "liquibase.changelog.path",
+      "type": "java.lang.String",
+      "description": "Description for liquibase.changelog.path."
+  }
+] }

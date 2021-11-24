@@ -13,14 +13,14 @@
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" th:href="@{/css/error.css}"/>
 
-    <div th:replace="/fragments/navbar :: navbar-css"/>
+    <div th:replace="fragments/navbar :: navbar-css"/>
 
 </head>
 <body>
 
 <div class="container">
 
-    <div th:insert="/fragments/navbar :: navbar"></div>
+    <div th:insert="fragments/navbar :: navbar"></div>
 
     <section class="error py-md-5">
         <div class="container">

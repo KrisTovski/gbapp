@@ -9,10 +9,10 @@
           crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
-    <div th:replace="/fragments/navbar :: navbar-css"/>
+    <div th:replace="fragments/navbar :: navbar-css"/>
 </head>
 <body>
-<div th:insert="/fragments/navbar :: navbar"></div>
+<div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
     <div class="row py-md-5">
         <section class="info py-md-5">
