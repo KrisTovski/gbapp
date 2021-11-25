@@ -24,5 +24,5 @@ WORKDIR /app
 COPY --from=build /build/target/gbapp.jar /app/gbapp.jar
 
 #ENTRYPOINT ["sh", "-c", "java -jar /app/gbapp.jar"]
-ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=prod -Dserver.port=$PORT -jar /app/gbapp.jar"]
+ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=prod -jar /app/gbapp.jar"]
 #run -d -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=prod" --name gbapp
