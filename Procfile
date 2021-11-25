@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/gbapp.jar
+web: java -Dserver.port=$PORT -jar app/gbapp.jar
