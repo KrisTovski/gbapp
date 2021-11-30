@@ -1,11 +1,12 @@
-#Gym Booking Application [![CircleCI](https://circleci.com/gh/KrisTovski/gbapp/tree/master.svg?style=svg)](https://circleci.com/gh/KrisTovski/gbapp/tree/master)
+#Gym Booking Application 
+[![CircleCI](https://circleci.com/gh/KrisTovski/gbapp/tree/master.svg?style=svg)](https://circleci.com/gh/KrisTovski/gbapp/tree/master)
 
 ## Content
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Application demo](#application-demo)
 * [Docker Image](#docker-image)
-* [Project Structure](project-structure)
+* [Project Structure](#project-structure)
 * [Screenshots](#screenshots)
 * [REST API](#rest-api)
 * [Todo](#todo)
@@ -15,6 +16,7 @@
 This "booksy like" app was inspired by a small local gym in my condominium.  
 The gym's located in the basement of the block consisting of rooms: gym and cardio.
 Due to the small size, there is a limit of people who can exercise at the same time (4 in gym and 3 in cardio).
+I have included these requirements in my application.
 
 ## Technologies ![Java](images/logos/java.png)![Spring Boot](images/logos/spring-boot-logo.png)![Maven](images/logos/maven.png)![Hibernate](images/logos/hibernate.png)![MySQL](images/logos/mysql.png)![Spring Boot](images/logos/spring.png)![Spring Boot](images/logos/thymeleaf.png)
 

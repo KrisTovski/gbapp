@@ -71,7 +71,7 @@ public class BookingController {
         } catch (Exception e) {
             return "errorPage";
         }
-        return "/panel/updateSuccess";
+        return "panel/updateSuccess";
     }
 
     @GetMapping("/panel/delete/booking/{id}/confirmation")
