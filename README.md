@@ -1,14 +1,18 @@
-#Gym Booking Application 
+<div id="top">
+
+#Gym Booking Application
 [![CircleCI](https://circleci.com/gh/KrisTovski/gbapp/tree/master.svg?style=svg)](https://circleci.com/gh/KrisTovski/gbapp/tree/master)
+
+</div>
 
 ## Content
 * [General info](#general-info)
-* [Technologies](#technologies)
+* [Technologies](#Technologies)
 * [Application demo](#application-demo)
 * [Docker Image](#docker-image)
 * [Project Structure](#project-structure)
 * [Screenshots](#screenshots)
-* [REST API](#rest-api)
+* [REST API](#rest)
 * [Todo](#todo)
 
 ## General info
@@ -18,7 +22,14 @@ The gym's located in the basement of the block consisting of rooms: gym and card
 Due to the small size, there is a limit of people who can exercise at the same time (4 in gym and 3 in cardio).
 I have included these requirements in my application.
 
-## Technologies ![Java](images/logos/java.png)![Spring Boot](images/logos/spring-boot-logo.png)![Maven](images/logos/maven.png)![Hibernate](images/logos/hibernate.png)![MySQL](images/logos/mysql.png)![Spring Boot](images/logos/spring.png)![Spring Boot](images/logos/thymeleaf.png)
+<div style="text-align: right">
+
+<a href="#top">↥ back to top</a>
+
+</div>
+
+## Technologies  
+![Java](images/logos/java.png)![Spring Boot](images/logos/spring-boot-logo.png)![Maven](images/logos/maven.png)![Hibernate](images/logos/hibernate.png)![MySQL](images/logos/mysql.png)![Spring Boot](images/logos/spring.png)![Spring Boot](images/logos/thymeleaf.png)
 
 * Java 11
 * Spring Boot
@@ -39,12 +50,24 @@ I have included these requirements in my application.
 * REST
 * Postman & Swagger
 
+<div style="text-align: right">
+
+<a href="#top">↥ back to top</a>
+
+</div>
+
 ## Application demo
 https://gymbookingapp.herokuapp.com/
 
 I used Free Heroku plan so the app sleep automatically after 30 mins of inactivity.
 it takes time to wake up and is slow.
 But don't be discouraged, just try it out :)
+
+<div style="text-align: right">
+
+<a href="#top">↥ back to top</a>
+
+</div>
 
 ## Docker Image
 You can also download the image from dockerhub and run it on your computer. 
@@ -56,11 +79,24 @@ docker pull -a kristovski/gbapp
 ```
 docker run -d -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=dev" kristovski/gbapp:gbapp
 ```
+
+<div style="text-align: right">
+
+<a href="#top">↥ back to top</a>
+
+</div>
+
 ## Project Structure
 ![](images/screenshots/gbapp-structure0.png)
 ![](images/screenshots/gbapp-structure1.png)
 ![](images/screenshots/gbapp-structure2.png)
 ![](images/screenshots/gbapp-db-diagram.png)
+
+<div style="text-align: right">
+
+<a href="#top">↥ back to top</a>
+
+</div>
 
 ## Screenshots
 ![](images/screenshots/gbapp-p0.jpg)
@@ -76,11 +112,23 @@ docker run -d -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=dev" kristovski/gbapp:gbap
 ![](images/screenshots/gbapp-p10.jpg)
 ![](images/screenshots/gbapp-p11.jpg)
 
+<div style="text-align: right">
+
+<a href="#top">↥ back to top</a>
+
+</div>
+
 ## REST
 I decided to extend the application with REST API.
 This will allow me to use i.e. Angular, create a mobile application in the future.
 
 WORK IN PROGRESS!
+
+<div style="text-align: right">
+
+<a href="#top">↥ back to top</a>
+
+</div>
 
 ## TODO
 * REST API
@@ -89,5 +137,21 @@ WORK IN PROGRESS!
 * more tests
 * refactoring (i.e. errors, exceptions)
 * and more features
- 
 
+<div style="text-align: right">
+
+<a href="#top">↥ back to top</a>
+
+</div>
+
+-----
+
+<div style="text-align: center;">
+
+You can find me on [![LinkedIn][linkedin-icon]][linkedin-profile]
+
+</div>
+
+[linkedin-icon]: images/logos/linkedin.png
+
+[linkedin-profile]: https://www.linkedin.com/in/krzysztof-filak/
